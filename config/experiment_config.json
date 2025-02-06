@@ -1,0 +1,17 @@
+{
+    "model_params": {
+        "d1": 100,
+        "d2": 100,
+        "rank": 10,
+        "max_iter": 50
+    },
+    "training_params": {
+        "num_epochs": 100,
+        "learning_rate": 0.001,
+        "batch_size": 32
+    },
+    "data_params": {
+        "missing_ratio": 0.3,
+        "test_split": 0.2
+    }
+}
