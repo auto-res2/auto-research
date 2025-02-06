@@ -1,8 +1,16 @@
 import torch
-from preprocess import get_dataloaders
+import os
+import sys
+
+# Add project root to Python path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+from src.preprocess import get_dataloaders
 from models.learnable_gated_pooling import LearnableGatedPooling
-from train import train_model
-from evaluate import evaluate_metrics
+from src.train import train_model
+from src.evaluate import evaluate_metrics
 
 def main():
     # Set parameters
