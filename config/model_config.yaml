@@ -1,0 +1,14 @@
+model:
+  d1: 128  # Input dimension
+  d2: 256  # Hidden dimension
+  r: 64    # Rank parameter
+  alpha: 0.1
+  p: 2
+  max_iter: 10
+  zeta0: [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
+  eta0: [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02]
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 100
