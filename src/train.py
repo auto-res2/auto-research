@@ -113,4 +113,11 @@ def train_model(
               f'Val Acc: {val_accuracy:.2f}%')
     
     writer.close()
-    return metrics
+    
+    # Return final metrics values
+    return {
+        'final_train_loss': metrics['train_loss'][-1],
+        'final_val_loss': metrics['val_loss'][-1],
+        'final_val_acc': metrics['val_acc'][-1],
+        'best_val_loss': best_val_loss
+    }
