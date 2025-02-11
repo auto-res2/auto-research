@@ -1,1 +1,14 @@
-# Please list the required python packages.
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+
+# Optimizer dependencies
+madgrad>=1.2
+
+# Training utilities
+tqdm>=4.65.0
+
+# Note: torchtext dependency removed for initial testing
+# Will be required when PTB language modeling is added back
+# torchtext>=0.15.0
