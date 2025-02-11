@@ -1,0 +1,18 @@
+optimizer:
+  name: hybrid
+  lr: 0.001
+  betas: [0.0, 0.9, 0.99]
+  momentum: 0.9
+  eps: 1e-6
+  weight_decay: 0.0001
+
+training:
+  epochs: 2  # Reduced for testing
+  batch_size: 32  # Smaller batch size
+  eval_freq: 1
+
+data:
+  cifar10:
+    data_dir: data/cifar10
+  ptb:
+    data_dir: data/ptb

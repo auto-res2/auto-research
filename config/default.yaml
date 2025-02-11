@@ -1,0 +1,18 @@
+optimizer:
+  name: hybrid  # Options: hybrid, aggmo, madgrad, sgd, adam
+  lr: 0.001
+  betas: [0.0, 0.9, 0.99]
+  momentum: 0.9
+  eps: 1e-6
+  weight_decay: 0.0001
+
+training:
+  epochs: 100
+  batch_size: 128
+  eval_freq: 1
+
+data:
+  cifar10:
+    data_dir: data/cifar10
+  ptb:
+    data_dir: data/ptb

@@ -1,1 +1,8 @@
-# Please list the required python packages.
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+tensorboard>=2.14.0
+torchtext>=0.15.0  # For PTB dataset
+pyyaml>=6.0.0  # For config files
