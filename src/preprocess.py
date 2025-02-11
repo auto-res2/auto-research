@@ -2,8 +2,6 @@ from pathlib import Path
 import torch
 import torchvision
 import torchvision.transforms as transforms
-from torchtext.data.utils import get_tokenizer
-from torchtext.vocab import build_vocab_from_iterator
 from typing import Tuple, Dict
 
 def prepare_cifar10(data_dir: str) -> Tuple[torch.utils.data.DataLoader, ...]:
