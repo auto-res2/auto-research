@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Callable
 import torch
 from torch.optim import Optimizer
 
@@ -17,7 +17,7 @@ class HybridOptimizer(Optimizer):
         defaults = dict(lr=lr, betas=betas, momentum=momentum, eps=eps, weight_decay=weight_decay)
         super().__init__(params, defaults)
 
-    def step(self, closure: Optional[callable] = None) -> Optional[float]:
+    def step(self, closure: Optional[Callable] = None) -> Optional[float]:
         """Performs a single optimization step."""
         loss = None
         if closure is not None:
