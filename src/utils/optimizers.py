@@ -63,8 +63,9 @@ class HybridOptimizer(Optimizer):
                 dual_avg_buffer.add_(d_p)
                 
                 # Apply updates
-                p.data.sub_(
-                    lr * avg_updates / len(betas) + dual_avg_buffer * eps
-                )
+                # Scale the updates properly maintaining tensor operations
+                scaled_momentum = avg_updates.mul(lr / len(betas))
+                scaled_dual_avg = dual_avg_buffer.mul(eps)
+                p.data.sub_(scaled_momentum.add_(scaled_dual_avg))
         
         return loss
