@@ -51,7 +51,7 @@ class SimpleRNN(nn.Module):
         self, 
         x: torch.Tensor, 
         hidden: Optional[Tuple[torch.Tensor, torch.Tensor]] = None
-    ) -> Tuple[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         """Forward pass of the model.
         
         Args:
@@ -61,7 +61,7 @@ class SimpleRNN(nn.Module):
         Returns:
             Tuple of:
                 - Output tensor of shape (batch_size, sequence_length, vocab_size)
-                - Tuple of final (h_n, c_n) hidden states
+                - Optional tuple of final (h_n, c_n) hidden states
         """
         x = self.embedding(x)
         x, hidden = self.rnn(x, hidden)
