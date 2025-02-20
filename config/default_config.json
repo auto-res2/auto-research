@@ -1,0 +1,7 @@
+{
+    "epochs": 10,
+    "batch_size": 128,
+    "learning_rate": 0.01,
+    "save_dir": "results",
+    "tasks": ["cifar10", "ptb"]
+}
