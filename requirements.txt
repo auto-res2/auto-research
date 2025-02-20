@@ -1,7 +1,7 @@
-torch==2.0.0
+torch==1.13.1
 numpy>=1.21.0
-torchvision==0.15.0
-torchtext==0.15.0
+torchvision==0.14.1
+torchtext==0.14.1
 tqdm>=4.65.0
 matplotlib>=3.7.0  # For visualization if needed
 pillow>=10.0.0  # Required by torchvision

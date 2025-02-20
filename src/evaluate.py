@@ -2,46 +2,37 @@ import torch
 import json
 import numpy as np
 from pathlib import Path
-import torchtext
-from torchtext.data.utils import get_tokenizer
-from torchtext.vocab import build_vocab_from_iterator
+from torchtext.legacy import data
+from torchtext.legacy.data import Field, BucketIterator
 from models import SimpleCNN, PTBLanguageModel
 from train import get_cifar10_loaders, train_with_optimizer
 import math
 from optimizers import HybridOptimizer, AggMoOptimizer, MADGRADOptimizer
 
 def get_ptb_data(batch_size=32):
-    tokenizer = get_tokenizer('basic_english')
+    TEXT = Field(lower=True, batch_first=True)
     
-    def yield_tokens(data_iter):
-        for text in data_iter:
-            yield tokenizer(text)
+    train, val, test = data.TabularDataset.splits(
+        path='.',
+        train='ptb.train.txt',
+        validation='ptb.valid.txt',
+        test='ptb.test.txt',
+        format='text',
+        fields=[('text', TEXT)]
+    )
     
-    train_iter = torchtext.datasets.PennTreebank(split='train')
-    vocab = build_vocab_from_iterator(yield_tokens(train_iter), specials=['<unk>'])
-    vocab.set_default_index(vocab['<unk>'])
+    TEXT.build_vocab(train)
     
-    def data_process(raw_text_iter):
-        data = [torch.tensor([vocab[token] for token in tokenizer(item)], dtype=torch.long)
-                for item in raw_text_iter]
-        return torch.cat(tuple(filter(lambda t: t.numel() > 0, data)))
+    train_iter, val_iter, test_iter = BucketIterator.splits(
+        (train, val, test),
+        batch_size=batch_size,
+        device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
+        sort_key=lambda x: len(x.text),
+        sort_within_batch=True,
+        repeat=False
+    )
     
-    train_iter, val_iter, test_iter = torchtext.datasets.PennTreebank()
-    train_data = data_process(train_iter)
-    val_data = data_process(val_iter)
-    test_data = data_process(test_iter)
-    
-    def batchify(data, batch_size):
-        seq_len = data.size(0) // batch_size
-        data = data[:seq_len * batch_size]
-        data = data.view(batch_size, -1).t().contiguous()
-        return data
-    
-    train_data = batchify(train_data, batch_size)
-    val_data = batchify(val_data, batch_size)
-    test_data = batchify(test_data, batch_size)
-    
-    return train_data, val_data, test_data, vocab
+    return train_iter, val_iter, test_iter, TEXT.vocab
 
 def train_with_optimizer_ptb(opt_name, model, train_data, val_data, test_data, device, epochs=10, lr=0.01):
     criterion = torch.nn.CrossEntropyLoss()
