@@ -13,6 +13,9 @@ def run_experiment(config_path=None):
     Args:
         config_path: Optional path to a JSON config file with experiment parameters
     """
+    print("\n" + "="*80)
+    print("Starting Hybrid Optimizer Research Experiment")
+    print("="*80 + "\n")
     # Default configuration
     config = {
         'epochs': 10,
@@ -39,7 +42,10 @@ def run_experiment(config_path=None):
     
     # Run experiments for each task
     for task in config['tasks']:
-        print(f"\n{'='*80}\nRunning experiments on {task.upper()}\n{'='*80}")
+        print(f"\n{'='*80}")
+        print(f"Running experiments on {task.upper()}")
+        print(f"Configuration: epochs={config['epochs']}, batch_size={config['batch_size']}, lr={config['learning_rate']}")
+        print(f"{'='*80}")
         
         task_results = evaluate_optimizers(
             task=task,
