@@ -15,6 +15,9 @@ def run_experiment(config_path=None):
     """
     print("\n" + "="*80)
     print("Starting Hybrid Optimizer Research Experiment")
+    print("This experiment evaluates a novel optimizer combining AggMo and MADGRAD")
+    print("Comparing against: SGD, Adam, AggMo, and MADGRAD baselines")
+    print("Datasets: CIFAR-10 (Image Classification) and PTB (Language Modeling)")
     print("="*80 + "\n")
     # Default configuration
     config = {
@@ -64,6 +67,8 @@ def run_experiment(config_path=None):
     # Print final summary
     print("\nExperiment Summary:")
     print("=" * 80)
+    print("\nOverall Performance Analysis:")
+    print("-" * 40)
     
     for task in config['tasks']:
         print(f"\n{task.upper()} Results:")
@@ -82,8 +87,27 @@ def run_experiment(config_path=None):
                 print(f"{opt_name:<10} {opt_results['best_val_ppl']:<15.2f} "
                       f"{opt_results['convergence_epoch']}")
     
+    print("\nKey Findings:")
+    print("-" * 40)
+    
+    # Analyze convergence speed
+    for task in config['tasks']:
+        fastest_conv = min(results[task].items(), key=lambda x: x[1]['convergence_epoch'])
+        if task == 'cifar10':
+            best_acc = max(results[task].items(), key=lambda x: x[1]['best_test_acc'])
+            print(f"\n{task.upper()}:")
+            print(f"- Fastest convergence: {fastest_conv[0]} (epoch {fastest_conv[1]['convergence_epoch']})")
+            print(f"- Best accuracy: {best_acc[0]} ({best_acc[1]['best_test_acc']:.2f}%)")
+        else:  # ptb
+            best_ppl = min(results[task].items(), key=lambda x: x[1]['best_val_ppl'])
+            print(f"\n{task.upper()}:")
+            print(f"- Fastest convergence: {fastest_conv[0]} (epoch {fastest_conv[1]['convergence_epoch']})")
+            print(f"- Best perplexity: {best_ppl[0]} ({best_ppl[1]['best_val_ppl']:.2f})")
+    
     print("\nExperiment completed successfully!")
-    print(f"Results saved in: {save_dir}")
+    print(f"Detailed results saved in: {save_dir}/all_results.json")
+    print("Individual model checkpoints saved for each optimizer and task.")
+    print("="*80)
 
 if __name__ == '__main__':
     # Run with default configuration for a quick test
