@@ -1,0 +1,26 @@
+{
+  "quick_test": true,
+  "generate_plots": true,
+  "save_models": true,
+  
+  "run_synthetic": true,
+  "run_cifar10": true,
+  "run_mnist": true,
+  "run_rosenbrock": true,
+  "run_ablation": true,
+  
+  "synthetic_num_iters": 100,
+  
+  "cifar10_epochs": 10,
+  "cifar10_lr": 0.01,
+  "cifar10_batch_size": 128,
+  "cifar10_test_batch_size": 100,
+  
+  "mnist_epochs": 5,
+  "mnist_lr": 0.01,
+  "mnist_batch_size": 64,
+  "mnist_test_batch_size": 1000,
+  
+  "acm_beta": 0.9,
+  "acm_curvature_influence": 0.1
+}
