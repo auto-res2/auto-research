@@ -1,6 +1,9 @@
 import torch
 from torch.optim import Optimizer
 
+# This file is imported both as a module and directly
+# No import modifications needed here since it's at the base of the import tree
+
 class ACMOptimizer(Optimizer):
     """
     Adaptive Curvature Momentum (ACM) Optimizer

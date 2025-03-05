@@ -5,7 +5,13 @@ import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
-from src.utils.optimizers import ACMOptimizer
+# Use relative imports when running from within the package
+try:
+    # When running as a module (e.g., python -m src.train)
+    from src.utils.optimizers import ACMOptimizer
+except ModuleNotFoundError:
+    # When running directly (e.g., python src/train.py)
+    from utils.optimizers import ACMOptimizer
 
 class SimpleCNN(nn.Module):
     """Simple CNN model for CIFAR-10 classification."""

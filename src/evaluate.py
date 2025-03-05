@@ -4,7 +4,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
-from src.train import SimpleCNN, MNISTNet, quadratic_loss, rosenbrock_loss
+# Use relative imports when running from within the package
+try:
+    # When running as a module (e.g., python -m src.evaluate)
+    from src.train import SimpleCNN, MNISTNet, quadratic_loss, rosenbrock_loss
+except ModuleNotFoundError:
+    # When running directly (e.g., python src/evaluate.py)
+    from train import SimpleCNN, MNISTNet, quadratic_loss, rosenbrock_loss
 
 def evaluate_synthetic(results, config):
     """
