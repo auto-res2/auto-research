@@ -10,8 +10,9 @@ defaults:
 jobs:
   execution-of-automated-research-methods:
     name: Execution of automated research methods
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    runs-on:
+      labels: gpu-runner
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
