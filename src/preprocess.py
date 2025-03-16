@@ -164,6 +164,12 @@ def preprocess_transformer_data(config):
     
     # Create dataset
     block_size = config["data"]["block_size"] if not config["test_mode"] else 32
+    
+    # Ensure text is long enough for the block size
+    if len(tokenizer.encode(texts[0])) < block_size:
+        # Repeat the text to make it longer than block_size
+        texts = [text * max(1, block_size // len(tokenizer.encode(text)) + 1) for text in texts]
+    
     dataset = WikiTextDataset(texts, tokenizer, block_size=block_size)
     
     # Create data loader
