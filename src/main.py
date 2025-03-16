@@ -8,7 +8,11 @@ import json
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 from datetime import datetime
+
+# Add the project root directory to the Python path to make imports work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
     # Try relative imports first (when running as a module)

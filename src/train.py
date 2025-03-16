@@ -11,15 +11,28 @@ import matplotlib.pyplot as plt
 import json
 import argparse
 import time
+import sys
 from tqdm import tqdm
 import torchvision.models as models
 from transformers import GPT2LMHeadModel, get_linear_schedule_with_warmup
 
-from src.utils.optimizers import ACM, ACMNumpy
-from src.utils.baseline_optimizers import SGDOptimizer_NP, AdamOptimizer_NP, AdaBeliefOptimizer_NP
-from src.utils.synthetic_functions import quadratic_func, rosenbrock_func, rastrigin_func
-from src.utils.experiment_utils import set_seed, get_device, save_model, plot_learning_curves, plot_optimizer_comparison, ExperimentLogger
-from src.preprocess import preprocess_data
+# Add the project root directory to the Python path to make imports work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+try:
+    # Try relative imports (when imported as a module)
+    from .utils.optimizers import ACM, ACMNumpy
+    from .utils.baseline_optimizers import SGDOptimizer_NP, AdamOptimizer_NP, AdaBeliefOptimizer_NP
+    from .utils.synthetic_functions import quadratic_func, rosenbrock_func, rastrigin_func
+    from .utils.experiment_utils import set_seed, get_device, save_model, plot_learning_curves, plot_optimizer_comparison, ExperimentLogger
+    from .preprocess import preprocess_data
+except ImportError:
+    # Fall back to absolute imports (when run as a script)
+    from utils.optimizers import ACM, ACMNumpy
+    from utils.baseline_optimizers import SGDOptimizer_NP, AdamOptimizer_NP, AdaBeliefOptimizer_NP
+    from utils.synthetic_functions import quadratic_func, rosenbrock_func, rastrigin_func
+    from utils.experiment_utils import set_seed, get_device, save_model, plot_learning_curves, plot_optimizer_comparison, ExperimentLogger
+    from preprocess import preprocess_data
 
 
 def train_synthetic_functions(data, config, logger):

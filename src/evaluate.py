@@ -9,13 +9,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 import json
 import argparse
+import sys
 from tqdm import tqdm
 import torchvision.models as models
 from transformers import GPT2LMHeadModel
 
-from src.utils.optimizers import ACM
-from src.utils.experiment_utils import set_seed, get_device, load_model, ExperimentLogger
-from src.preprocess import preprocess_data
+# Add the project root directory to the Python path to make imports work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+try:
+    # Try relative imports (when imported as a module)
+    from .utils.optimizers import ACM
+    from .utils.experiment_utils import set_seed, get_device, load_model, ExperimentLogger
+    from .preprocess import preprocess_data
+except ImportError:
+    # Fall back to absolute imports (when run as a script)
+    from utils.optimizers import ACM
+    from utils.experiment_utils import set_seed, get_device, load_model, ExperimentLogger
+    from preprocess import preprocess_data
 
 
 def evaluate_synthetic_functions(results, config, logger):

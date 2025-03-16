@@ -11,7 +11,17 @@ from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2Tokenizer
 import json
 import argparse
-from src.utils.experiment_utils import set_seed, get_device, ExperimentLogger
+import sys
+
+# Add the project root directory to the Python path to make imports work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+try:
+    # Try relative imports (when imported as a module)
+    from .utils.experiment_utils import set_seed, get_device, ExperimentLogger
+except ImportError:
+    # Fall back to absolute imports (when run as a script)
+    from utils.experiment_utils import set_seed, get_device, ExperimentLogger
 
 
 class WikiTextDataset(Dataset):
@@ -49,7 +59,12 @@ def preprocess_synthetic_data(config):
     Returns:
         dict: Dictionary containing synthetic function data
     """
-    from src.utils.synthetic_functions import create_random_psd_matrix, create_random_vector
+    try:
+        # Try relative imports (when imported as a module)
+        from .utils.synthetic_functions import create_random_psd_matrix, create_random_vector
+    except ImportError:
+        # Fall back to absolute imports (when run as a script)
+        from utils.synthetic_functions import create_random_psd_matrix, create_random_vector
     
     # Set random seed for reproducibility
     set_seed(config["random_seed"])
