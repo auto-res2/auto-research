@@ -1,0 +1,38 @@
+{
+    "experiment_name": "synthetic_functions",
+    "random_seed": 42,
+    "optimizers": {
+        "ACM": {
+            "lr": 0.05,
+            "beta": 0.9
+        },
+        "Adam": {
+            "lr": 0.05,
+            "beta1": 0.9,
+            "beta2": 0.999
+        },
+        "AdaBelief": {
+            "lr": 0.05,
+            "beta1": 0.9,
+            "beta2": 0.999
+        }
+    },
+    "functions": {
+        "quadratic": {
+            "dim": 10,
+            "n_iterations": 200
+        },
+        "rosenbrock": {
+            "a": 1.0,
+            "b": 100.0,
+            "n_iterations": 200
+        },
+        "rastrigin": {
+            "dim": 5,
+            "A": 10,
+            "n_iterations": 200
+        }
+    },
+    "test_mode": false,
+    "output_dir": "logs/synthetic"
+}

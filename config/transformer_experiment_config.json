@@ -1,0 +1,33 @@
+{
+    "experiment_name": "transformer_lm",
+    "random_seed": 42,
+    "data": {
+        "dataset": "WikiText",
+        "batch_size": 4,
+        "block_size": 128,
+        "num_workers": 1,
+        "data_dir": "data"
+    },
+    "model": {
+        "name": "gpt2",
+        "pretrained": true
+    },
+    "training": {
+        "epochs": 3,
+        "optimizer": {
+            "name": "ACM",
+            "lr": 0.0001,
+            "beta": 0.9,
+            "weight_decay": 0.01
+        },
+        "scheduler": {
+            "type": "linear_warmup",
+            "warmup_steps": 100,
+            "total_steps": 1000
+        },
+        "save_model": true,
+        "save_dir": "models/transformer"
+    },
+    "test_mode": false,
+    "output_dir": "logs/transformer"
+}
