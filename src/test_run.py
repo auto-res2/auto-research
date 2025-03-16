@@ -13,8 +13,8 @@ import torch
 import numpy as np
 from datetime import datetime
 
-from src.preprocess import load_config, get_device
-from src.evaluate import experiment1, experiment2, experiment3
+from preprocess import load_config, get_device
+from evaluate import experiment1, experiment2, experiment3
 
 
 def setup_test_config(config_path='config/acm_experiments.yaml'):

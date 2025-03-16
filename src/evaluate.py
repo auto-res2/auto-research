@@ -14,10 +14,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import optuna
 from torchvision import models
-from src.preprocess import get_device, get_dataloaders
-from src.train import get_model, get_optimizer, train_and_evaluate, train_synthetic_function
-from src.train import plot_training_results, plot_optimization_trajectories, save_model
-from src.utils.optimizers import ACM
+from preprocess import get_device, get_dataloaders
+from train import get_model, get_optimizer, train_and_evaluate, train_synthetic_function
+from train import plot_training_results, plot_optimization_trajectories, save_model
+from utils.optimizers import ACM
 
 
 def experiment1(config, test_run=False):

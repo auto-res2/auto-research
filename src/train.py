@@ -14,7 +14,7 @@ import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 from torchvision import models
-from src.utils.optimizers import ACM
+from utils.optimizers import ACM
 
 
 class SimpleCNN(nn.Module):
