@@ -17,8 +17,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-from src.preprocess import load_config, get_device
-from src.evaluate import experiment1, experiment2, experiment3, run_all_experiments
+from preprocess import load_config, get_device
+from evaluate import experiment1, experiment2, experiment3, run_all_experiments
 
 
 def setup_logging(config):
@@ -163,6 +163,18 @@ def main():
     print(f"Log file: {log_file}")
     print()
     
+    # Print more detailed information about the experiment
+    print("Experiment Description:")
+    print("  This experiment implements and evaluates the Adaptive Curvature Momentum (ACM) optimizer,")
+    print("  which dynamically adjusts learning rates based on the local curvature of the loss landscape.")
+    print("  The optimizer is compared against standard SGD and Adam optimizers across multiple tasks.")
+    print()
+    print("Experiments to be run:")
+    print("  1. Convergence Speed and Generalization on CIFAR-10")
+    print("  2. Adaptive Behavior on Synthetic Loss Landscapes")
+    print("  3. Sensitivity Analysis via Hyperparameter Tuning on CIFAR-100")
+    print()
+    
     # Print system information
     print_system_info()
     
@@ -189,33 +201,77 @@ def main():
     if args.experiment is None:
         # Run all experiments
         print("Running all experiments...")
+        print("This will execute all three experiments in sequence.")
+        print("Each experiment will produce detailed output and save results to the logs directory.")
+        print()
         exp1_results, exp2_results, exp3_results = run_all_experiments(
             args.config, args.test
         )
     else:
         # Run only the specified experiment
         if args.experiment == 1:
-            print("Running Experiment 1 only...")
+            print("Running Experiment 1 only: Convergence Speed and Generalization on CIFAR-10")
+            print("This experiment compares the convergence speed and generalization ability")
+            print("of ACM against SGD and Adam optimizers on the CIFAR-10 dataset.")
+            print("Results will include training loss curves and test accuracy metrics.")
+            print()
             exp1_results = experiment1(config, args.test)
         elif args.experiment == 2:
-            print("Running Experiment 2 only...")
+            print("Running Experiment 2 only: Adaptive Behavior on Synthetic Loss Landscapes")
+            print("This experiment visualizes how ACM navigates ill-conditioned synthetic")
+            print("loss landscapes compared to SGD and Adam optimizers.")
+            print("Results will include optimization trajectories on contour plots.")
+            print()
             exp2_results = experiment2(config, args.test)
         elif args.experiment == 3:
-            print("Running Experiment 3 only...")
-            exp3_results = experiment3(config, args.test)
+            print("Running Experiment 3 only: Sensitivity Analysis via Hyperparameter Tuning")
+            print("This experiment uses Optuna to perform hyperparameter optimization")
+            print("for the ACM optimizer on the CIFAR-100 dataset.")
+            print("Results will include best hyperparameter values and validation accuracy.")
+            print()
     
     # Print execution time
     execution_time = time.time() - start_time
     print(f"\nTotal execution time: {execution_time:.2f} seconds ({execution_time/60:.2f} minutes)")
     
-    # Print completion message
+    # Print completion message with more detailed information
     print("\n" + "=" * 80)
     print("Experiments completed successfully!")
     print("=" * 80)
     print(f"Finished at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Results and logs saved to: {config['general']['log_dir']}")
+    
+    # Print more detailed summary of results
+    print("\nSummary of Results:")
+    if args.experiment is None or args.experiment == 1:
+        print("  Experiment 1 (CIFAR-10):")
+        print("    - Training completed for ACM, SGD, and Adam optimizers")
+        print("    - Loss curves and accuracy metrics saved to logs")
+        print("    - Performance comparison visualized in plots")
+    
+    if args.experiment is None or args.experiment == 2:
+        print("  Experiment 2 (Synthetic Landscapes):")
+        print("    - Optimization trajectories computed for all optimizers")
+        print("    - Contour plots generated to visualize optimizer behavior")
+        print("    - ACM's adaptive behavior in ill-conditioned landscapes analyzed")
+    
+    if args.experiment is None or args.experiment == 3:
+        print("  Experiment 3 (Hyperparameter Tuning):")
+        print("    - Optuna trials completed for ACM optimizer")
+        print("    - Best hyperparameters identified for CIFAR-100 task")
+        print("    - Sensitivity analysis results recorded")
+    
+    # Print model saving information
     if config['experiment1'].get('save_model', False) or config['experiment3'].get('save_model', False):
-        print(f"Models saved to: {config['general']['model_dir']}")
+        print(f"\nTrained models saved to: {config['general']['model_dir']}")
+        if config['experiment1'].get('save_model', False):
+            print("  - CIFAR-10 models: experiment1_acm.pth, experiment1_sgd.pth, experiment1_adam.pth")
+        if config['experiment3'].get('save_model', False):
+            print("  - CIFAR-100 models: experiment3_trial_*.pth (best trials)")
+    
+    print("\nTo visualize results, check the generated plots in the logs directory.")
+    print("To run specific experiments, use the --experiment flag (1, 2, or 3).")
+    print("To run a quick test with reduced settings, use the --test flag.")
     print("=" * 80)
 
 
