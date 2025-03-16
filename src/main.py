@@ -10,10 +10,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-from src.preprocess import preprocess_data
-from src.train import train_model
-from src.evaluate import evaluate_model
-from src.utils.experiment_utils import set_seed, get_device, ExperimentLogger
+try:
+    # Try relative imports first (when running as a module)
+    from .preprocess import preprocess_data
+    from .train import train_model
+    from .evaluate import evaluate_model
+    from .utils.experiment_utils import set_seed, get_device, ExperimentLogger
+except ImportError:
+    # Fall back to absolute imports (when running as a script)
+    from preprocess import preprocess_data
+    from train import train_model
+    from evaluate import evaluate_model
+    from utils.experiment_utils import set_seed, get_device, ExperimentLogger
 
 
 def run_experiment(config_path, experiment_type, test_mode=False):
@@ -25,6 +33,16 @@ def run_experiment(config_path, experiment_type, test_mode=False):
         experiment_type (str): Type of experiment ('synthetic', 'cifar10', or 'transformer')
         test_mode (bool): Whether to run in test mode (quick run with minimal data)
     """
+    # Print detailed experiment information to standard output
+    print("\n" + "=" * 80)
+    print(f"RUNNING {experiment_type.upper()} EXPERIMENT WITH ACM OPTIMIZER")
+    print("=" * 80)
+    print(f"Configuration file: {config_path}")
+    print(f"Experiment type: {experiment_type}")
+    print(f"Test mode: {test_mode}")
+    print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Device: {'GPU' if torch.cuda.is_available() else 'CPU'}")
+    print("=" * 80)
     # Load configuration
     with open(config_path, 'r') as f:
         config = json.load(f)
@@ -73,6 +91,37 @@ def run_experiment(config_path, experiment_type, test_mode=False):
         json.dump(results, f, indent=4)
     
     logger.log(f"\nResults saved to {results_path}")
+    
+    # Print detailed results to standard output
+    print("\n" + "=" * 60)
+    print(f"RESULTS FOR {experiment_type.upper()} EXPERIMENT")
+    print("=" * 60)
+    
+    if experiment_type == 'synthetic':
+        for func_name, func_results in results.items():
+            print(f"\n{func_name.capitalize()} function:")
+            for opt_name, opt_results in func_results.items():
+                print(f"  {opt_name} optimizer:")
+                print(f"    Final function value: {opt_results.get('final_f_val', opt_results.get('final_value', 0.0)):.6f}")
+                print(f"    Iterations: {opt_results.get('iterations', 0)}")
+                print(f"    Convergence rate: {opt_results.get('convergence_rate', 'N/A')}")
+    
+    elif experiment_type == 'cifar10':
+        for opt_name, opt_results in results.items():
+            print(f"\n{opt_name} optimizer:")
+            print(f"  Final training accuracy: {opt_results.get('final_train_accuracy', 0.0):.2f}%")
+            print(f"  Final validation accuracy: {opt_results.get('final_val_accuracy', 0.0):.2f}%")
+            print(f"  Final training loss: {opt_results.get('final_train_loss', 0.0):.4f}")
+            print(f"  Final validation loss: {opt_results.get('final_val_loss', 0.0):.4f}")
+    
+    elif experiment_type == 'transformer':
+        print(f"\nFinal training loss: {results.get('final_train_loss', 0.0):.4f}")
+        print(f"Final training perplexity: {results.get('final_train_perplexity', 0.0):.4f}")
+        if 'final_val_loss' in results:
+            print(f"Final validation loss: {results.get('final_val_loss', 0.0):.4f}")
+            print(f"Final validation perplexity: {results.get('final_val_perplexity', 0.0):.4f}")
+    
+    print("=" * 60)
     
     # Step 3: Evaluate model
     logger.log("\n" + "=" * 40)
@@ -133,6 +182,55 @@ def run_experiment(config_path, experiment_type, test_mode=False):
     logger.log(f"{experiment_type.upper()} experiment completed successfully!")
     logger.log(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.log("=" * 80)
+    
+    # Print summary to standard output
+    print("\n" + "=" * 80)
+    print("EXPERIMENT SUMMARY")
+    print("=" * 80)
+    
+    if experiment_type == 'synthetic':
+        print(f"Best overall optimizer: {metrics.get('best_overall_optimizer', 'N/A')}")
+        
+        for func_name, func_metrics in metrics.items():
+            if func_name != 'best_overall_optimizer':
+                print(f"\n{func_name.capitalize()} function:")
+                print(f"  Best optimizer: {func_metrics.get('best_optimizer', 'N/A')}")
+                
+                for opt_name, opt_metrics in func_metrics.items():
+                    if opt_name != 'best_optimizer':
+                        print(f"  {opt_name}:")
+                        print(f"    Final function value: {opt_metrics.get('final_f_val', opt_metrics.get('final_value', 0.0)):.6f}")
+                        print(f"    Convergence rate: {opt_metrics.get('convergence_rate', 0.0):.6f}")
+    
+    elif experiment_type == 'cifar10':
+        print(f"Test accuracy: {metrics.get('accuracy', 0.0):.2f}%")
+        print(f"Test loss: {metrics.get('test_loss', 0.0):.4f}")
+        
+        print("\nPer-class accuracy:")
+        if 'class_accuracy' in metrics:
+            for i, acc in enumerate(metrics['class_accuracy']):
+                print(f"  Class {i}: {acc:.2f}%")
+        else:
+            print("  Class accuracy data not available")
+        
+        # Compare with baseline
+        if 'Adam' in results and 'ACM' in results:
+            acm_acc = results['ACM'].get('final_val_accuracy', 0.0)
+            adam_acc = results['Adam'].get('final_val_accuracy', 0.0)
+            
+            print("\nComparison with baseline:")
+            print(f"  ACM validation accuracy: {acm_acc:.2f}%")
+            print(f"  Adam validation accuracy: {adam_acc:.2f}%")
+            print(f"  Improvement: {acm_acc - adam_acc:.2f}%")
+    
+    elif experiment_type == 'transformer':
+        print(f"Test perplexity: {metrics.get('perplexity', 0.0):.4f}")
+        print(f"Test loss: {metrics.get('test_loss', 0.0):.4f}")
+    
+    print("\n" + "=" * 80)
+    print(f"{experiment_type.upper()} experiment completed successfully!")
+    print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=" * 80)
 
 
 def run_all_experiments(test_mode=False):
