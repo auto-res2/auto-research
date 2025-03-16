@@ -1,0 +1,58 @@
+{
+  "general": {
+    "seed": 42,
+    "num_workers": 2,
+    "use_cuda": true
+  },
+  "cifar10": {
+    "batch_size": 128,
+    "epochs": 10,
+    "learning_rates": {
+      "sgd": 0.01,
+      "adam": 0.001,
+      "madgrad": 0.01,
+      "aggmo": 0.01,
+      "hybrid": 0.01
+    },
+    "momentum": 0.9,
+    "weight_decay": 0.0001
+  },
+  "ptb": {
+    "batch_size": 20,
+    "seq_length": 35,
+    "epochs": 5,
+    "learning_rates": {
+      "sgd": 20.0,
+      "adam": 0.001,
+      "madgrad": 0.01,
+      "aggmo": 0.1,
+      "hybrid": 0.1
+    },
+    "embedding_dim": 200,
+    "hidden_dim": 200,
+    "num_layers": 2,
+    "dropout": 0.5,
+    "clip": 0.25
+  },
+  "optimizers": {
+    "sgd": {
+      "momentum": 0.9
+    },
+    "adam": {
+      "betas": [0.9, 0.999],
+      "eps": 1e-8
+    },
+    "madgrad": {
+      "momentum": 0.9,
+      "eps": 1e-6
+    },
+    "aggmo": {
+      "betas": [0.0, 0.9, 0.99]
+    },
+    "hybrid": {
+      "betas": [0.0, 0.9, 0.99],
+      "momentum": 0.9,
+      "eps": 1e-6
+    }
+  }
+}
