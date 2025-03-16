@@ -1,0 +1,51 @@
+{
+    "seed": 42,
+    "quick_test": false,
+    
+    "synthetic": {
+        "num_iters": 200,
+        "optimizers": {
+            "ACM": {
+                "lr": 0.1,
+                "beta": 0.9,
+                "curvature_influence": 0.05
+            },
+            "Adam": {
+                "lr": 0.1
+            },
+            "SGD_mom": {
+                "lr": 0.1,
+                "momentum": 0.9
+            }
+        }
+    },
+    
+    "cifar10": {
+        "num_epochs": 10,
+        "batch_size": 128,
+        "optimizers": {
+            "ACM": {
+                "lr": 0.01,
+                "beta": 0.9,
+                "curvature_influence": 0.1
+            },
+            "Adam": {
+                "lr": 0.001
+            },
+            "SGD_mom": {
+                "lr": 0.01,
+                "momentum": 0.9
+            }
+        }
+    },
+    
+    "mnist": {
+        "num_epochs": 5,
+        "batch_size": 128,
+        "ablation_study": {
+            "lr_values": [0.001, 0.01, 0.1],
+            "beta_values": [0.8, 0.9, 0.95],
+            "curvature_values": [0.01, 0.1, 0.5]
+        }
+    }
+}
