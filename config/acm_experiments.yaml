@@ -1,0 +1,77 @@
+# Configuration for ACM Optimizer Experiments
+
+# General settings
+general:
+  seed: 42
+  device: "cuda"  # Will fall back to CPU if CUDA is not available
+  log_dir: "logs"
+  model_dir: "models"
+  data_dir: "data"
+
+# Experiment 1: Convergence Speed and Generalization on CIFAR-10
+experiment1:
+  name: "convergence_speed_cifar10"
+  dataset: "cifar10"
+  model: "simple_cnn"  # Options: simple_cnn, resnet18
+  batch_size: 128
+  num_epochs: 10  # Full run: 30, Test run: 2
+  optimizers:
+    acm:
+      lr: 0.01
+      beta: 0.9
+      weight_decay: 5e-4
+    sgd:
+      lr: 0.01
+      momentum: 0.9
+      weight_decay: 5e-4
+    adam:
+      lr: 0.001
+      betas: [0.9, 0.999]
+      weight_decay: 5e-4
+  save_model: true
+  save_plots: true
+
+# Experiment 2: Adaptive Behavior on Ill-Conditioned Synthetic Loss Landscapes
+experiment2:
+  name: "adaptive_behavior_synthetic"
+  num_steps: 100  # Full run: 100, Test run: 20
+  optimizers:
+    acm:
+      lr: 0.1
+      beta: 0.9
+    sgd:
+      lr: 0.1
+    adam:
+      lr: 0.1
+  synthetic_loss:
+    a: 50.0  # Curvature in x direction
+    b: 1.0   # Curvature in y direction
+  save_plots: true
+
+# Experiment 3: Sensitivity Analysis of Adaptive Regularization and Curvature Scaling
+experiment3:
+  name: "sensitivity_analysis_cifar100"
+  dataset: "cifar100"
+  model: "resnet18"  # Using a smaller ResNet for T4 compatibility
+  batch_size: 128
+  num_epochs: 5  # Full run: 10, Test run: 1
+  n_trials: 10   # Full run: 20, Test run: 2
+  acm_param_space:
+    lr: [0.001, 0.1]  # Log-uniform range
+    beta: [0.1, 1.0]  # Uniform range
+    weight_decay: [0.00001, 0.001]  # Log-uniform range
+  save_model: true
+  save_plots: true
+
+# Test run settings (used for quick verification)
+test_run:
+  enabled: true
+  experiment1:
+    num_epochs: 2
+    batch_size: 64
+  experiment2:
+    num_steps: 20
+  experiment3:
+    num_epochs: 1
+    n_trials: 2
+    batch_size: 64

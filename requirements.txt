@@ -1,1 +1,18 @@
-# Please list the required python packages.
+# Python packages required for ACM optimizer experiments
+
+# Deep learning framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Data processing and visualization
+numpy>=1.20.0
+matplotlib>=3.5.0
+
+# Hyperparameter optimization
+optuna>=3.0.0
+
+# Configuration management
+pyyaml>=6.0
+
+# Progress tracking (optional but helpful)
+tqdm>=4.60.0
