@@ -1,0 +1,16 @@
+{
+    "seed": 42,
+    "data_dir": "./data",
+    "save_dir": "./models",
+    "log_dir": "./logs",
+    "experiment_type": "hyperparameter_search",
+    "model_name": "simplecnn",
+    "num_classes": 10,
+    "batch_size": 128,
+    "num_workers": 4,
+    "num_epochs": 3,
+    "optimizer": "acm",
+    "weight_decay": 5e-4,
+    "lr_grid": [1e-4, 1e-3],
+    "curvature_coef_grid": [0.01, 0.1]
+}

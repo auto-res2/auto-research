@@ -1,0 +1,17 @@
+{
+    "seed": 42,
+    "data_dir": "./data",
+    "save_dir": "./models",
+    "log_dir": "./logs",
+    "experiment_type": "cifar10",
+    "model_name": "resnet18",
+    "num_classes": 10,
+    "batch_size": 128,
+    "num_workers": 4,
+    "num_epochs": 5,
+    "optimizers": ["sgd", "adam", "adabelief", "acm"],
+    "lr": 0.001,
+    "weight_decay": 5e-4,
+    "momentum": 0.9,
+    "curvature_coef": 0.1
+}
