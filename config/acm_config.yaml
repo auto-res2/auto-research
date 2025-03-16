@@ -1,0 +1,49 @@
+# Configuration for ACM Optimizer Experiments
+
+# General settings
+seed: 42
+device: cuda  # Use 'cuda' for GPU, 'cpu' for CPU
+log_dir: ./logs
+model_dir: ./models
+
+# Optimizer parameters
+optimizer:
+  name: acm  # Options: acm, adam
+  learning_rate: 0.001
+  beta: 0.9
+  curvature_scale: 1.0
+  epsilon: 1e-8
+
+# Experiment 1: CIFAR-10 with ResNet-18
+cifar10:
+  enabled: true
+  batch_size: 128
+  num_workers: 2
+  num_epochs: 3  # Set to a small value for testing, increase for full training
+  save_model: true
+  compare_with_adam: true
+
+# Experiment 2: Synthetic Function Optimization
+synthetic:
+  enabled: true
+  num_steps: 50
+  starting_point: [4.0, 4.0]
+  function_params:
+    a: 1.0  # Coefficient for x^2 term
+    b: 2.0  # Coefficient for y^2 term
+    c: -1.0  # Coefficient for x*y term
+  compare_with_adam: true
+  save_visualization: true
+
+# Experiment 3: Two-Moons Classification
+two_moons:
+  enabled: true
+  n_samples: 1000
+  noise: 0.2
+  test_size: 0.2
+  num_epochs: 50
+  learning_rate: 0.05
+  hidden_dim: 10
+  beta_values: [0.8, 0.9, 0.99]
+  curvature_scale_values: [0.5, 1.0, 2.0]
+  save_visualization: true
