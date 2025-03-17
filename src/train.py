@@ -13,7 +13,7 @@ import torch.nn as nn
 import torchvision.models as models
 import numpy as np
 import os
-from src.utils.optimizer import ACM
+from utils.optimizer import ACM
 
 # Set random seeds for reproducibility
 RANDOM_SEED = 42
