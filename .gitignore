@@ -170,3 +170,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 !.gitkeep
+
+# Test artifacts
+data/cifar-10-*
+logs/*.txt
+logs/plots/
+models/*.pth
