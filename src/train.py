@@ -187,7 +187,8 @@ def optimize_synthetic_function(fn, x_init, optimizer_type, alpha=0.1, beta=0.05
     
     # Initialize variables
     x = x_init.clone().detach().requires_grad_(True)
-    trajectory = [x.detach().numpy().copy()]
+    # Store CPU version of tensor for numpy conversion
+    trajectory = [x.detach().cpu().numpy().copy()]
     adaptive_lrs = []
     grad_prev = None
     
@@ -229,7 +230,7 @@ def optimize_synthetic_function(fn, x_init, optimizer_type, alpha=0.1, beta=0.05
         x.grad.zero_()
         
         # Store current position
-        trajectory.append(x.detach().numpy().copy())
+        trajectory.append(x.detach().cpu().numpy().copy())
         
         # Print progress for every 10% of iterations
         if i % max(1, n_iters // 10) == 0 or i == n_iters - 1:
