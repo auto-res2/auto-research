@@ -21,10 +21,10 @@ from datetime import datetime
 matplotlib.use('Agg')
 
 # Import modules from the project
-from src.preprocess import load_cifar10, prepare_synthetic_functions, get_initial_points
-from src.train import train_resnet_cifar10, optimize_synthetic_function, train_cnn_hyperparameter_search
-from src.evaluate import evaluate_real_world_experiment, evaluate_synthetic_experiment, evaluate_hyperparameter_experiment
-from src.utils.optimizer import ACM
+from preprocess import load_cifar10, prepare_synthetic_functions, get_initial_points
+from train import train_resnet_cifar10, optimize_synthetic_function, train_cnn_hyperparameter_search
+from evaluate import evaluate_real_world_experiment, evaluate_synthetic_experiment, evaluate_hyperparameter_experiment
+from utils.optimizer import ACM
 
 # Import configuration
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -374,6 +374,23 @@ def main():
         print(f"CUDA device: {torch.cuda.get_device_name(0)}")
         print(f"CUDA memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     print(f"Running in {'TEST' if test_run else 'FULL'} mode")
+    print("="*80)
+    
+    # Print experiment description
+    print("\nAdaptive Curvature Momentum (ACM) Optimizer")
+    print("="*50)
+    print("The ACM optimizer utilizes local quadratic approximations to adaptively")
+    print("adjust the update direction and scale based on curvature information.")
+    print("\nKey Features:")
+    print("✅ Combines Adam-style adaptability with curvature-aware updates")
+    print("✅ Faster convergence in flat regions, careful steps in sharp valleys")
+    print("✅ Hessian-free approximation with low computational overhead")
+    print("✅ Suitable for large-scale models such as ResNets and Transformers")
+    print("\nExperiments:")
+    print("1. Real-World Convergence: CIFAR-10 + ResNet-18")
+    print("2. Synthetic Loss Landscape: Quadratic and Rosenbrock functions")
+    print("3. Hyperparameter Sensitivity: Grid search analysis")
+    print("="*80)
     
     # Run selected experiment
     if args.experiment == "all":
