@@ -1,0 +1,72 @@
+{
+  "general": {
+    "device": "auto",
+    "seed": 42,
+    "save_results": true
+  },
+  "experiment_1": {
+    "name": "cifar10_resnet18",
+    "dataset": "cifar10",
+    "model": "resnet18",
+    "batch_size": 128,
+    "num_workers": 2,
+    "num_epochs": 5,
+    "optimizers": {
+      "acm": {
+        "lr": 0.001,
+        "beta": 0.9,
+        "weight_decay": 0.0001
+      },
+      "adam": {
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      "sgd": {
+        "lr": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0001
+      }
+    }
+  },
+  "experiment_2": {
+    "name": "rosenbrock_optimization",
+    "num_iterations": 500,
+    "initial_point": [-1.5, 1.5],
+    "optimizers": {
+      "acm": {
+        "lr": 0.001,
+        "beta": 0.9
+      },
+      "adam": {
+        "lr": 0.001
+      },
+      "sgd": {
+        "lr": 0.01
+      }
+    }
+  },
+  "experiment_3": {
+    "name": "text_classification_hyperparameter_sensitivity",
+    "dataset": "ag_news",
+    "batch_size": 64,
+    "num_epochs": 5,
+    "embed_dim": 64,
+    "grid_size": 3,
+    "hyperparameters": {
+      "learning_rates": [0.0001, 0.001, 0.01],
+      "beta_values": [0.5, 0.9, 0.99]
+    }
+  },
+  "test_mode": {
+    "experiment_1": {
+      "num_epochs": 1
+    },
+    "experiment_2": {
+      "num_iterations": 50
+    },
+    "experiment_3": {
+      "num_epochs": 1,
+      "grid_size": 1
+    }
+  }
+}
