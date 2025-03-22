@@ -9,15 +9,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Import configuration
+import sys
+import os
+
+# Add the repository root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from config.tcpgs_config import (
     DEVICE, DATASET, BATCH_SIZE, 
     DENOISE_STEPS, NOISE_LEVELS, EXPERIMENTS
 )
 
 # Import modules
-from src.preprocess import get_dataset, get_initial_noise
-from src.train import BaseDiffusionModel, TCPGSDiffusionModel
-from src.evaluate import (
+from preprocess import get_dataset, get_initial_noise
+from train import BaseDiffusionModel, TCPGSDiffusionModel
+from evaluate import (
     experiment_robustness, 
     experiment_convergence, 
     experiment_ablation
@@ -147,36 +153,58 @@ def main():
     print("\n" + "="*80)
     print("TCPGS EXPERIMENT SUITE")
     print("="*80)
+    print(f"Starting experiment at: {os.path.basename(__file__)}")
+    print(f"Python version: {sys.version}")
+    print(f"PyTorch version: {torch.__version__}")
+    print("="*80)
     
     # Set random seeds for reproducibility
+    print("\n[1/7] Setting random seeds for reproducibility...")
     set_seeds()
+    print("✓ Seeds set successfully")
     
     # Setup environment
+    print("\n[2/7] Setting up environment...")
     device = setup_environment()
     if DEVICE == "cuda" and not torch.cuda.is_available():
-        print("WARNING: CUDA requested but not available. Using CPU instead.")
+        print("⚠ WARNING: CUDA requested but not available. Using CPU instead.")
         device = torch.device("cpu")
     else:
         device = torch.device(DEVICE)
+    print(f"✓ Environment setup complete. Using device: {device}")
     
-    print(f"\nLoading dataset: {DATASET}")
+    print("\n[3/7] Loading dataset: {DATASET}")
+    print(f"- Batch size: {BATCH_SIZE}")
+    print(f"- Dataset: {DATASET}")
     train_loader = get_dataset(dataset_name=DATASET, batch_size=BATCH_SIZE)
+    print(f"✓ Dataset loaded successfully with {len(train_loader)} batches")
     
-    print("\nInstantiating models...")
+    print("\n[4/7] Instantiating models...")
     models, model_variants = instantiate_models()
+    print("✓ Models created:")
+    for name in models.keys():
+        print(f"  - {name}")
+    print("✓ Model variants created:")
+    for name in model_variants.keys():
+        print(f"  - {name}")
     
-    print("\nRunning experiments...")
+    print("\n[5/7] Running experiments...")
+    print(f"- Experiments to run: {', '.join(EXPERIMENTS.keys())}")
     results = run_experiments(models, model_variants, train_loader, device)
+    print("✓ All experiments completed successfully")
     
-    print("\nDisplaying results summary...")
+    print("\n[6/7] Displaying results summary...")
     display_summary(results)
     
-    print("\nSaving models...")
+    print("\n[7/7] Saving models...")
     for name, model in models.items():
-        torch.save(model.state_dict(), f"models/{name}.pt")
-        print(f"Model saved: models/{name}.pt")
+        model_path = f"models/{name}.pt"
+        torch.save(model.state_dict(), model_path)
+        print(f"✓ Model saved: {model_path}")
     
-    print("\nExperiment completed.")
+    print("\n" + "="*80)
+    print("EXPERIMENT COMPLETED SUCCESSFULLY")
+    print("="*80)
 
 
 if __name__ == "__main__":
