@@ -5,6 +5,12 @@ import torch.nn as nn
 import torch.optim as optim
 import time
 import numpy as np
+import os
+import sys
+
+# Add the repository root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from config import cstd_config as cfg
 from src.preprocess import implant_trigger, add_gaussian_noise, get_trigger_patch
 

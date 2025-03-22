@@ -6,6 +6,11 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 import os
+import sys
+
+# Add the repository root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from config import cstd_config as cfg
 from src.preprocess import implant_trigger
 

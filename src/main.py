@@ -4,6 +4,10 @@ import torch
 import os
 import sys
 import time
+
+# Add the repository root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from config import cstd_config as cfg
 from src.preprocess import load_data, set_seed
 from src.train import train_denoiser, train_refiner, train_distilled_model
@@ -100,32 +104,64 @@ def run_full_experiments(device):
 
 def main():
     """Main function to run CSTD experiments."""
+    print("\n" + "="*80)
+    print("CONSISTENT SEQUENTIAL TRIGGER DEFENSE (CSTD) EXPERIMENTS")
+    print("="*80)
+    
+    # Display experiment configuration
+    print("\n[CONFIGURATION]")
+    print(f"- Random Seed: {cfg.RANDOM_SEED}")
+    print(f"- Dataset: {cfg.DATASET}")
+    print(f"- Batch Size: {cfg.BATCH_SIZE}")
+    print(f"- Trigger Patch Size: {cfg.TRIGGER_PATCH_SIZE}")
+    print(f"- Trigger Implant Ratio: {cfg.TRIGGER_IMPLANT_RATIO}")
+    print(f"- Test Mode: {cfg.TEST_MODE}")
+    
     # Create necessary directories
+    print("\n[SETUP] Creating necessary directories...")
     create_directories()
+    print("- Created directories: logs/, models/, data/")
     
     # Set random seed for reproducibility
+    print("\n[SETUP] Setting random seed for reproducibility...")
     set_seed(cfg.RANDOM_SEED)
+    print(f"- Random seed set to {cfg.RANDOM_SEED}")
     
     # Set device
     device = torch.device(cfg.DEVICE if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
+    print(f"\n[HARDWARE] Using device: {device}")
     
     # Check if CUDA is available
     if device.type == 'cuda':
-        print(f"GPU: {torch.cuda.get_device_name(0)}")
-        print(f"Memory: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.2f} GB")
+        print(f"- GPU: {torch.cuda.get_device_name(0)}")
+        print(f"- Memory: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.2f} GB")
+    else:
+        print("- Running on CPU. Note: Training will be slower without GPU acceleration.")
     
     # Setup logging for the GitHub workflow
     if not sys.stdout.isatty():
+        print("\n[LOGGING] Setting up file logging for non-interactive session...")
         setup_logging()
+        print("- Logs will be saved to logs/stdout.log and logs/stderr.log")
     
     # Run experiments
+    print("\n[EXPERIMENTS] Starting experiments...")
+    start_time = time.time()
+    
     if cfg.TEST_MODE:
-        # Run quick test
-        test_experiments(device)
+        print(f"- Running in TEST MODE with subset size: {cfg.TEST_SUBSET_SIZE}")
+        print("- Each experiment will run for 1 epoch with a single batch")
+        models = test_experiments(device)
     else:
-        # Run full experiments
-        run_full_experiments(device)
+        print("- Running FULL experiments")
+        print(f"- Experiment 1: {cfg.EXP1_EPOCHS} epochs")
+        print(f"- Experiment 2: {cfg.EXP2_EPOCHS} epochs")
+        print(f"- Experiment 3: {cfg.EXP3_EPOCHS} epochs")
+        models = run_full_experiments(device)
+    
+    total_time = time.time() - start_time
+    print(f"\n[SUMMARY] All experiments completed in {total_time:.2f} seconds")
+    print("="*80)
 
 if __name__ == "__main__":
     main()
