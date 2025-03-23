@@ -1,0 +1,44 @@
+# Configuration for Dynamic Memory-Integrated Identifiability (DMI) Experiment
+
+# Random seed for reproducibility
+seed: 42
+
+# Model parameters
+model:
+  vocab_size: 26
+  dim_model: 64
+  num_heads: 4
+  num_layers: 2
+  
+# Memory module parameters
+memory:
+  enabled: true  # Set to false for baseline model
+  bank_size: 10
+  reg_weight: 0.1  # Weight for memory consistency loss
+
+# Training parameters
+training:
+  max_epochs: 5
+  batch_size: 32
+  learning_rate: 1e-3
+  adaptation_epochs: 2  # For continual learning experiment
+  
+# Dataset parameters
+dataset:
+  train_samples: 5000
+  val_samples: 1000
+  test_samples: 1000
+  rule: "aNbN"  # Options: "aNbN", "aNbM", "aNbNaN"
+  
+# Hardware configuration
+hardware:
+  gpu: true  # Use GPU if available
+  precision: 32  # Options: 16, 32 (for mixed precision training use 16)
+  
+# Experiment settings
+experiment:
+  run_rule_extrapolation: true
+  run_latent_stability: true
+  run_continual_adaptation: true
+  save_models: true
+  save_visualizations: true
