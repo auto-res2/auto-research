@@ -5,7 +5,8 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-from src.optimizers import ACMOptimizer
+from optimizers import ACMOptimizer
+from evaluate import evaluate_model
 
 class SimpleCNN(nn.Module):
     """

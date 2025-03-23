@@ -6,10 +6,11 @@ import numpy as np
 import time
 import sys
 
-from src.preprocess import load_cifar10, load_mnist
-from src.train import SimpleCNN, MNISTNet, train_model, run_synthetic_optimization
-from src.evaluate import evaluate_model, plot_training_curves, plot_synthetic_optimization, ablation_study_plot
-from src.optimizers import ACMOptimizer
+# Fix import paths - use relative imports instead of absolute
+from preprocess import load_cifar10, load_mnist
+from train import SimpleCNN, MNISTNet, train_model, run_synthetic_optimization
+from evaluate import evaluate_model, plot_training_curves, plot_synthetic_optimization, ablation_study_plot
+from optimizers import ACMOptimizer
 
 # Load configuration
 sys.path.append("config")
@@ -38,6 +39,12 @@ def print_section_header(title):
     print("\n" + "="*80)
     print(f" {title} ".center(80, "="))
     print("="*80 + "\n")
+    
+    # Log to file as well
+    with open("logs/experiment.log", "a") as f:
+        f.write("\n" + "="*80 + "\n")
+        f.write(f" {title} ".center(80, "=") + "\n")
+        f.write("="*80 + "\n\n")
 
 def quick_test():
     """Run a quick test to verify the implementation works"""
@@ -228,13 +235,37 @@ def run_ablation_study():
 
 def main():
     """Main function to run all experiments"""
+    # Initialize log file
+    os.makedirs("logs", exist_ok=True)
+    with open("logs/experiment.log", "w") as f:
+        f.write(f"ACM Optimizer Experiments - Started at {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Python version: {sys.version}\n")
+        f.write(f"PyTorch version: {torch.__version__}\n")
+        f.write(f"Device: {DEVICE}\n")
+        f.write(f"CUDA available: {torch.cuda.is_available()}\n")
+        if torch.cuda.is_available():
+            f.write(f"CUDA device: {torch.cuda.get_device_name(0)}\n")
+            f.write(f"CUDA memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\n")
+    
     print_section_header("Adaptive Curvature Momentum (ACM) Optimizer Experiments")
     print(f"Running on device: {DEVICE}")
+    print(f"PyTorch version: {torch.__version__}")
+    if torch.cuda.is_available():
+        print(f"CUDA device: {torch.cuda.get_device_name(0)}")
+        print(f"CUDA memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     
     # Create necessary directories
     os.makedirs("models", exist_ok=True)
     os.makedirs("results", exist_ok=True)
-    os.makedirs("logs", exist_ok=True)
+    
+    # Display experiment configuration
+    print("\nExperiment Configuration:")
+    print(f"  Quick test mode: {QUICK_TEST}")
+    print(f"  Synthetic iterations: {SYNTHETIC_ITERS}")
+    print(f"  CIFAR-10 epochs: {CIFAR_EPOCHS}")
+    print(f"  MNIST epochs: {MNIST_EPOCHS}")
+    print(f"  Batch size: {BATCH_SIZE}")
+    print(f"  Optimizers: {', '.join(OPTIMIZER_CONFIGS.keys())}")
     
     # Run a quick test first to verify implementation
     if quick_test():
@@ -242,6 +273,9 @@ def main():
     else:
         print("Quick test failed, exiting...")
         return
+    
+    # Record start time
+    start_time = time.time()
     
     # Run synthetic optimization experiments
     synthetic_results = run_synthetic_experiment()
@@ -255,31 +289,56 @@ def main():
     # Run ablation study
     ablation_results = run_ablation_study()
     
+    # Calculate total experiment time
+    total_time = time.time() - start_time
+    hours, remainder = divmod(total_time, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
     print_section_header("Experiment Summary")
+    print(f"Total experiment time: {int(hours)}h {int(minutes)}m {seconds:.2f}s")
     
     # Synthetic optimization summary
-    print("Synthetic Optimization Final Losses:")
+    print("\nSynthetic Optimization Final Losses:")
     for opt_name in OPTIMIZER_CONFIGS.keys():
         print(f"  {opt_name}:")
         print(f"    Quadratic: {synthetic_results[opt_name]['quadratic'][-1]:.6f}")
         print(f"    Rosenbrock: {synthetic_results[opt_name]['rosenbrock'][-1]:.6f}")
+        print(f"    Final quadratic position: {synthetic_results[opt_name]['final_x_quad']}")
+        print(f"    Final rosenbrock position: {synthetic_results[opt_name]['final_x_rosen']}")
     
     # CIFAR-10 summary
     print("\nCIFAR-10 Final Test Accuracies:")
     for opt_name in OPTIMIZER_CONFIGS.keys():
-        print(f"  {opt_name}: {cifar10_results[opt_name]['final_accuracy']:.4f}")
+        print(f"  {opt_name}: {cifar10_results[opt_name]['final_accuracy']:.4f} (training time: {cifar10_results[opt_name]['training_time']:.2f}s)")
     
     # MNIST summary
     print("\nMNIST Final Test Accuracies:")
     for opt_name in OPTIMIZER_CONFIGS.keys():
-        print(f"  {opt_name}: {mnist_results[opt_name]['final_accuracy']:.4f}")
+        print(f"  {opt_name}: {mnist_results[opt_name]['final_accuracy']:.4f} (training time: {mnist_results[opt_name]['training_time']:.2f}s)")
     
     # Ablation study summary
     print(f"\nAblation Study Results ({ABLATION_PARAM}):")
-    for param_value in ABLATION_VALUES:
+    for param_value in sorted(ABLATION_VALUES):
         print(f"  {param_value}: {ablation_results[param_value]['final_accuracy']:.4f}")
     
+    # Performance comparison
+    print("\nPerformance Comparison:")
+    best_cifar = max(cifar10_results.items(), key=lambda x: x[1]['final_accuracy'])
+    best_mnist = max(mnist_results.items(), key=lambda x: x[1]['final_accuracy'])
+    print(f"  Best CIFAR-10 optimizer: {best_cifar[0]} with accuracy {best_cifar[1]['final_accuracy']:.4f}")
+    print(f"  Best MNIST optimizer: {best_mnist[0]} with accuracy {best_mnist[1]['final_accuracy']:.4f}")
+    
+    # Log final results to file
+    with open("logs/experiment.log", "a") as f:
+        f.write(f"\nExperiment completed at {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Total experiment time: {int(hours)}h {int(minutes)}m {seconds:.2f}s\n\n")
+        f.write("Summary of Results:\n")
+        f.write(f"Best CIFAR-10 optimizer: {best_cifar[0]} with accuracy {best_cifar[1]['final_accuracy']:.4f}\n")
+        f.write(f"Best MNIST optimizer: {best_mnist[0]} with accuracy {best_mnist[1]['final_accuracy']:.4f}\n")
+    
     print("\nExperiments completed successfully!")
+    print("Detailed results and plots saved to 'results/' directory")
+    print("Log file saved to 'logs/experiment.log'")
 
 if __name__ == "__main__":
     main()
