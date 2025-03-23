@@ -1,0 +1,27 @@
+# A2Diff experiment configuration
+experiment:
+  name: "Adaptive Align-and-Tailor Diffusion"
+  description: "Implementation of A2Diff method combining AYS with sample-adaptive tailoring"
+  
+model:
+  type: "diffusion"
+  base_schedule: [10, 10, 3, 2, 2]  # Fixed schedule from AYS
+  severity_threshold: 0.5  # Threshold for schedule adaptation
+  
+training:
+  batch_size: 8
+  num_epochs: 1  # Small for testing purposes
+  learning_rate: 0.001
+  
+data:
+  dataset: "CIFAR10"
+  image_size: 32
+  degrade_probability: 0.5  # For robustness experiment
+  
+experiments:
+  run_comparison: true
+  run_ablation: true
+  run_robustness: true
+  
+logging:
+  verbose: true

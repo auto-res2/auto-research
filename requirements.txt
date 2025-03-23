@@ -1,1 +1,8 @@
-# Please list the required python packages.
+# Required python packages for A2Diff experiment
+torch
+torchvision
+numpy
+tqdm
+pyyaml
+matplotlib
+Pillow>=9.2.0
