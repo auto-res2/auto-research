@@ -1,0 +1,349 @@
+
+=== Geometric Score Distillation (GSD) Experiment ===
+Configuration: config/gsd_config.yaml
+Test run: False
+Output directory: models/output
+Checkpoint path: models/gsd_model.pt
+Skip training: False
+Evaluation only: False
+Using device: cuda
+
+=== Loading Datasets ===
+Warning: Dataset path /data/dataset/celeba_hq/images not found. Using fake data.
+Training dataset size: 58
+Validation dataset size: 6
+
+=== Training Model ===
+Using device: cuda
+Starting training for 100 epochs...
+Epoch 0 Batch 0 | Iso Loss: 131918.5938 | Score Loss: 0.3512 | Total Loss: 131918.9375
+Saved model checkpoint at epoch 0
+Epoch 0 completed in 1.29s | Train Loss: 110768.5088 | Train Iso Loss: 110768.1592 | Train Score Loss: 0.3500
+Val Loss: 130536.2266 | Val Iso Loss: 130535.8750 | Val Score Loss: 0.3488
+Epoch 1 Batch 0 | Iso Loss: 131011.7656 | Score Loss: 0.3488 | Total Loss: 131012.1172
+Saved model checkpoint at epoch 1
+Epoch 1 completed in 0.97s | Train Loss: 112293.2256 | Train Iso Loss: 112292.8799 | Train Score Loss: 0.3462
+Val Loss: 86665.1953 | Val Iso Loss: 86664.8516 | Val Score Loss: 0.3444
+Epoch 2 Batch 0 | Iso Loss: 130385.9766 | Score Loss: 0.3448 | Total Loss: 130386.3203
+Epoch 2 completed in 0.93s | Train Loss: 115421.0693 | Train Iso Loss: 115420.7266 | Train Score Loss: 0.3418
+Val Loss: 128279.2344 | Val Iso Loss: 128278.8984 | Val Score Loss: 0.3398
+Epoch 3 Batch 0 | Iso Loss: 112000.6328 | Score Loss: 0.3394 | Total Loss: 112000.9688
+Epoch 3 completed in 0.93s | Train Loss: 107947.7969 | Train Iso Loss: 107947.4609 | Train Score Loss: 0.3388
+Val Loss: 97633.4844 | Val Iso Loss: 97633.1484 | Val Score Loss: 0.3382
+Epoch 4 Batch 0 | Iso Loss: 88296.3438 | Score Loss: 0.3386 | Total Loss: 88296.6797
+Saved model checkpoint at epoch 4
+Epoch 4 completed in 0.97s | Train Loss: 44156.3665 | Train Iso Loss: 44156.0283 | Train Score Loss: 0.3384
+Val Loss: 1238.6956 | Val Iso Loss: 1238.3572 | Val Score Loss: 0.3383
+Epoch 5 Batch 0 | Iso Loss: 4229.3545 | Score Loss: 0.3381 | Total Loss: 4229.6924
+Saved model checkpoint at epoch 5
+Epoch 5 completed in 0.96s | Train Loss: 10412.9019 | Train Iso Loss: 10412.5640 | Train Score Loss: 0.3381
+Val Loss: 682.2017 | Val Iso Loss: 681.8638 | Val Score Loss: 0.3379
+Epoch 6 Batch 0 | Iso Loss: 2570.8516 | Score Loss: 0.3377 | Total Loss: 2571.1892
+Epoch 6 completed in 0.92s | Train Loss: 3613.1449 | Train Iso Loss: 3612.8072 | Train Score Loss: 0.3377
+Val Loss: 5474.8018 | Val Iso Loss: 5474.4644 | Val Score Loss: 0.3376
+Epoch 7 Batch 0 | Iso Loss: 1944.8324 | Score Loss: 0.3376 | Total Loss: 1945.1699
+Saved model checkpoint at epoch 7
+Epoch 7 completed in 0.98s | Train Loss: 1327.4400 | Train Iso Loss: 1327.1025 | Train Score Loss: 0.3375
+Val Loss: 317.5707 | Val Iso Loss: 317.2332 | Val Score Loss: 0.3375
+Epoch 8 Batch 0 | Iso Loss: 1536.7076 | Score Loss: 0.3371 | Total Loss: 1537.0447
+Epoch 8 completed in 0.93s | Train Loss: 2743.2359 | Train Iso Loss: 2742.8985 | Train Score Loss: 0.3374
+Val Loss: 1327.8553 | Val Iso Loss: 1327.5178 | Val Score Loss: 0.3375
+Epoch 9 Batch 0 | Iso Loss: 995.6176 | Score Loss: 0.3377 | Total Loss: 995.9552
+Epoch 9 completed in 0.91s | Train Loss: 1327.4519 | Train Iso Loss: 1327.1146 | Train Score Loss: 0.3373
+Val Loss: 1204.5671 | Val Iso Loss: 1204.2297 | Val Score Loss: 0.3374
+Epoch 10 Batch 0 | Iso Loss: 2288.1548 | Score Loss: 0.3369 | Total Loss: 2288.4917
+Epoch 10 completed in 0.93s | Train Loss: 2120.7496 | Train Iso Loss: 2120.4124 | Train Score Loss: 0.3372
+Val Loss: 1849.9062 | Val Iso Loss: 1849.5688 | Val Score Loss: 0.3374
+Epoch 11 Batch 0 | Iso Loss: 2201.0789 | Score Loss: 0.3369 | Total Loss: 2201.4158
+Epoch 11 completed in 0.91s | Train Loss: 1156.8622 | Train Iso Loss: 1156.5251 | Train Score Loss: 0.3371
+Val Loss: 1286.1250 | Val Iso Loss: 1285.7876 | Val Score Loss: 0.3374
+Epoch 12 Batch 0 | Iso Loss: 673.2450 | Score Loss: 0.3368 | Total Loss: 673.5818
+Epoch 12 completed in 0.91s | Train Loss: 1384.1650 | Train Iso Loss: 1383.8278 | Train Score Loss: 0.3372
+Val Loss: 1448.2281 | Val Iso Loss: 1447.8909 | Val Score Loss: 0.3373
+Epoch 13 Batch 0 | Iso Loss: 883.5739 | Score Loss: 0.3372 | Total Loss: 883.9111
+Epoch 13 completed in 0.92s | Train Loss: 1287.1556 | Train Iso Loss: 1286.8184 | Train Score Loss: 0.3372
+Val Loss: 1908.5890 | Val Iso Loss: 1908.2517 | Val Score Loss: 0.3373
+Epoch 14 Batch 0 | Iso Loss: 762.0612 | Score Loss: 0.3370 | Total Loss: 762.3981
+Epoch 14 completed in 0.93s | Train Loss: 811.4180 | Train Iso Loss: 811.0810 | Train Score Loss: 0.3370
+Val Loss: 2719.0454 | Val Iso Loss: 2718.7080 | Val Score Loss: 0.3373
+Epoch 15 Batch 0 | Iso Loss: 3544.2212 | Score Loss: 0.3369 | Total Loss: 3544.5581
+Epoch 15 completed in 0.92s | Train Loss: 1281.9715 | Train Iso Loss: 1281.6344 | Train Score Loss: 0.3371
+Val Loss: 1220.6602 | Val Iso Loss: 1220.3228 | Val Score Loss: 0.3374
+Epoch 16 Batch 0 | Iso Loss: 491.6464 | Score Loss: 0.3373 | Total Loss: 491.9838
+Epoch 16 completed in 0.92s | Train Loss: 801.4623 | Train Iso Loss: 801.1251 | Train Score Loss: 0.3372
+Val Loss: 1468.9124 | Val Iso Loss: 1468.5751 | Val Score Loss: 0.3373
+Epoch 17 Batch 0 | Iso Loss: 1014.3562 | Score Loss: 0.3366 | Total Loss: 1014.6928
+Epoch 17 completed in 0.92s | Train Loss: 999.1248 | Train Iso Loss: 998.7877 | Train Score Loss: 0.3371
+Val Loss: 1817.5331 | Val Iso Loss: 1817.1957 | Val Score Loss: 0.3373
+Epoch 18 Batch 0 | Iso Loss: 490.8006 | Score Loss: 0.3370 | Total Loss: 491.1376
+Epoch 18 completed in 0.92s | Train Loss: 1052.7798 | Train Iso Loss: 1052.4428 | Train Score Loss: 0.3371
+Val Loss: 2206.4878 | Val Iso Loss: 2206.1504 | Val Score Loss: 0.3373
+Epoch 19 Batch 0 | Iso Loss: 1573.2716 | Score Loss: 0.3369 | Total Loss: 1573.6085
+Saved model checkpoint at epoch 19
+Epoch 19 completed in 0.97s | Train Loss: 1325.0047 | Train Iso Loss: 1324.6677 | Train Score Loss: 0.3370
+Val Loss: 85.2101 | Val Iso Loss: 84.8728 | Val Score Loss: 0.3373
+Epoch 20 Batch 0 | Iso Loss: 670.5966 | Score Loss: 0.3370 | Total Loss: 670.9336
+Epoch 20 completed in 0.92s | Train Loss: 1330.9964 | Train Iso Loss: 1330.6593 | Train Score Loss: 0.3371
+Val Loss: 611.9678 | Val Iso Loss: 611.6305 | Val Score Loss: 0.3373
+Epoch 21 Batch 0 | Iso Loss: 643.8110 | Score Loss: 0.3369 | Total Loss: 644.1479
+Epoch 21 completed in 0.93s | Train Loss: 877.9466 | Train Iso Loss: 877.6096 | Train Score Loss: 0.3370
+Val Loss: 1645.9498 | Val Iso Loss: 1645.6125 | Val Score Loss: 0.3373
+Epoch 22 Batch 0 | Iso Loss: 610.8605 | Score Loss: 0.3373 | Total Loss: 611.1978
+Epoch 22 completed in 0.92s | Train Loss: 1219.8651 | Train Iso Loss: 1219.5282 | Train Score Loss: 0.3369
+Val Loss: 903.4319 | Val Iso Loss: 903.0946 | Val Score Loss: 0.3373
+Epoch 23 Batch 0 | Iso Loss: 1202.3494 | Score Loss: 0.3369 | Total Loss: 1202.6863
+Epoch 23 completed in 0.93s | Train Loss: 653.8246 | Train Iso Loss: 653.4875 | Train Score Loss: 0.3371
+Val Loss: 1089.1128 | Val Iso Loss: 1088.7755 | Val Score Loss: 0.3373
+Epoch 24 Batch 0 | Iso Loss: 468.8678 | Score Loss: 0.3370 | Total Loss: 469.2049
+Epoch 24 completed in 0.93s | Train Loss: 676.8581 | Train Iso Loss: 676.5211 | Train Score Loss: 0.3370
+Val Loss: 370.5382 | Val Iso Loss: 370.2009 | Val Score Loss: 0.3373
+Epoch 25 Batch 0 | Iso Loss: 987.1221 | Score Loss: 0.3368 | Total Loss: 987.4589
+Epoch 25 completed in 0.93s | Train Loss: 1148.3867 | Train Iso Loss: 1148.0497 | Train Score Loss: 0.3370
+Val Loss: 448.2950 | Val Iso Loss: 447.9576 | Val Score Loss: 0.3373
+Epoch 26 Batch 0 | Iso Loss: 1247.4399 | Score Loss: 0.3366 | Total Loss: 1247.7765
+Epoch 26 completed in 0.94s | Train Loss: 926.3572 | Train Iso Loss: 926.0203 | Train Score Loss: 0.3369
+Val Loss: 1481.6764 | Val Iso Loss: 1481.3391 | Val Score Loss: 0.3373
+Epoch 27 Batch 0 | Iso Loss: 1348.8417 | Score Loss: 0.3370 | Total Loss: 1349.1787
+Epoch 27 completed in 0.94s | Train Loss: 1026.9562 | Train Iso Loss: 1026.6193 | Train Score Loss: 0.3369
+Val Loss: 429.7011 | Val Iso Loss: 429.3637 | Val Score Loss: 0.3373
+Epoch 28 Batch 0 | Iso Loss: 388.5436 | Score Loss: 0.3367 | Total Loss: 388.8803
+Epoch 28 completed in 0.93s | Train Loss: 721.2923 | Train Iso Loss: 720.9552 | Train Score Loss: 0.3370
+Val Loss: 1071.6315 | Val Iso Loss: 1071.2942 | Val Score Loss: 0.3373
+Epoch 29 Batch 0 | Iso Loss: 570.9718 | Score Loss: 0.3368 | Total Loss: 571.3085
+Epoch 29 completed in 0.93s | Train Loss: 948.0335 | Train Iso Loss: 947.6966 | Train Score Loss: 0.3369
+Val Loss: 907.3723 | Val Iso Loss: 907.0349 | Val Score Loss: 0.3374
+Epoch 30 Batch 0 | Iso Loss: 1228.1410 | Score Loss: 0.3369 | Total Loss: 1228.4779
+Epoch 30 completed in 0.92s | Train Loss: 679.7253 | Train Iso Loss: 679.3884 | Train Score Loss: 0.3370
+Val Loss: 2055.3638 | Val Iso Loss: 2055.0264 | Val Score Loss: 0.3373
+Epoch 31 Batch 0 | Iso Loss: 527.5600 | Score Loss: 0.3369 | Total Loss: 527.8969
+Epoch 31 completed in 0.94s | Train Loss: 659.7024 | Train Iso Loss: 659.3656 | Train Score Loss: 0.3369
+Val Loss: 1267.0168 | Val Iso Loss: 1266.6794 | Val Score Loss: 0.3374
+Epoch 32 Batch 0 | Iso Loss: 279.6970 | Score Loss: 0.3368 | Total Loss: 280.0338
+Epoch 32 completed in 0.93s | Train Loss: 985.4151 | Train Iso Loss: 985.0782 | Train Score Loss: 0.3369
+Val Loss: 715.3478 | Val Iso Loss: 715.0104 | Val Score Loss: 0.3373
+Epoch 33 Batch 0 | Iso Loss: 516.9576 | Score Loss: 0.3366 | Total Loss: 517.2943
+Epoch 33 completed in 0.94s | Train Loss: 918.4212 | Train Iso Loss: 918.0843 | Train Score Loss: 0.3369
+Val Loss: 1036.0001 | Val Iso Loss: 1035.6627 | Val Score Loss: 0.3373
+Epoch 34 Batch 0 | Iso Loss: 834.4225 | Score Loss: 0.3371 | Total Loss: 834.7596
+Epoch 34 completed in 0.93s | Train Loss: 786.9956 | Train Iso Loss: 786.6587 | Train Score Loss: 0.3369
+Val Loss: 1903.9025 | Val Iso Loss: 1903.5652 | Val Score Loss: 0.3373
+Epoch 35 Batch 0 | Iso Loss: 1465.1298 | Score Loss: 0.3370 | Total Loss: 1465.4667
+Epoch 35 completed in 0.94s | Train Loss: 689.6513 | Train Iso Loss: 689.3144 | Train Score Loss: 0.3368
+Val Loss: 3361.8159 | Val Iso Loss: 3361.4785 | Val Score Loss: 0.3373
+Epoch 36 Batch 0 | Iso Loss: 813.5746 | Score Loss: 0.3373 | Total Loss: 813.9119
+Epoch 36 completed in 0.93s | Train Loss: 692.9820 | Train Iso Loss: 692.6451 | Train Score Loss: 0.3369
+Val Loss: 845.7050 | Val Iso Loss: 845.3676 | Val Score Loss: 0.3373
+Epoch 37 Batch 0 | Iso Loss: 420.4091 | Score Loss: 0.3370 | Total Loss: 420.7461
+Epoch 37 completed in 0.94s | Train Loss: 544.0272 | Train Iso Loss: 543.6904 | Train Score Loss: 0.3369
+Val Loss: 556.9022 | Val Iso Loss: 556.5648 | Val Score Loss: 0.3374
+Epoch 38 Batch 0 | Iso Loss: 922.6951 | Score Loss: 0.3369 | Total Loss: 923.0320
+Epoch 38 completed in 0.93s | Train Loss: 490.6771 | Train Iso Loss: 490.3402 | Train Score Loss: 0.3369
+Val Loss: 237.8636 | Val Iso Loss: 237.5263 | Val Score Loss: 0.3373
+Epoch 39 Batch 0 | Iso Loss: 348.5750 | Score Loss: 0.3365 | Total Loss: 348.9115
+Epoch 39 completed in 0.94s | Train Loss: 638.5026 | Train Iso Loss: 638.1657 | Train Score Loss: 0.3368
+Val Loss: 881.7267 | Val Iso Loss: 881.3893 | Val Score Loss: 0.3374
+Epoch 40 Batch 0 | Iso Loss: 800.7443 | Score Loss: 0.3367 | Total Loss: 801.0810
+Epoch 40 completed in 0.93s | Train Loss: 530.8035 | Train Iso Loss: 530.4666 | Train Score Loss: 0.3370
+Val Loss: 862.7182 | Val Iso Loss: 862.3808 | Val Score Loss: 0.3374
+Epoch 41 Batch 0 | Iso Loss: 998.6856 | Score Loss: 0.3366 | Total Loss: 999.0222
+Epoch 41 completed in 0.94s | Train Loss: 655.6057 | Train Iso Loss: 655.2689 | Train Score Loss: 0.3368
+Val Loss: 614.4218 | Val Iso Loss: 614.0845 | Val Score Loss: 0.3374
+Epoch 42 Batch 0 | Iso Loss: 1095.7446 | Score Loss: 0.3368 | Total Loss: 1096.0814
+Epoch 42 completed in 0.94s | Train Loss: 991.6870 | Train Iso Loss: 991.3501 | Train Score Loss: 0.3369
+Val Loss: 535.2672 | Val Iso Loss: 534.9298 | Val Score Loss: 0.3374
+Epoch 43 Batch 0 | Iso Loss: 747.4501 | Score Loss: 0.3366 | Total Loss: 747.7867
+Epoch 43 completed in 0.92s | Train Loss: 660.3560 | Train Iso Loss: 660.0192 | Train Score Loss: 0.3368
+Val Loss: 411.6601 | Val Iso Loss: 411.3227 | Val Score Loss: 0.3374
+Epoch 44 Batch 0 | Iso Loss: 369.6897 | Score Loss: 0.3367 | Total Loss: 370.0264
+Epoch 44 completed in 0.93s | Train Loss: 471.5676 | Train Iso Loss: 471.2309 | Train Score Loss: 0.3367
+Val Loss: 430.1548 | Val Iso Loss: 429.8174 | Val Score Loss: 0.3374
+Epoch 45 Batch 0 | Iso Loss: 448.3860 | Score Loss: 0.3369 | Total Loss: 448.7229
+Epoch 45 completed in 0.93s | Train Loss: 697.8207 | Train Iso Loss: 697.4839 | Train Score Loss: 0.3368
+Val Loss: 779.2878 | Val Iso Loss: 778.9504 | Val Score Loss: 0.3374
+Epoch 46 Batch 0 | Iso Loss: 67.1740 | Score Loss: 0.3366 | Total Loss: 67.5106
+Saved model checkpoint at epoch 46
+Epoch 46 completed in 0.99s | Train Loss: 803.0627 | Train Iso Loss: 802.7259 | Train Score Loss: 0.3368
+Val Loss: 82.4448 | Val Iso Loss: 82.1074 | Val Score Loss: 0.3374
+Epoch 47 Batch 0 | Iso Loss: 517.0734 | Score Loss: 0.3371 | Total Loss: 517.4105
+Epoch 47 completed in 0.94s | Train Loss: 724.5307 | Train Iso Loss: 724.1938 | Train Score Loss: 0.3369
+Val Loss: 408.6031 | Val Iso Loss: 408.2657 | Val Score Loss: 0.3374
+Epoch 48 Batch 0 | Iso Loss: 201.0467 | Score Loss: 0.3370 | Total Loss: 201.3837
+Epoch 48 completed in 0.94s | Train Loss: 368.8204 | Train Iso Loss: 368.4836 | Train Score Loss: 0.3368
+Val Loss: 554.0148 | Val Iso Loss: 553.6774 | Val Score Loss: 0.3374
+Epoch 49 Batch 0 | Iso Loss: 672.1984 | Score Loss: 0.3370 | Total Loss: 672.5355
+Epoch 49 completed in 0.94s | Train Loss: 532.7123 | Train Iso Loss: 532.3756 | Train Score Loss: 0.3368
+Val Loss: 118.0414 | Val Iso Loss: 117.7039 | Val Score Loss: 0.3374
+Epoch 50 Batch 0 | Iso Loss: 303.2047 | Score Loss: 0.3368 | Total Loss: 303.5415
+Epoch 50 completed in 0.95s | Train Loss: 761.0514 | Train Iso Loss: 760.7146 | Train Score Loss: 0.3367
+Val Loss: 1514.1548 | Val Iso Loss: 1513.8174 | Val Score Loss: 0.3374
+Epoch 51 Batch 0 | Iso Loss: 570.6179 | Score Loss: 0.3367 | Total Loss: 570.9547
+Saved model checkpoint at epoch 51
+Epoch 51 completed in 1.00s | Train Loss: 474.3113 | Train Iso Loss: 473.9746 | Train Score Loss: 0.3367
+Val Loss: 48.6497 | Val Iso Loss: 48.3122 | Val Score Loss: 0.3374
+Epoch 52 Batch 0 | Iso Loss: 366.9231 | Score Loss: 0.3366 | Total Loss: 367.2596
+Epoch 52 completed in 0.94s | Train Loss: 339.2291 | Train Iso Loss: 338.8924 | Train Score Loss: 0.3367
+Val Loss: 454.2798 | Val Iso Loss: 453.9424 | Val Score Loss: 0.3374
+Epoch 53 Batch 0 | Iso Loss: 389.5109 | Score Loss: 0.3368 | Total Loss: 389.8477
+Epoch 53 completed in 0.95s | Train Loss: 390.4343 | Train Iso Loss: 390.0976 | Train Score Loss: 0.3367
+Val Loss: 642.0474 | Val Iso Loss: 641.7099 | Val Score Loss: 0.3375
+Epoch 54 Batch 0 | Iso Loss: 317.7714 | Score Loss: 0.3366 | Total Loss: 318.1080
+Epoch 54 completed in 0.95s | Train Loss: 457.4158 | Train Iso Loss: 457.0791 | Train Score Loss: 0.3367
+Val Loss: 374.5838 | Val Iso Loss: 374.2463 | Val Score Loss: 0.3374
+Epoch 55 Batch 0 | Iso Loss: 149.9508 | Score Loss: 0.3364 | Total Loss: 150.2872
+Epoch 55 completed in 0.94s | Train Loss: 410.6584 | Train Iso Loss: 410.3217 | Train Score Loss: 0.3367
+Val Loss: 353.3750 | Val Iso Loss: 353.0376 | Val Score Loss: 0.3375
+Epoch 56 Batch 0 | Iso Loss: 994.7544 | Score Loss: 0.3366 | Total Loss: 995.0910
+Epoch 56 completed in 0.95s | Train Loss: 586.8024 | Train Iso Loss: 586.4657 | Train Score Loss: 0.3367
+Val Loss: 941.9933 | Val Iso Loss: 941.6559 | Val Score Loss: 0.3374
+Epoch 57 Batch 0 | Iso Loss: 429.1781 | Score Loss: 0.3371 | Total Loss: 429.5152
+Epoch 57 completed in 0.94s | Train Loss: 264.7473 | Train Iso Loss: 264.4106 | Train Score Loss: 0.3367
+Val Loss: 658.2731 | Val Iso Loss: 657.9357 | Val Score Loss: 0.3374
+Epoch 58 Batch 0 | Iso Loss: 278.1134 | Score Loss: 0.3369 | Total Loss: 278.4503
+Epoch 58 completed in 0.93s | Train Loss: 594.1791 | Train Iso Loss: 593.8425 | Train Score Loss: 0.3366
+Val Loss: 933.4005 | Val Iso Loss: 933.0630 | Val Score Loss: 0.3374
+Epoch 59 Batch 0 | Iso Loss: 456.0217 | Score Loss: 0.3366 | Total Loss: 456.3583
+Epoch 59 completed in 0.94s | Train Loss: 706.1670 | Train Iso Loss: 705.8303 | Train Score Loss: 0.3367
+Val Loss: 566.9350 | Val Iso Loss: 566.5976 | Val Score Loss: 0.3374
+Epoch 60 Batch 0 | Iso Loss: 287.5855 | Score Loss: 0.3366 | Total Loss: 287.9221
+Saved model checkpoint at epoch 60
+Epoch 60 completed in 1.01s | Train Loss: 613.2561 | Train Iso Loss: 612.9195 | Train Score Loss: 0.3367
+Val Loss: 3.1477 | Val Iso Loss: 2.8103 | Val Score Loss: 0.3375
+Epoch 61 Batch 0 | Iso Loss: 1093.1571 | Score Loss: 0.3369 | Total Loss: 1093.4940
+Epoch 61 completed in 0.94s | Train Loss: 730.3581 | Train Iso Loss: 730.0214 | Train Score Loss: 0.3366
+Val Loss: 593.9426 | Val Iso Loss: 593.6051 | Val Score Loss: 0.3375
+Epoch 62 Batch 0 | Iso Loss: 106.6583 | Score Loss: 0.3367 | Total Loss: 106.9950
+Epoch 62 completed in 0.94s | Train Loss: 407.5415 | Train Iso Loss: 407.2048 | Train Score Loss: 0.3366
+Val Loss: 476.9690 | Val Iso Loss: 476.6316 | Val Score Loss: 0.3375
+Epoch 63 Batch 0 | Iso Loss: 116.9264 | Score Loss: 0.3366 | Total Loss: 117.2630
+Epoch 63 completed in 0.94s | Train Loss: 529.7370 | Train Iso Loss: 529.4002 | Train Score Loss: 0.3367
+Val Loss: 110.2629 | Val Iso Loss: 109.9254 | Val Score Loss: 0.3375
+Epoch 64 Batch 0 | Iso Loss: 254.2219 | Score Loss: 0.3368 | Total Loss: 254.5587
+Epoch 64 completed in 0.95s | Train Loss: 508.5128 | Train Iso Loss: 508.1762 | Train Score Loss: 0.3366
+Val Loss: 265.6187 | Val Iso Loss: 265.2812 | Val Score Loss: 0.3375
+Epoch 65 Batch 0 | Iso Loss: 210.9856 | Score Loss: 0.3367 | Total Loss: 211.3223
+Epoch 65 completed in 0.94s | Train Loss: 426.9738 | Train Iso Loss: 426.6371 | Train Score Loss: 0.3367
+Val Loss: 837.3636 | Val Iso Loss: 837.0261 | Val Score Loss: 0.3375
+Epoch 66 Batch 0 | Iso Loss: 755.3945 | Score Loss: 0.3366 | Total Loss: 755.7311
+Epoch 66 completed in 0.95s | Train Loss: 485.5445 | Train Iso Loss: 485.2079 | Train Score Loss: 0.3366
+Val Loss: 223.1415 | Val Iso Loss: 222.8040 | Val Score Loss: 0.3375
+Epoch 67 Batch 0 | Iso Loss: 64.3249 | Score Loss: 0.3364 | Total Loss: 64.6613
+Epoch 67 completed in 0.95s | Train Loss: 331.3501 | Train Iso Loss: 331.0135 | Train Score Loss: 0.3366
+Val Loss: 957.8172 | Val Iso Loss: 957.4797 | Val Score Loss: 0.3375
+Epoch 68 Batch 0 | Iso Loss: 544.6546 | Score Loss: 0.3363 | Total Loss: 544.9909
+Epoch 68 completed in 0.94s | Train Loss: 359.4489 | Train Iso Loss: 359.1122 | Train Score Loss: 0.3368
+Val Loss: 894.2088 | Val Iso Loss: 893.8713 | Val Score Loss: 0.3375
+Epoch 69 Batch 0 | Iso Loss: 506.4290 | Score Loss: 0.3364 | Total Loss: 506.7654
+Epoch 69 completed in 0.96s | Train Loss: 406.0654 | Train Iso Loss: 405.7288 | Train Score Loss: 0.3366
+Val Loss: 1166.0470 | Val Iso Loss: 1165.7095 | Val Score Loss: 0.3375
+Epoch 70 Batch 0 | Iso Loss: 484.4117 | Score Loss: 0.3368 | Total Loss: 484.7485
+Epoch 70 completed in 0.95s | Train Loss: 389.5168 | Train Iso Loss: 389.1802 | Train Score Loss: 0.3366
+Val Loss: 554.6071 | Val Iso Loss: 554.2695 | Val Score Loss: 0.3376
+Epoch 71 Batch 0 | Iso Loss: 289.5278 | Score Loss: 0.3364 | Total Loss: 289.8642
+Epoch 71 completed in 0.95s | Train Loss: 505.8361 | Train Iso Loss: 505.4994 | Train Score Loss: 0.3367
+Val Loss: 583.4175 | Val Iso Loss: 583.0800 | Val Score Loss: 0.3375
+Epoch 72 Batch 0 | Iso Loss: 288.7906 | Score Loss: 0.3364 | Total Loss: 289.1270
+Epoch 72 completed in 0.95s | Train Loss: 434.6758 | Train Iso Loss: 434.3392 | Train Score Loss: 0.3366
+Val Loss: 531.8652 | Val Iso Loss: 531.5276 | Val Score Loss: 0.3376
+Epoch 73 Batch 0 | Iso Loss: 1041.4126 | Score Loss: 0.3363 | Total Loss: 1041.7489
+Epoch 73 completed in 0.96s | Train Loss: 755.8604 | Train Iso Loss: 755.5237 | Train Score Loss: 0.3367
+Val Loss: 489.2218 | Val Iso Loss: 488.8843 | Val Score Loss: 0.3375
+Epoch 74 Batch 0 | Iso Loss: 501.7339 | Score Loss: 0.3367 | Total Loss: 502.0707
+Epoch 74 completed in 0.95s | Train Loss: 419.6329 | Train Iso Loss: 419.2964 | Train Score Loss: 0.3365
+Val Loss: 356.7386 | Val Iso Loss: 356.4010 | Val Score Loss: 0.3375
+Epoch 75 Batch 0 | Iso Loss: 255.9352 | Score Loss: 0.3364 | Total Loss: 256.2715
+Epoch 75 completed in 0.95s | Train Loss: 303.9694 | Train Iso Loss: 303.6328 | Train Score Loss: 0.3366
+Val Loss: 602.4446 | Val Iso Loss: 602.1071 | Val Score Loss: 0.3375
+Epoch 76 Batch 0 | Iso Loss: 409.8495 | Score Loss: 0.3366 | Total Loss: 410.1861
+Epoch 76 completed in 0.95s | Train Loss: 452.2391 | Train Iso Loss: 451.9025 | Train Score Loss: 0.3366
+Val Loss: 406.9433 | Val Iso Loss: 406.6058 | Val Score Loss: 0.3375
+Epoch 77 Batch 0 | Iso Loss: 89.4086 | Score Loss: 0.3363 | Total Loss: 89.7449
+Epoch 77 completed in 0.95s | Train Loss: 522.9047 | Train Iso Loss: 522.5681 | Train Score Loss: 0.3366
+Val Loss: 774.2944 | Val Iso Loss: 773.9569 | Val Score Loss: 0.3375
+Epoch 78 Batch 0 | Iso Loss: 788.2148 | Score Loss: 0.3363 | Total Loss: 788.5510
+Epoch 78 completed in 0.96s | Train Loss: 661.0043 | Train Iso Loss: 660.6678 | Train Score Loss: 0.3365
+Val Loss: 175.1800 | Val Iso Loss: 174.8423 | Val Score Loss: 0.3377
+Epoch 79 Batch 0 | Iso Loss: 736.7935 | Score Loss: 0.3369 | Total Loss: 737.1304
+Epoch 79 completed in 0.96s | Train Loss: 572.9174 | Train Iso Loss: 572.5808 | Train Score Loss: 0.3366
+Val Loss: 1638.4388 | Val Iso Loss: 1638.1013 | Val Score Loss: 0.3375
+Epoch 80 Batch 0 | Iso Loss: 600.8370 | Score Loss: 0.3367 | Total Loss: 601.1736
+Epoch 80 completed in 0.94s | Train Loss: 512.5283 | Train Iso Loss: 512.1916 | Train Score Loss: 0.3366
+Val Loss: 368.3427 | Val Iso Loss: 368.0051 | Val Score Loss: 0.3376
+Epoch 81 Batch 0 | Iso Loss: 756.7899 | Score Loss: 0.3367 | Total Loss: 757.1266
+Epoch 81 completed in 0.96s | Train Loss: 735.1611 | Train Iso Loss: 734.8246 | Train Score Loss: 0.3365
+Val Loss: 234.1760 | Val Iso Loss: 233.8384 | Val Score Loss: 0.3376
+Epoch 82 Batch 0 | Iso Loss: 446.4313 | Score Loss: 0.3366 | Total Loss: 446.7679
+Epoch 82 completed in 0.96s | Train Loss: 697.9773 | Train Iso Loss: 697.6407 | Train Score Loss: 0.3366
+Val Loss: 1148.7091 | Val Iso Loss: 1148.3716 | Val Score Loss: 0.3375
+Epoch 83 Batch 0 | Iso Loss: 541.4680 | Score Loss: 0.3363 | Total Loss: 541.8043
+Epoch 83 completed in 0.96s | Train Loss: 367.0228 | Train Iso Loss: 366.6861 | Train Score Loss: 0.3367
+Val Loss: 513.9009 | Val Iso Loss: 513.5632 | Val Score Loss: 0.3376
+Epoch 84 Batch 0 | Iso Loss: 226.3470 | Score Loss: 0.3368 | Total Loss: 226.6838
+Epoch 84 completed in 0.95s | Train Loss: 360.7770 | Train Iso Loss: 360.4405 | Train Score Loss: 0.3365
+Val Loss: 677.0142 | Val Iso Loss: 676.6766 | Val Score Loss: 0.3375
+Epoch 85 Batch 0 | Iso Loss: 502.8630 | Score Loss: 0.3368 | Total Loss: 503.1998
+Epoch 85 completed in 0.94s | Train Loss: 392.9969 | Train Iso Loss: 392.6604 | Train Score Loss: 0.3365
+Val Loss: 1211.7952 | Val Iso Loss: 1211.4575 | Val Score Loss: 0.3376
+Epoch 86 Batch 0 | Iso Loss: 485.2353 | Score Loss: 0.3367 | Total Loss: 485.5721
+Epoch 86 completed in 0.96s | Train Loss: 586.1586 | Train Iso Loss: 585.8222 | Train Score Loss: 0.3364
+Val Loss: 637.1775 | Val Iso Loss: 636.8399 | Val Score Loss: 0.3376
+Epoch 87 Batch 0 | Iso Loss: 54.2597 | Score Loss: 0.3368 | Total Loss: 54.5965
+Epoch 87 completed in 0.96s | Train Loss: 296.5043 | Train Iso Loss: 296.1676 | Train Score Loss: 0.3367
+Val Loss: 350.4385 | Val Iso Loss: 350.1009 | Val Score Loss: 0.3376
+Epoch 88 Batch 0 | Iso Loss: 367.0485 | Score Loss: 0.3363 | Total Loss: 367.3849
+Epoch 88 completed in 0.95s | Train Loss: 230.8792 | Train Iso Loss: 230.5428 | Train Score Loss: 0.3364
+Val Loss: 42.6639 | Val Iso Loss: 42.3263 | Val Score Loss: 0.3376
+Epoch 89 Batch 0 | Iso Loss: 273.3146 | Score Loss: 0.3368 | Total Loss: 273.6514
+Epoch 89 completed in 0.95s | Train Loss: 339.7837 | Train Iso Loss: 339.4472 | Train Score Loss: 0.3365
+Val Loss: 781.7858 | Val Iso Loss: 781.4482 | Val Score Loss: 0.3376
+Epoch 90 Batch 0 | Iso Loss: 333.5308 | Score Loss: 0.3367 | Total Loss: 333.8676
+Epoch 90 completed in 0.96s | Train Loss: 734.4313 | Train Iso Loss: 734.0947 | Train Score Loss: 0.3365
+Val Loss: 498.8308 | Val Iso Loss: 498.4931 | Val Score Loss: 0.3376
+Epoch 91 Batch 0 | Iso Loss: 500.1838 | Score Loss: 0.3363 | Total Loss: 500.5201
+Epoch 91 completed in 0.96s | Train Loss: 542.1324 | Train Iso Loss: 541.7960 | Train Score Loss: 0.3364
+Val Loss: 36.9802 | Val Iso Loss: 36.6425 | Val Score Loss: 0.3377
+Epoch 92 Batch 0 | Iso Loss: 437.8486 | Score Loss: 0.3370 | Total Loss: 438.1857
+Epoch 92 completed in 0.97s | Train Loss: 398.8955 | Train Iso Loss: 398.5589 | Train Score Loss: 0.3366
+Val Loss: 2178.1606 | Val Iso Loss: 2177.8230 | Val Score Loss: 0.3376
+Epoch 93 Batch 0 | Iso Loss: 799.7930 | Score Loss: 0.3367 | Total Loss: 800.1298
+Epoch 93 completed in 0.95s | Train Loss: 613.0336 | Train Iso Loss: 612.6971 | Train Score Loss: 0.3365
+Val Loss: 165.4297 | Val Iso Loss: 165.0920 | Val Score Loss: 0.3377
+Epoch 94 Batch 0 | Iso Loss: 430.8152 | Score Loss: 0.3365 | Total Loss: 431.1517
+Epoch 94 completed in 0.96s | Train Loss: 397.8861 | Train Iso Loss: 397.5496 | Train Score Loss: 0.3365
+Val Loss: 386.2224 | Val Iso Loss: 385.8848 | Val Score Loss: 0.3376
+Epoch 95 Batch 0 | Iso Loss: 630.1960 | Score Loss: 0.3370 | Total Loss: 630.5330
+Epoch 95 completed in 0.96s | Train Loss: 532.1676 | Train Iso Loss: 531.8311 | Train Score Loss: 0.3365
+Val Loss: 593.8694 | Val Iso Loss: 593.5317 | Val Score Loss: 0.3376
+Epoch 96 Batch 0 | Iso Loss: 200.9701 | Score Loss: 0.3362 | Total Loss: 201.3063
+Epoch 96 completed in 0.95s | Train Loss: 328.6843 | Train Iso Loss: 328.3480 | Train Score Loss: 0.3363
+Val Loss: 112.1337 | Val Iso Loss: 111.7960 | Val Score Loss: 0.3377
+Epoch 97 Batch 0 | Iso Loss: 507.5296 | Score Loss: 0.3361 | Total Loss: 507.8657
+Epoch 97 completed in 0.96s | Train Loss: 375.1313 | Train Iso Loss: 374.7947 | Train Score Loss: 0.3366
+Val Loss: 963.7191 | Val Iso Loss: 963.3815 | Val Score Loss: 0.3376
+Epoch 98 Batch 0 | Iso Loss: 282.3339 | Score Loss: 0.3365 | Total Loss: 282.6704
+Epoch 98 completed in 0.96s | Train Loss: 446.9381 | Train Iso Loss: 446.6016 | Train Score Loss: 0.3365
+Val Loss: 25.6683 | Val Iso Loss: 25.3306 | Val Score Loss: 0.3377
+Epoch 99 Batch 0 | Iso Loss: 535.9669 | Score Loss: 0.3366 | Total Loss: 536.3035
+Epoch 99 completed in 0.96s | Train Loss: 743.5948 | Train Iso Loss: 743.2583 | Train Score Loss: 0.3365
+Val Loss: 266.2062 | Val Iso Loss: 265.8685 | Val Score Loss: 0.3377
+Saved final model
+Training completed. Model saved to models/output/run_20250323_101525/model.pt
+
+=== Evaluating Model ===
+
+=== Experiment 1: Ablation Study on Dual-Loss Components ===
+Note: For a complete ablation study, multiple models with different loss configurations
+would need to be trained. See the training script for loss implementation.
+
+=== Experiment 2: Inference Speed and Generation Efficiency ===
+GSD one-step generation time: 0.07 s
+Multi-step generation time: 0.08 s
+Throughput GSD: 865.36 images/s, Multi-step: 812.28 images/s
+Speedup factor: 1.07x
+
+=== Experiment 3: Latent Space Interpolation and Disentanglement ===
+Computing Perceptual Path Length (PPL)...
+Average Perceptual Path Length (PPL): 0.0000
+Evaluation results saved to models/output/run_20250323_101525/results.yaml
+
+=== Experiment Completed ===
+All outputs saved to models/output/run_20250323_101525
