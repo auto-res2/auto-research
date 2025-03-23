@@ -1,0 +1,2 @@
+Base Method:  Coarse Time = 0.0003s, Fine Time = 0.0001s, Total Time = 0.0004s, GPU Memory = 0 bytes
+HBFG-SE3 Method:  Coarse Time = 0.0020s, Fine Time = 1.0455s, Total Time = 1.0475s, GPU Memory = 0 bytes

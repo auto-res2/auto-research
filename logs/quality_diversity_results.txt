@@ -1,0 +1,2 @@
+Average Energy - HBFG-SE3: 31.7511, Base: 24.9589
+Cluster distribution (HBFG-SE3): [6 1 1 1 1]
