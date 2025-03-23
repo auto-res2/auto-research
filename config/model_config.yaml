@@ -1,0 +1,14 @@
+# Model Configuration
+model:
+  name: HBFG-SE3
+  atom_features: 3
+  hidden_dim: 128
+  use_bootstrapping: true
+
+diffusion:
+  coarse_steps: 50
+  fine_steps: 25
+  noise_schedule_min: 0.01
+  noise_schedule_max: 0.1
+  guidance_scale_coarse: 1.0
+  guidance_scale_fine: 2.0

@@ -1,0 +1,22 @@
+# Experiment Configuration
+experiment:
+  name: HBFG-SE3-Experiment
+  description: "Hierarchically Bootstrapped Force-Guided SE(3) Diffusion"
+  seed: 42
+  device: cuda
+  
+  # Experiments to run
+  run_efficiency_benchmark: true
+  run_quality_diversity: true
+  run_ablation_study: true
+  
+  # Parameters for each experiment
+  efficiency:
+    num_iterations: 100
+    
+  quality_diversity:
+    num_samples: 50
+    num_atoms: 10
+    
+  ablation:
+    num_steps: 50
