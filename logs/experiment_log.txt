@@ -1,0 +1,23 @@
+Starting HBFG-SE3 experiments...
+Preprocessing data...
+Training HBFG-SE3 model...
+Loaded pre-trained force predictor.
+
+--- Experiment 1: Efficiency and Runtime Benchmarking ---
+Base Method:  Coarse Time = 0.0097s, Fine Time = 0.0023s, Total Time = 0.0120s, GPU Memory = 72704 bytes
+HBFG-SE3 Method:  Coarse Time = 0.0412s, Fine Time = 1.5175s, Total Time = 1.5587s, GPU Memory = 18393600 bytes
+
+--- Experiment 2: Quality and Diversity of Protein Conformations ---
+Average Energy - HBFG-SE3: 31.5498, Base: 26.1430
+Cluster distribution (HBFG-SE3): [45  2  1  1  1]
+
+--- Experiment 3: Ablation Study on Bootstrapped Guidance Update ---
+Running diffusion with bootstrapped guidance...
+Running diffusion with fixed guidance...
+RMSD compared to ground truth (simulated):
+  Bootstrapped Guidance: 0.7964, Fixed Guidance: 0.8999
+Energy values:
+  Bootstrapped Guidance: 0.6569, Fixed Guidance: 0.0204
+Runtime:
+  Bootstrapped Guidance: 0.0713s, Fixed Guidance: 0.0114s
+All experiments completed successfully!
