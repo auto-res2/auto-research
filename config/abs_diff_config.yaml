@@ -1,0 +1,26 @@
+# Configuration for ABS-Diff experiments
+
+experiment:
+  name: "Adaptive Bayesian SDE-Guided Diffusion"
+  description: "Implementation of ABS-Diff method with three experiments"
+
+data:
+  dataset: "cifar10"
+  batch_size: 64
+  num_workers: 2
+
+training:
+  num_epochs: 1
+  learning_rate: 0.001
+  device: "cuda"
+  seed: 42
+
+model:
+  noise_steps: 1000
+  test_steps: 50
+
+experiments:
+  run_experiment1: true
+  run_experiment2: true
+  run_experiment3: true
+  test_mode: true
