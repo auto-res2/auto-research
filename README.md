@@ -1,1 +1,10 @@
-# auto-research
+
+# Geometric Regularization and Accelerated Score Distillation for Enhanced Latent Insights
+> ⚠️ **NOTE:** This research is an automatic research using Research Graph.
+## Abstract
+Diffusion models have recently showcased exceptional proficiency in synthesizing high-quality visual data, becoming pivotal in generative modeling research. Nonetheless, the inherent complexity and entanglement within their latent space representation pose challenges for downstream applications necessitating semantic control and understanding of the generated content. To mitigate these challenges, **Geometric Score Distillation (GSD)** is proposed: a groundbreaking approach emphasizing geometric consistency in the latent space while maintaining computational efficiency. By incorporating isometry preservation constraints during training, GSD fosters the development of a disentangled and structured latent manifold. The employment of a dynamic teacher-student distillation framework utilizing dual loss mechanisms enables a well-balanced optimization process, yielding significant reductions in inference latency. Experimental validation over benchmarks such as CIFAR-10 and CelebA-HQ demonstrates the efficiency and effectiveness of GSD, attaining over a 90% improvement in inference time while preserving high fidelity of generated images as indicated by stable Fréchet Inception Distance (FID) scores. Furthermore, evaluations of abilities in semantic manipulation and attribute-based editing highlight GSD's superiority in latent disentanglement, paving the way for precise and user-intuitive control in generative tasks. In summary, this study establishes GSD as a substantial advancement in diffusion models, enhancing their practical application and paving a methodical path towards efficient and controlled synthesis.
+
+- [Full paper](https://github.com/auto-res2/auto-research/blob/devin-13176e718b284ce1ac76ae0cbd1f187a/paper/paper.pdf)
+- [Related work](http://arxiv.org/abs/2407.11451v1)
+- [Research Graph execution log](https://github.com/auto-res2/auto-research/blob/devin-13176e718b284ce1ac76ae0cbd1f187a/logs/research_graph_log.json)
+- [Devin execution log](https://app.devin.ai/sessions/13176e718b284ce1ac76ae0cbd1f187a)
