@@ -1,1 +1,9 @@
-# auto-research
+
+# Aligning Steps for Efficient Diffusion Sampling
+> ⚠️ **NOTE:** This research is an automatic research using Research Graph.
+## Abstract
+{\textbf{Abstract}\quad Diffusion models (DMs) have emerged as a state-of-the-art approach in generative modeling, demonstrating unparalleled performance across diverse domains. Notwithstanding, the inherent slowness in sampling processes due to sequential function evaluations remains a significant challenge. Addressing this, the framework "Align Your Steps" (AYS) was previously proposed, leveraging stochastic calculus to optimize sampling schedules in DMs, yielding advancements in synthesis quality with reduced iteration counts. Building upon this innovation, the present work introduces "Score-Aligned Step Distillation" (SASD), which synergizes the theoretical foundations of AYS with principles from Score Identity Distillation (SiD). SASD employs a novel dual-loss objective function, combining Kullback-Leibler divergence minimization with score alignment consistency, enabling the model to autonomously learn sampling schedules and eliminate the reliance on heuristic-based designs. Empirical evaluations conducted on benchmark datasets, such as CIFAR-10 and CelebA, substantiate SASD's ability to achieve superior image synthesis quality with significantly fewer computational steps when compared to existing methods. This research bridges theoretical innovations with practical deployment, ensuring accelerated but maintained high-fidelity generative modeling.
+
+- [Full paper](https://github.com/auto-res2/auto-research/blob/devin-a085514291fc47d582e6e853f5214c20/paper/paper.pdf)
+- [Related work](http://arxiv.org/abs/2404.14507v1)
+- [Devin execution log](https://app.devin.ai/sessions/a085514291fc47d582e6e853f5214c20)
