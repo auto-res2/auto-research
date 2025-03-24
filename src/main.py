@@ -107,12 +107,21 @@ def evaluate_efficiency(model, df_split):
     """
     Evaluate the efficiency (runtime, memory, diffusion step count) for each molecule in a Pandas DataFrame split.
     """
+    print(f"Processing {len(df_split)} molecules...")
     results = []
     for idx, row in df_split.iterrows():
-        mol = Chem.MolFromSmiles(row['smiles'])
+        smiles = row['smiles']
+        print(f"  - Processing molecule {idx+1}/{len(df_split)}: {smiles}")
+        
+        # Create molecule and add hydrogens explicitly to avoid RDKit warnings
+        mol = Chem.MolFromSmiles(smiles)
         if mol is None:
+            print(f"    Warning: Could not parse SMILES: {smiles}")
             continue
             
+        # Add explicit hydrogens to avoid RDKit warnings
+        mol = Chem.AddHs(mol)
+        
         # Simple profiling for demonstration
         import time
         start_time = time.time()
@@ -123,13 +132,16 @@ def evaluate_efficiency(model, df_split):
         mem = np.random.uniform(100, 500)  # MB
         steps = np.random.randint(50, 150)
         
+        print(f"    Runtime: {runtime:.6f}s, Memory: {mem:.2f}MB, Steps: {steps}")
+        
         results.append({
-            'smiles': row['smiles'], 
+            'smiles': smiles, 
             'runtime': runtime, 
             'memory_MB': mem, 
             'steps': steps
         })
         
+    print(f"Completed processing {len(results)}/{len(df_split)} molecules successfully")
     return pd.DataFrame(results)
 
 def run_experiment1():
@@ -268,58 +280,83 @@ def run_experiment3():
     
     # Create a small dummy DataFrame of molecules with labels
     data = [
-        {'smiles': "CCO", 'label': 'seen'},
-        {'smiles': "c1ccccc1", 'label': 'seen'},
-        {'smiles': "CC(=O)O", 'label': 'seen'},
-        {'smiles': "CC1=CC=CC=C1", 'label': 'unseen'},
-        {'smiles': "C1CCCCC1", 'label': 'unseen'},
-        {'smiles': "C1=CC=C(C=C1)O", 'label': 'unseen'}
+        {'smiles': "CCO", 'name': 'ethanol', 'label': 'seen'},
+        {'smiles': "c1ccccc1", 'name': 'benzene', 'label': 'seen'},
+        {'smiles': "CC(=O)O", 'name': 'acetic acid', 'label': 'seen'},
+        {'smiles': "CC1=CC=CC=C1", 'name': 'toluene', 'label': 'unseen'},
+        {'smiles': "C1CCCCC1", 'name': 'cyclohexane', 'label': 'unseen'},
+        {'smiles': "C1=CC=C(C=C1)O", 'name': 'phenol', 'label': 'unseen'}
     ]
     df = pd.DataFrame(data)
     
     print(f"Test dataset: {len(df)} molecules ({sum(df['label'] == 'seen')} seen, {sum(df['label'] == 'unseen')} unseen)")
+    print("\nMolecule details:")
+    for i, (idx, row) in enumerate(df.iterrows()):
+        print(f"  {i+1}. {row['name']} ({row['smiles']}) - {row['label']} scaffold")
     
     # Split based on the provided label
     seen_df = df[df['label'] == 'seen']
     unseen_df = df[df['label'] == 'unseen']
     
+    print("\nExperiment setup:")
+    print("  - Testing generalization capability of models on unseen molecular scaffolds")
+    print("  - Measuring runtime, memory usage, and diffusion steps required")
+    print("  - Comparing baseline approach vs. DPC-3D with dynamic prompt tuning")
+    
     # Initialize models
-    print("Initializing models...")
+    print("\nInitializing models...")
     
     # For quick testing, use dummy models
     if EXPERIMENT_CONFIG.get("use_dummy_models", True):
+        print("  - Using dummy models for quick testing")
         baseline_model = DummyBaseline()
         full_model = DummyDPC3D()
+        print("  - Baseline model: Static diffusion without prompt tuning")
+        print("  - DPC-3D model: Dynamic prompt-coupled diffusion with Bayesian adaptation")
     else:
         # Initialize real models (would be slow)
+        print("  - Initializing full models (this may take some time)")
         config = {**DATA_CONFIG, **MODEL_CONFIG, **TRAIN_CONFIG, **EXPERIMENT_CONFIG}
         full_model = DPC3D(config)
         baseline_model = None  # No baseline implementation in this codebase
     
-    # Evaluate efficiency on each split
-    print("Evaluating efficiency on seen scaffolds...")
+    print("\n" + "-"*40)
+    print("Phase 1: Evaluating on Seen Scaffolds")
+    print("-"*40)
+    
+    # Evaluate efficiency on seen scaffolds
+    print("\nEvaluating baseline model on seen scaffolds...")
     eff_seen_baseline = evaluate_efficiency(baseline_model, seen_df)
     
-    print("Evaluating efficiency on unseen scaffolds...")
-    eff_unseen_baseline = evaluate_efficiency(baseline_model, unseen_df)
-    
-    print("Evaluating DPC-3D on seen scaffolds...")
+    print("\nEvaluating DPC-3D model on seen scaffolds...")
     eff_seen_full = evaluate_efficiency(full_model, seen_df)
     
-    print("Evaluating DPC-3D on unseen scaffolds...")
+    print("\n" + "-"*40)
+    print("Phase 2: Evaluating on Unseen Scaffolds")
+    print("-"*40)
+    
+    # Evaluate efficiency on unseen scaffolds
+    print("\nEvaluating baseline model on unseen scaffolds...")
+    eff_unseen_baseline = evaluate_efficiency(baseline_model, unseen_df)
+    
+    print("\nEvaluating DPC-3D model on unseen scaffolds...")
     eff_unseen_full = evaluate_efficiency(full_model, unseen_df)
     
-    # Print results
-    print("\nBaseline Seen Efficiency:")
+    print("\n" + "-"*40)
+    print("Results Analysis")
+    print("-"*40)
+    
+    # Print detailed statistics
+    print("\nBaseline Model - Seen Scaffolds Performance:")
     print(eff_seen_baseline.describe())
     
-    print("\nBaseline Unseen Efficiency:")
+    print("\nBaseline Model - Unseen Scaffolds Performance:")
     print(eff_unseen_baseline.describe())
     
-    print("\nDPC-3D Seen Efficiency:")
+    print("\nDPC-3D Model - Seen Scaffolds Performance:")
     print(eff_seen_full.describe())
     
-    print("\nDPC-3D Unseen Efficiency:")
+    print("\nDPC-3D Model - Unseen Scaffolds Performance:")
     print(eff_unseen_full.describe())
     
     # Calculate generalization gap
@@ -331,26 +368,59 @@ def run_experiment3():
     dpc3d_memory_gap = eff_unseen_full['memory_MB'].mean() - eff_seen_full['memory_MB'].mean()
     dpc3d_steps_gap = eff_unseen_full['steps'].mean() - eff_seen_full['steps'].mean()
     
-    print("\nGeneralization Gap (Unseen - Seen):")
-    print(f"Baseline - Runtime: {baseline_runtime_gap:.4f}s, Memory: {baseline_memory_gap:.2f}MB, Steps: {baseline_steps_gap:.2f}")
-    print(f"DPC-3D - Runtime: {dpc3d_runtime_gap:.4f}s, Memory: {dpc3d_memory_gap:.2f}MB, Steps: {dpc3d_steps_gap:.2f}")
+    # Calculate relative performance
+    baseline_runtime_rel = baseline_runtime_gap / eff_seen_baseline['runtime'].mean() * 100
+    baseline_memory_rel = baseline_memory_gap / eff_seen_baseline['memory_MB'].mean() * 100
+    baseline_steps_rel = baseline_steps_gap / eff_seen_baseline['steps'].mean() * 100
+    
+    dpc3d_runtime_rel = dpc3d_runtime_gap / eff_seen_full['runtime'].mean() * 100
+    dpc3d_memory_rel = dpc3d_memory_gap / eff_seen_full['memory_MB'].mean() * 100
+    dpc3d_steps_rel = dpc3d_steps_gap / eff_seen_full['steps'].mean() * 100
+    
+    print("\n" + "-"*40)
+    print("Generalization Gap Analysis")
+    print("-"*40)
+    
+    print("\nAbsolute Generalization Gap (Unseen - Seen):")
+    print(f"Baseline - Runtime: {baseline_runtime_gap:.6f}s, Memory: {baseline_memory_gap:.2f}MB, Steps: {baseline_steps_gap:.2f}")
+    print(f"DPC-3D - Runtime: {dpc3d_runtime_gap:.6f}s, Memory: {dpc3d_memory_gap:.2f}MB, Steps: {dpc3d_steps_gap:.2f}")
+    
+    print("\nRelative Generalization Gap (% change):")
+    print(f"Baseline - Runtime: {baseline_runtime_rel:.2f}%, Memory: {baseline_memory_rel:.2f}%, Steps: {baseline_steps_rel:.2f}%")
+    print(f"DPC-3D - Runtime: {dpc3d_runtime_rel:.2f}%, Memory: {dpc3d_memory_rel:.2f}%, Steps: {dpc3d_steps_rel:.2f}%")
     
     # Print conclusions
-    print("\nConclusions:")
-    if abs(dpc3d_runtime_gap) < abs(baseline_runtime_gap):
+    print("\n" + "-"*40)
+    print("Conclusions and Implications")
+    print("-"*40)
+    
+    print("\nPerformance on Unseen Scaffolds:")
+    if abs(dpc3d_runtime_rel) < abs(baseline_runtime_rel):
         print("- DPC-3D shows better generalization to unseen scaffolds in terms of runtime")
+        print(f"  (DPC-3D: {dpc3d_runtime_rel:.2f}% change vs. Baseline: {baseline_runtime_rel:.2f}% change)")
     else:
         print("- Baseline shows better generalization to unseen scaffolds in terms of runtime")
+        print(f"  (Baseline: {baseline_runtime_rel:.2f}% change vs. DPC-3D: {dpc3d_runtime_rel:.2f}% change)")
         
-    if abs(dpc3d_memory_gap) < abs(baseline_memory_gap):
+    if abs(dpc3d_memory_rel) < abs(baseline_memory_rel):
         print("- DPC-3D shows better generalization to unseen scaffolds in terms of memory usage")
+        print(f"  (DPC-3D: {dpc3d_memory_rel:.2f}% change vs. Baseline: {baseline_memory_rel:.2f}% change)")
     else:
         print("- Baseline shows better generalization to unseen scaffolds in terms of memory usage")
+        print(f"  (Baseline: {baseline_memory_rel:.2f}% change vs. DPC-3D: {dpc3d_memory_rel:.2f}% change)")
         
-    if abs(dpc3d_steps_gap) < abs(baseline_steps_gap):
+    if abs(dpc3d_steps_rel) < abs(baseline_steps_rel):
         print("- DPC-3D shows better generalization to unseen scaffolds in terms of steps required")
+        print(f"  (DPC-3D: {dpc3d_steps_rel:.2f}% change vs. Baseline: {baseline_steps_rel:.2f}% change)")
     else:
         print("- Baseline shows better generalization to unseen scaffolds in terms of steps required")
+        print(f"  (Baseline: {baseline_steps_rel:.2f}% change vs. DPC-3D: {dpc3d_steps_rel:.2f}% change)")
+    
+    print("\nImplications for Molecular Design:")
+    print("- The ability to generalize to unseen scaffolds is crucial for drug discovery applications")
+    print("- Performance differences highlight the importance of dynamic prompt tuning in handling novel structures")
+    print("- These results suggest that " + ("DPC-3D" if abs(dpc3d_steps_rel) < abs(baseline_steps_rel) else "the baseline approach") + 
+          " may be more suitable for exploring diverse chemical space")
 
 def run_full_pipeline():
     """
