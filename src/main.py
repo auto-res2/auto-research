@@ -3,10 +3,10 @@ import os
 import torch
 import argparse
 import time
-from src.preprocess import preprocess_data
-from src.train import train_ambient_diffusion, train_one_step_generator
-from src.evaluate import experiment1_efficiency_benchmark, run_all_experiments
-from src.utils.models import AmbientDiffusionModel, OneStepGenerator
+from preprocess import preprocess_data
+from train import train_ambient_diffusion, train_one_step_generator
+from evaluate import experiment1_efficiency_benchmark, run_all_experiments
+from utils.models import AmbientDiffusionModel, OneStepGenerator
 
 def parse_args():
     """Parse command line arguments."""
@@ -44,6 +44,18 @@ def print_system_info():
         print(f"CUDA version: {torch.version.cuda}")
         print(f"GPU: {torch.cuda.get_device_name(0)}")
         print(f"GPU memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+    
+    # Print CPU information
+    import platform
+    print(f"CPU: {platform.processor()}")
+    print(f"Python version: {platform.python_version()}")
+    print(f"OS: {platform.system()} {platform.release()}")
+    
+    # Print available memory
+    import psutil
+    memory = psutil.virtual_memory()
+    print(f"Total memory: {memory.total / 1e9:.2f} GB")
+    print(f"Available memory: {memory.available / 1e9:.2f} GB")
     print("========================================\n")
 
 def print_experiment_header(title):
@@ -56,6 +68,10 @@ def run_experiment1(args):
     """Run Experiment 1: Efficiency and Inference-Time Benchmarking."""
     print_experiment_header("Experiment 1: Efficiency and Inference-Time Benchmarking")
     
+    print("Initializing models for efficiency benchmarking...")
+    print(f"- AmbientDiffusionModel: Multi-step diffusion model")
+    print(f"- OneStepGenerator: Distilled one-step generator")
+    
     # Initialize models
     ambient_model = AmbientDiffusionModel().to(args.device)
     one_step_model = OneStepGenerator().to(args.device)
@@ -63,6 +79,14 @@ def run_experiment1(args):
     # Adjust parameters for test mode
     num_samples = 10 if args.test_mode else args.num_samples
     diffusion_steps = 10 if args.test_mode else args.diffusion_steps
+    
+    print(f"\nRunning inference benchmark with:")
+    print(f"- Number of samples: {num_samples}")
+    print(f"- Diffusion steps for ambient model: {diffusion_steps}")
+    print(f"- Device: {args.device}")
+    print(f"- Image shape: (3, 32, 32) [CIFAR10]")
+    print(f"- Saving results to: {args.logs_dir}")
+    print("\nThis experiment measures inference speed and memory usage differences...")
     
     # Run the experiment
     results = experiment1_efficiency_benchmark(
@@ -73,13 +97,17 @@ def run_experiment1(args):
     )
     
     # Print detailed results
-    print("\nExperiment 1 Results Summary:")
+    print("\n" + "=" * 50)
+    print("Experiment 1 Results Summary:".center(50))
+    print("=" * 50)
     print(f"Ambient Diffusion inference time per sample (ms): {results['ambient_time']:.2f}")
     print(f"One-Step Generator inference time per sample (ms): {results['one_step_time']:.2f}")
     print(f"Speedup factor: {results['speedup_factor']:.2f}x")
     print(f"Ambient Diffusion memory usage (MB): {results['ambient_memory']:.2f}")
     print(f"One-Step Generator memory usage (MB): {results['one_step_memory']:.2f}")
     print(f"Memory reduction: {results['memory_reduction']:.2f}x")
+    print(f"Sample comparison saved to: {os.path.join(args.logs_dir, 'experiment1_samples_comparison.png')}")
+    print("=" * 50)
     
     return results
 
@@ -91,14 +119,31 @@ def run_experiment2(args):
     noise_levels = [0.1] if args.test_mode else args.noise_levels
     batch_size = 16 if args.test_mode else args.batch_size
     
+    print("\nExperiment 2 Configuration:")
+    print(f"- Noise levels to test: {noise_levels}")
+    print(f"- Batch size: {batch_size}")
+    print(f"- Epochs: {args.epochs}")
+    print(f"- Device: {args.device}")
+    print(f"- Models directory: {args.models_dir}")
+    
+    print("\nThis experiment evaluates the ASD method's ability to:")
+    print("1. Learn from noisy data without memorizing corruption")
+    print("2. Maintain performance across different noise levels")
+    print("3. Successfully distill knowledge from ambient diffusion to one-step generator")
+    
     # Preprocess data
-    print("Preprocessing data for different noise levels...")
+    print("\nPreprocessing data for different noise levels...")
     dataloaders = preprocess_data(noise_levels=noise_levels, batch_size=batch_size)
     
     # Train models for each noise level
     results = {}
     for noise_level in noise_levels:
-        print(f"\nTraining with noise level {noise_level}...")
+        print(f"\n{'='*30}")
+        print(f" Training with noise level {noise_level:.2f} ".center(30, '='))
+        print(f"{'='*30}")
+        
+        print("\nStage 1: Training ambient diffusion model...")
+        print("This model learns to denoise corrupted data using consistency training")
         
         # Train ambient diffusion model
         ambient_model = train_ambient_diffusion(
@@ -108,6 +153,9 @@ def run_experiment2(args):
             device=args.device,
             save_dir=args.models_dir
         )
+        
+        print("\nStage 2: Training one-step generator via score distillation...")
+        print("This model distills the ambient model's knowledge into an efficient generator")
         
         # Train one-step generator
         one_step_model = train_one_step_generator(
@@ -124,10 +172,19 @@ def run_experiment2(args):
             'ambient_model': ambient_model,
             'one_step_model': one_step_model
         }
+        
+        print(f"\nCompleted training for noise level {noise_level:.2f}")
+        print(f"- Ambient model saved as: ambient_diffusion_noise_{noise_level}.pt")
+        print(f"- One-step model saved as: one_step_generator_noise_{noise_level}.pt")
     
-    print("\nExperiment 2 Results Summary:")
+    print("\n" + "=" * 50)
+    print("Experiment 2 Results Summary:".center(50))
+    print("=" * 50)
     print(f"Successfully trained models for {len(noise_levels)} noise levels: {noise_levels}")
-    print(f"Models saved to {args.models_dir}")
+    print(f"All models saved to: {args.models_dir}")
+    print(f"The ASD method successfully learned from corrupted data")
+    print(f"and distilled knowledge into efficient one-step generators.")
+    print("=" * 50)
     
     return results
 
@@ -139,8 +196,22 @@ def run_experiment3(args):
     num_synthetic = 20 if args.test_mode else 100
     batch_size = 8 if args.test_mode else 16
     
+    print("\nExperiment 3 Configuration:")
+    print(f"- Number of synthetic samples: {num_synthetic}")
+    print(f"- Batch size: {batch_size}")
+    print(f"- Epochs: {args.epochs}")
+    print(f"- Device: {args.device}")
+    print(f"- Results directory: {args.logs_dir}")
+    
+    print("\nThis experiment evaluates the contribution of different components in ASD:")
+    print("1. Full ASD: Both score identity and consistency losses")
+    print("2. No Consistency: Only score identity loss")
+    print("3. No Score Identity: Only consistency loss")
+    print("\nThe experiment uses data-free distillation, where synthetic data is")
+    print("generated by the ambient diffusion model rather than using real data.")
+    
     # Run the experiment
-    from src.utils.experiments import experiment3_ablation_study
+    from utils.experiments import experiment3_ablation_study
     results = experiment3_ablation_study(
         device=args.device,
         num_synthetic=num_synthetic,
@@ -150,7 +221,9 @@ def run_experiment3(args):
     )
     
     # Print detailed results
-    print("\nExperiment 3 Results Summary:")
+    print("\n" + "=" * 50)
+    print("Experiment 3 Results Summary:".center(50))
+    print("=" * 50)
     print("Ablation Study Final Losses:")
     for config_name, config_results in results.items():
         print(f"  {config_name}: {config_results['final_loss']:.4f}")
@@ -159,6 +232,8 @@ def run_experiment3(args):
     best_config = min(results.items(), key=lambda x: x[1]['final_loss'])[0]
     print(f"\nBest configuration: {best_config}")
     print("This demonstrates the importance of each component in the ASD method.")
+    print(f"Ablation study comparison plot saved to: {os.path.join(args.logs_dir, 'experiment3_ablation_comparison.png')}")
+    print("=" * 50)
     
     return results
 

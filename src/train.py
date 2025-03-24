@@ -5,8 +5,8 @@ import torch.optim as optim
 import os
 import numpy as np
 from tqdm import tqdm
-from src.utils.models import AmbientDiffusionModel, OneStepGenerator
-from src.utils.data import get_dataloaders
+from utils.models import AmbientDiffusionModel, OneStepGenerator
+from utils.data import get_dataloaders
 
 def train_ambient_diffusion(
     noise_level=0.3,

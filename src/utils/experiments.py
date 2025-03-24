@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from tqdm import tqdm
-from src.utils.models import AmbientDiffusionModel, OneStepGenerator
-from src.utils.data import get_dataloaders
-from src.utils.metrics import measure_inference_time, compute_memory_usage
+from .models import AmbientDiffusionModel, OneStepGenerator
+from .data import get_dataloaders
+from .metrics import measure_inference_time, compute_memory_usage
 
 def experiment2_noise_robustness(
     noise_levels=[0.1, 0.3, 0.6],

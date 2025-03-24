@@ -3,10 +3,10 @@ import torch
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-from src.utils.models import AmbientDiffusionModel, OneStepGenerator
-from src.utils.data import get_dataloaders
-from src.utils.metrics import measure_inference_time, compute_memory_usage
-from src.utils.experiments import experiment2_noise_robustness, experiment3_ablation_study
+from utils.models import AmbientDiffusionModel, OneStepGenerator
+from utils.data import get_dataloaders
+from utils.metrics import measure_inference_time, compute_memory_usage
+from utils.experiments import experiment2_noise_robustness, experiment3_ablation_study
 
 def experiment1_efficiency_benchmark(
     ambient_model_path=None,

@@ -3,7 +3,7 @@ import torch
 import os
 from torchvision.datasets import CIFAR10
 from torchvision import transforms
-from src.utils.data import NoisyCIFAR10, get_dataloaders
+from utils.data import NoisyCIFAR10, get_dataloaders
 
 def preprocess_data(noise_levels=[0.1, 0.3, 0.6], batch_size=64):
     """
