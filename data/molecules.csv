@@ -1,0 +1,16 @@
+smiles,name,label
+CCO,ethanol,seen
+CCC,propane,seen
+CCN,ethylamine,seen
+c1ccccc1,benzene,seen
+CC(=O)O,acetic acid,seen
+C1CCCCC1,cyclohexane,unseen
+CC1=CC=CC=C1,toluene,unseen
+C1=CC=C(C=C1)O,phenol,unseen
+CC(C)C,isobutane,seen
+CCCC,butane,seen
+C1=CC=CC=C1C(=O)O,benzoic acid,unseen
+CCCl,chloroethane,seen
+CCBr,bromoethane,seen
+CCI,iodoethane,seen
+CCOC,ethyl methyl ether,seen
