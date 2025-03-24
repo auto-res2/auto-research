@@ -1,1 +1,11 @@
-# Please list the required python packages.
+# Required python packages for ABSD implementation
+torch>=1.12.0
+torchvision>=0.13.0
+numpy>=1.22.0
+scipy>=1.8.0
+matplotlib>=3.5.0
+pillow>=9.0.0
+tensorboard>=2.8.0
+tqdm>=4.64.0
+imageio>=2.19.0
+imageio-ffmpeg>=0.4.7

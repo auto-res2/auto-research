@@ -1,0 +1,13 @@
+{
+  "num_epochs": 5,
+  "batch_size": 64,
+  "image_size": 32,
+  "latent_dim": 100,
+  "image_channels": 3,
+  "learning_rate": 1e-4,
+  "uncertainty_factor": 1.0,
+  "sde_stepsize": 0.005,
+  "data_dir": "./data",
+  "seed": 42,
+  "num_workers": 2
+}
