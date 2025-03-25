@@ -17,6 +17,10 @@ class DynamicTokenizer(nn.Module):
 
     def forward(self, x):
         # x: [B, C, H, W]
+        # Ensure model and input are on the same device
+        device = x.device
+        self.to(device)
+        
         feat = F.relu(self.conv1(x))
         # Generate a complexity map in [0,1] – higher values where there is more detail
         complexity_map = torch.sigmoid(self.conv2(feat))
@@ -132,6 +136,10 @@ class ATBFNPipeline(nn.Module):
         )
 
     def forward(self, x, num_steps=None):
+        # Ensure model and input are on the same device
+        device = x.device
+        self.to(device)
+        
         # If num_steps not provided, use config value
         if num_steps is None:
             num_steps = self.config.get('quick_test_iterations', 3) if self.config.get('quick_test', False) else self.config.get('num_evolution_steps', 5)
@@ -139,7 +147,7 @@ class ATBFNPipeline(nn.Module):
         # Check if input is already tokens or an image
         if len(x.shape) == 3:  # [B, N, token_dim] - already tokens
             tokens = x
-            complexity_map = torch.ones((x.shape[0], 1, 8, 8), device=x.device)  # Dummy complexity map
+            complexity_map = torch.ones((x.shape[0], 1, 8, 8), device=device)  # Dummy complexity map
         else:  # [B, C, H, W] - image input
             tokens, complexity_map = self.tokenizer(x)
         
@@ -166,6 +174,9 @@ class ATBFNPipeline(nn.Module):
         tokens_avg = tokens.mean(dim=1)
         img_flat = self.reconstruction(tokens_avg)
         reconstructed = img_flat.view(-1, 3, 32, 32)
+        
+        # Print device information for debugging
+        print(f"Output devices - Tokens: {tokens.device}, Reconstructed: {reconstructed.device}")
         
         return {
             'tokens': tokens,

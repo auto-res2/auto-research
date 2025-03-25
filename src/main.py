@@ -61,16 +61,19 @@ def run_experiment_adaptive_tokenization(config, device):
         imgs, _ = next(iter(loader))
         print(f"Loaded batch of images with shape: {imgs.shape}")
         
-        # Create tokenizer
-        tokenizer = ATBFNPipeline(config).tokenizer
+        # Create tokenizer and move to device
+        tokenizer = ATBFNPipeline(config).to(device).tokenizer
         tokens, complexity = tokenizer(imgs.to(device))
         
         print(f"Dynamic Tokenizer Output -- Tokens shape: {tokens.shape}")
         
         # Fixed grid baseline
-        baseline_tokens = F.adaptive_avg_pool2d(imgs, (8, 8))
+        baseline_tokens = F.adaptive_avg_pool2d(imgs.to(device), (8, 8))
         B, C, H_tok, W_tok = baseline_tokens.shape
         baseline_tokens_flat = baseline_tokens.view(B, C, H_tok*W_tok).permute(0, 2, 1)
+        
+        # Print device information for debugging
+        print(f"Device information - Tokens: {tokens.device}, Complexity map: {complexity.device}, Baseline: {baseline_tokens.device}")
         
         print(f"Baseline (fixed grid) Tokens shape: {baseline_tokens_flat.shape}")
         print(f"Complexity map statistics: min={complexity.min().item():.4f}, "
@@ -88,32 +91,39 @@ def run_experiment_token_evolution(config, device):
     # Initialize random tokens
     initial_tokens = torch.randn(B, N, token_dim, device=device)
     print(f"Initial tokens shape: {initial_tokens.shape}")
+    print(f"Tokens device: {initial_tokens.device}")
     
     # Fixed-step evolution
     fixed_sde = FixedStepSDE(token_dim, dt=0.1).to(device)
+    print(f"Fixed SDE device: {next(fixed_sde.parameters()).device}")
     tokens_fixed = initial_tokens.clone()
     
     start_time = time.time()
     for i in range(5):  # 5 iterations
         tokens_fixed = fixed_sde(tokens_fixed)
+        if i % 2 == 0:  # Print every other iteration for more detailed output
+            print(f"Iteration {i+1} fixed evolution -- token norm: {torch.norm(tokens_fixed).item():.4f}")
     elapsed_fixed = time.time() - start_time
     
     print(f"Fixed-step SDE evolution completed in {elapsed_fixed:.4f} seconds.")
     print(f"Final token shape: {tokens_fixed.shape}")
+    print(f"Final token device: {tokens_fixed.device}")
 
     # Adaptive SDE evolution
     adaptive_sde = AdaptiveSDE(token_dim, base_dt=0.1).to(device)
+    print(f"Adaptive SDE device: {next(adaptive_sde.parameters()).device}")
     tokens_adaptive = initial_tokens.clone()
     
     start_time = time.time()
     for i in range(5):  # 5 iterations
         tokens_adaptive, uncertainty = adaptive_sde(tokens_adaptive)
         avg_unc = uncertainty.mean().item()
-        print(f"Iteration {i+1} adaptive evolution -- avg uncertainty: {avg_unc:.4f}")
+        print(f"Iteration {i+1} adaptive evolution -- avg uncertainty: {avg_unc:.4f}, token norm: {torch.norm(tokens_adaptive).item():.4f}")
     elapsed_adaptive = time.time() - start_time
     
     print(f"Adaptive SDE evolution completed in {elapsed_adaptive:.4f} seconds.")
     print(f"Final token shape: {tokens_adaptive.shape}")
+    print(f"Final token device: {tokens_adaptive.device}")
 
 def run_experiment_cross_token_attention(config, device):
     """
@@ -130,24 +140,34 @@ def run_experiment_cross_token_attention(config, device):
     # Run pipeline with cross-token attention
     print("Running ATBFN pipeline WITH cross-token attention...")
     model_with_attn = ATBFNPipeline(config, token_dim=token_dim, use_attention=True).to(device)
+    print(f"Model with attention device: {next(model_with_attn.parameters()).device}")
     
     with torch.no_grad():
         output_with = model_with_attn(initial_tokens)
     
     print(f"Output with attention has shape: {output_with['reconstructed'].shape}")
+    print(f"Output with attention device: {output_with['reconstructed'].device}")
     
     # Run pipeline without cross-token attention
     print("\nRunning ATBFN pipeline WITHOUT cross-token attention...")
     model_without_attn = ATBFNPipeline(config, token_dim=token_dim, use_attention=False).to(device)
+    print(f"Model without attention device: {next(model_without_attn.parameters()).device}")
     
     with torch.no_grad():
         output_without = model_without_attn(initial_tokens)
     
     print(f"Output without attention has shape: {output_without['reconstructed'].shape}")
+    print(f"Output without attention device: {output_without['reconstructed'].device}")
     
     # Calculate difference
     norm_diff = torch.norm(output_with['reconstructed'] - output_without['reconstructed']).item()
     print(f"Difference (norm) between outputs: {norm_diff:.4f}")
+    
+    # Print attention weights statistics if available
+    if output_with.get('attention_weights'):
+        attn_weights = output_with['attention_weights'][-1]  # Last iteration
+        print(f"Attention weights statistics: min={attn_weights.min().item():.4f}, "
+              f"max={attn_weights.max().item():.4f}, mean={attn_weights.mean().item():.4f}")
 
 def train_and_evaluate(config, device):
     """
@@ -159,11 +179,16 @@ def train_and_evaluate(config, device):
     train_loader = get_dataloader(config, train=True)
     test_loader = get_dataloader(config, train=False)
     
-    # Create model
+    # Create model and ensure it's on the correct device
     model = ATBFNPipeline(config).to(device)
+    print(f"Model device: {next(model.parameters()).device}")
     
     # Train model
+    print(f"Starting model training on {device}...")
     losses = train_model(model, train_loader, config, device)
+    
+    # Print training results
+    print(f"Training completed with losses: initial={losses[0]:.4f}, final={losses[-1]:.4f}")
     
     # Save model
     model_path = os.path.join('models', 'atbfn_model.pth')
@@ -171,7 +196,9 @@ def train_and_evaluate(config, device):
     print(f"Model saved to {model_path}")
     
     # Quick evaluation
+    print(f"Starting model evaluation on {device}...")
     mse = quick_test_evaluation(model, test_loader, config, device)
+    print(f"Evaluation MSE: {mse:.6f}")
     
     return model, mse
 
@@ -181,17 +208,39 @@ def test_all(config, device):
     Each experiment is run with one quick iteration or a single batch.
     """
     print("\n=== Starting quick tests for all experiments ===")
+    print(f"Running tests on device: {device}")
+    print(f"CUDA available: {torch.cuda.is_available()}")
+    if torch.cuda.is_available():
+        print(f"Current CUDA device: {torch.cuda.current_device()}")
+        print(f"CUDA memory allocated: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
+        print(f"CUDA memory reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB")
     
-    # Experiment 1: Just one batch per resolution
-    run_experiment_adaptive_tokenization(config, device)
-    
-    # Experiment 2: Quick token evolution experiment
-    run_experiment_token_evolution(config, device)
-    
-    # Experiment 3: Run ablation comparison of attention module in ATBFNPipeline
-    run_experiment_cross_token_attention(config, device)
-    
-    print("\nAll quick tests finished successfully.")
+    try:
+        # Experiment 1: Just one batch per resolution
+        print("\n--- Starting Experiment 1: Adaptive Tokenization ---")
+        run_experiment_adaptive_tokenization(config, device)
+        print("--- Experiment 1 completed successfully ---")
+        
+        # Experiment 2: Quick token evolution experiment
+        print("\n--- Starting Experiment 2: Token Evolution ---")
+        run_experiment_token_evolution(config, device)
+        print("--- Experiment 2 completed successfully ---")
+        
+        # Experiment 3: Run ablation comparison of attention module in ATBFNPipeline
+        print("\n--- Starting Experiment 3: Cross-token Attention ---")
+        run_experiment_cross_token_attention(config, device)
+        print("--- Experiment 3 completed successfully ---")
+        
+        print("\nAll quick tests finished successfully.")
+        
+        if torch.cuda.is_available():
+            print(f"Final CUDA memory allocated: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
+            print(f"Final CUDA memory reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB")
+            
+    except Exception as e:
+        print(f"\nError during testing: {str(e)}")
+        print(f"Error type: {type(e).__name__}")
+        raise
 
 def main():
     """Main function to run the AT-BFN experiments"""
