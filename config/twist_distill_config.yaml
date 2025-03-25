@@ -3,16 +3,16 @@
 # Dataset parameters
 dataset:
   name: "cifar10"  # Dataset to use (cifar10, cifar100, or custom)
-  batch_size: 32   # Reduced from 64 to decrease memory usage
-  num_workers: 2   # Reduced from 4 to decrease CPU overhead
+  batch_size: 16   # Further reduced from 32 to decrease memory usage
+  num_workers: 1   # Further reduced from 2 to decrease CPU overhead
   data_dir: "./data"
 
 # Model parameters
 model:
   in_channels: 3  # Input image channels
-  feature_dim: 32  # Reduced from 64 to decrease memory usage
-  hidden_dim: 64   # Reduced from 128 to decrease memory usage
-  use_batch_norm: true
+  feature_dim: 16  # Further reduced from 32 to decrease memory usage
+  hidden_dim: 32   # Further reduced from 64 to decrease memory usage
+  use_batch_norm: false  # Disabled batch norm to reduce memory usage
   architecture: "simple_cnn"  # Architecture type: simple_cnn or resnet
 
 # Training parameters

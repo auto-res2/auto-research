@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
     """Simple CNN block for feature extraction."""
-    def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1, use_bn=True):
+    def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1, use_bn=False):
         super(SimpleCNN, self).__init__()
         self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, 
                               stride=stride, padding=padding)
@@ -24,27 +24,25 @@ class SIDModel(nn.Module):
     """
     Baseline SiD (Score-based Image Distillation) model.
     Uses three separate networks.
+    Memory-optimized version with reduced layers.
     """
-    def __init__(self, in_channels=3, feature_dim=64, hidden_dim=128, use_bn=True):
+    def __init__(self, in_channels=3, feature_dim=64, hidden_dim=128, use_bn=False):
         super(SIDModel, self).__init__()
-        # Score network for true data distribution
+        # Score network for true data distribution - reduced to 2 layers
         self.f_phi = nn.Sequential(
             SimpleCNN(in_channels, hidden_dim, use_bn=use_bn),
-            SimpleCNN(hidden_dim, hidden_dim, use_bn=use_bn),
             SimpleCNN(hidden_dim, feature_dim, use_bn=use_bn)
         )
         
-        # Score network for generated distribution
+        # Score network for generated distribution - reduced to 2 layers
         self.f_psi = nn.Sequential(
             SimpleCNN(in_channels, hidden_dim, use_bn=use_bn),
-            SimpleCNN(hidden_dim, hidden_dim, use_bn=use_bn),
             SimpleCNN(hidden_dim, feature_dim, use_bn=use_bn)
         )
         
-        # Generator network
+        # Generator network - reduced to 2 layers
         self.G_theta = nn.Sequential(
             SimpleCNN(feature_dim, hidden_dim, use_bn=use_bn),
-            SimpleCNN(hidden_dim, hidden_dim, use_bn=use_bn),
             nn.Conv2d(hidden_dim, in_channels, kernel_size=3, padding=1)
         )
         
@@ -58,20 +56,19 @@ class TwiSTModel(nn.Module):
     """
     TwiST-Distill model with shared twin-network architecture.
     Reduces memory consumption compared to SiD.
+    Memory-optimized version with reduced layers.
     """
-    def __init__(self, in_channels=3, feature_dim=64, hidden_dim=128, use_bn=True):
+    def __init__(self, in_channels=3, feature_dim=64, hidden_dim=128, use_bn=False):
         super(TwiSTModel, self).__init__()
-        # Shared network for feature extraction
+        # Shared network for feature extraction - reduced to 2 layers
         self.shared_net = nn.Sequential(
             SimpleCNN(in_channels, hidden_dim, use_bn=use_bn),
-            SimpleCNN(hidden_dim, hidden_dim, use_bn=use_bn),
             SimpleCNN(hidden_dim, feature_dim, use_bn=use_bn)
         )
         
-        # Generator network
+        # Generator network - reduced to 2 layers
         self.G_theta = nn.Sequential(
             SimpleCNN(feature_dim, hidden_dim, use_bn=use_bn),
-            SimpleCNN(hidden_dim, hidden_dim, use_bn=use_bn),
             nn.Conv2d(hidden_dim, in_channels, kernel_size=3, padding=1)
         )
     

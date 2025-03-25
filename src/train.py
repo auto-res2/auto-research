@@ -19,8 +19,13 @@ def train_sid(model, train_loader, optimizer, device, epoch, config):
     model.train()
     total_loss = 0
     
+    # Process in smaller batches to reduce memory usage
     pbar = tqdm(train_loader, desc=f"Epoch {epoch} [SID]")
-    for data, _ in pbar:
+    for batch_idx, (data, _) in enumerate(pbar):
+        # Print memory usage every 10 batches
+        if batch_idx % 10 == 0 and torch.cuda.is_available():
+            print(f"  Batch {batch_idx}: GPU Memory: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+        
         data = data.to(device)
         optimizer.zero_grad()
         
@@ -35,6 +40,10 @@ def train_sid(model, train_loader, optimizer, device, epoch, config):
         # Backward pass and optimize
         loss.backward()
         optimizer.step()
+        
+        # Clear intermediate variables to free memory
+        del gen, score_true, score_fake
+        torch.cuda.empty_cache()
         
         # Update statistics
         total_loss += loss.item()
@@ -52,7 +61,11 @@ def train_twist(model, train_loader, optimizer, device, epoch, config):
     consistency_weight = config['training']['consistency_weight']
     
     pbar = tqdm(train_loader, desc=f"Epoch {epoch} [TwiST]")
-    for data, _ in pbar:
+    for batch_idx, (data, _) in enumerate(pbar):
+        # Print memory usage every 10 batches
+        if batch_idx % 10 == 0 and torch.cuda.is_available():
+            print(f"  Batch {batch_idx}: GPU Memory: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+        
         data = data.to(device)
         optimizer.zero_grad()
         
@@ -77,6 +90,10 @@ def train_twist(model, train_loader, optimizer, device, epoch, config):
         # Backward pass and optimize
         loss.backward()
         optimizer.step()
+        
+        # Clear intermediate variables to free memory
+        del gen_clean, gen_noisy, latent_clean, latent_noisy, data_noisy
+        torch.cuda.empty_cache()
         
         # Update statistics
         total_loss += loss.item()
@@ -103,6 +120,9 @@ def train_model(config_path):
     
     # Set random seed for reproducibility
     set_seed(config['experiment']['seed'])
+    
+    # Set PyTorch CUDA memory allocation configuration to avoid fragmentation
+    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
     
     # Get device
     device = get_device(config['experiment']['gpu_id'])
@@ -154,14 +174,15 @@ def train_model(config_path):
         print("Running in test mode with reduced epochs")
         num_epochs = min(2, num_epochs)  # Limit to 2 epochs for testing
         
-    # Move model to device only when needed
-    model = model.to(device)
+    # Keep model on CPU initially
+    # We'll move it to GPU in smaller chunks during training
     
-    # Print GPU memory after model is moved to device
+    # Print GPU memory before any model is moved to device
     if torch.cuda.is_available():
-        print(f"GPU Memory after loading TwiST model:")
+        print(f"GPU Memory before loading any models:")
         print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
         print(f"  Cached: {torch.cuda.memory_reserved(device) / 1024**2:.2f} MB")
+        print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
     
     twist_losses = []
     sid_losses = []
@@ -171,29 +192,56 @@ def train_model(config_path):
     start_time = time.time()
     
     for epoch in range(1, num_epochs + 1):
+        # Move TwiST model to device for training
+        print(f"Moving TwiST model to device for epoch {epoch}...")
+        model = model.to(device)
+        
+        # Print GPU memory after moving TwiST model to device
+        if torch.cuda.is_available():
+            print(f"GPU Memory after moving TwiST model to device:")
+            print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+            print(f"  Cached: {torch.cuda.memory_reserved(device) / 1024**2:.2f} MB")
+            print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
+        
         # Train TwiST-Distill model
         twist_loss, consistency_loss = train_twist(model, train_loader, optimizer, device, epoch, config)
         twist_losses.append(twist_loss)
         consistency_losses.append(consistency_loss)
         
-        # Clear cache before switching models
+        # Move TwiST model back to CPU and clear cache before switching models
+        print(f"Moving TwiST model back to CPU...")
+        model = model.cpu()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
-            print(f"GPU Memory after TwiST training:")
+            print(f"GPU Memory after TwiST training (model moved to CPU):")
             print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
             print(f"  Cached: {torch.cuda.memory_reserved(device) / 1024**2:.2f} MB")
+            print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
         
         # Move SID model to device and train
+        print(f"Moving SID model to device for epoch {epoch}...")
         sid_model = sid_model.to(device)
+        
+        # Print GPU memory after moving SID model to device
+        if torch.cuda.is_available():
+            print(f"GPU Memory after moving SID model to device:")
+            print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+            print(f"  Cached: {torch.cuda.memory_reserved(device) / 1024**2:.2f} MB")
+            print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
         
         # Train baseline SID model for comparison
         sid_loss = train_sid(sid_model, train_loader, sid_optimizer, device, epoch, config)
         sid_losses.append(sid_loss)
         
-        # Clear cache after training
+        # Move SID model back to CPU and clear cache after training
+        print(f"Moving SID model back to CPU...")
+        sid_model = sid_model.cpu()
         if torch.cuda.is_available():
-            sid_model = sid_model.cpu()  # Move model back to CPU to free GPU memory
             torch.cuda.empty_cache()
+            print(f"GPU Memory after SID training (model moved to CPU):")
+            print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+            print(f"  Cached: {torch.cuda.memory_reserved(device) / 1024**2:.2f} MB")
+            print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
             print(f"GPU Memory after SID training:")
             print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
         
@@ -216,25 +264,52 @@ def train_model(config_path):
             save_model(sid_model, epoch, sid_save_path)
             
             # Generate and save sample images (on CPU to save memory)
-            model.eval()
+            print(f"Generating sample images for epoch {epoch}...")
+            
+            # Process models one at a time to minimize memory usage
             with torch.no_grad():
+                # First, get a small batch of test data
                 data_sample, _ = next(iter(test_loader))
-                data_sample = data_sample[:4].to(device)  # Use only 4 samples to reduce memory usage (was 8)
+                # Use only 2 samples to further reduce memory usage (was 4)
+                data_sample = data_sample[:2].to(device)
                 
-                # Only move SID model to GPU when needed
-                sid_model = sid_model.to(device)
-                sid_model.eval()
+                # Print memory usage before image generation
+                if torch.cuda.is_available():
+                    print(f"GPU Memory before image generation:")
+                    print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+                    print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
                 
-                # Generate images with both models
-                gen_twist, _ = model(data_sample)
-                gen_sid, _, _ = sid_model(data_sample)
-                
-                # Add noise to test robustness
+                # Create noisy version for testing
                 data_noisy = add_controlled_noise(data_sample, config['training']['noise_std'])
+                
+                # Process TwiST model first
+                print("Processing TwiST model images...")
+                model.eval()
+                model = model.to(device)
+                gen_twist, _ = model(data_sample)
                 gen_twist_noisy, _ = model(data_noisy)
+                # Move model back to CPU immediately
+                model = model.cpu()
+                torch.cuda.empty_cache()
+                
+                # Process SID model next
+                print("Processing SID model images...")
+                sid_model.eval()
+                sid_model = sid_model.to(device)
+                gen_sid, _, _ = sid_model(data_sample)
                 gen_sid_noisy, _, _ = sid_model(data_noisy)
+                # Move model back to CPU immediately
+                sid_model = sid_model.cpu()
+                torch.cuda.empty_cache()
+                
+                # Print memory usage after image generation
+                if torch.cuda.is_available():
+                    print(f"GPU Memory after image generation:")
+                    print(f"  Allocated: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+                    print(f"  Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
                 
                 # Concatenate for visual comparison
+                print("Creating comparison image...")
                 comparison = torch.cat([
                     data_sample, data_noisy,
                     gen_twist, gen_twist_noisy,
@@ -243,11 +318,8 @@ def train_model(config_path):
                 
                 # Save comparison image
                 save_path = os.path.join(config['training']['save_dir'], f"comparison_epoch{epoch}.png")
-                save_images(comparison, save_path, nrow=4)  # Reduced from 8 to 4
-                
-                # Move SID model back to CPU
-                sid_model = sid_model.cpu()
-                torch.cuda.empty_cache()
+                save_images(comparison, save_path, nrow=2)  # Further reduced from 4 to 2
+                print(f"Sample images saved to {save_path}")
     
     end_time = time.time()
     training_time = end_time - start_time
