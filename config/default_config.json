@@ -1,0 +1,51 @@
+{
+    "data_dir": "data/sample_videos",
+    "models_dir": "models",
+    "logs_dir": "logs",
+    "batch_size": 2,
+    "frame_size": [256, 256],
+    "sequence_length": 16,
+    "epochs": 5,
+    "lr": 1e-4,
+    "weight_decay": 1e-5,
+    "noise_level": 0.1,
+    "perceptual_weight": 0.1,
+    "consistency_weight": 0.1,
+    "global_editing_intensity": 1.0,
+    "print_freq": 10,
+    "save_freq": 1,
+    "target_text": "edited video",
+    "use_consistency_loss": true,
+    "seed": 42,
+    "quick_test": true,
+    "experiments": ["consistency", "global_context", "adaptive_fusion"],
+    "variants": {
+        "full_TG_GCVE": {
+            "use_refined_stage": true, 
+            "use_consistency_loss": true, 
+            "use_global_context": true
+        },
+        "single_stage": {
+            "use_refined_stage": false, 
+            "use_consistency_loss": false, 
+            "use_global_context": true
+        },
+        "no_consistency": {
+            "use_refined_stage": true, 
+            "use_consistency_loss": false, 
+            "use_global_context": true
+        },
+        "no_global_context": {
+            "use_refined_stage": true, 
+            "use_consistency_loss": true, 
+            "use_global_context": false
+        },
+        "iterative_refinement": {
+            "use_refined_stage": true, 
+            "use_consistency_loss": true, 
+            "use_global_context": true,
+            "iterative_refinement": true,
+            "num_iterations": 3
+        }
+    }
+}
