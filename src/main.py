@@ -62,6 +62,10 @@ def run_experiment(config_path, test_run=False):
         print(f"GPU: {torch.cuda.get_device_name(device)}")
         print(f"CUDA Version: {torch.version.cuda}")
         print(f"PyTorch CUDA: {torch.backends.cudnn.version()}")
+        # Print detailed GPU information
+        print(f"GPU Memory Total: {torch.cuda.get_device_properties(device).total_memory / 1024**3:.2f} GB")
+        print(f"GPU Memory Free: {(torch.cuda.get_device_properties(device).total_memory - torch.cuda.memory_allocated(device)) / 1024**3:.2f} GB")
+        print(f"Number of GPU devices: {torch.cuda.device_count()}")
         # Set memory limit if specified
         if 'gpu_memory_limit' in config['experiment'] and config['experiment']['gpu_memory_limit'] > 0:
             torch.cuda.set_per_process_memory_fraction(
@@ -89,20 +93,29 @@ def run_experiment(config_path, test_run=False):
     print("\n" + "="*50)
     print("Step 1: Data Preprocessing")
     print("="*50)
+    print(f"Loading dataset: {config['dataset']['name']}")
+    print(f"Batch size: {config['dataset']['batch_size']}, Workers: {config['dataset']['num_workers']}")
     train_loader, test_loader = preprocess_data(config_path)
     
     # Step 2: Train models
     print("\n" + "="*50)
     print("Step 2: Model Training")
     print("="*50)
+    print(f"Model architecture: {config['model']['architecture']}")
+    print(f"Feature dimension: {config['model']['feature_dim']}, Hidden dimension: {config['model']['hidden_dim']}")
+    print(f"Training for {config['training']['num_epochs']} epochs (test mode: {config['experiment']['test_run']})")
     twist_model, sid_model, _, _ = train_model(config_path)
     
     # Step 3: Evaluate models
     print("\n" + "="*50)
     print("Step 3: Model Evaluation")
     print("="*50)
+    print(f"Evaluating models on {len(config['evaluation']['noise_levels'])} noise levels: {config['evaluation']['noise_levels']}")
+    print(f"Metrics to compute: {', '.join(config['evaluation']['metrics'])}")
     twist_model_path = os.path.join(config['training']['save_dir'], "twist_model_final.pth")
     sid_model_path = os.path.join(config['training']['save_dir'], "sid_model_final.pth")
+    print(f"TwiST model path: {twist_model_path}")
+    print(f"SID model path: {sid_model_path}")
     
     metrics = evaluate_model(config_path, twist_model_path, sid_model_path)
     

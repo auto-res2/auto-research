@@ -154,3 +154,31 @@ def save_images(images, save_path, nrow=8):
     plt.savefig(save_path)
     plt.close()
     print(f"Images saved to {save_path}")
+
+def plot_training_progress(twist_losses, sid_losses, consistency_losses, save_dir, timestamp):
+    """Plot training progress and save to file."""
+    plt.figure(figsize=(12, 8))
+    
+    # Plot main losses
+    plt.subplot(2, 1, 1)
+    plt.plot(twist_losses, label='TwiST Loss')
+    plt.plot(sid_losses, label='SID Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Training Loss Comparison')
+    plt.legend()
+    plt.grid(True)
+    
+    # Plot consistency loss
+    plt.subplot(2, 1, 2)
+    plt.plot(consistency_losses, label='Consistency Loss', color='green')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Consistency Loss')
+    plt.legend()
+    plt.grid(True)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(save_dir, f"training_progress_{timestamp}.png"))
+    plt.close()
+    print(f"Training progress plot saved to {os.path.join(save_dir, f'training_progress_{timestamp}.png')}")
