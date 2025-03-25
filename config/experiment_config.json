@@ -1,0 +1,48 @@
+{
+  "general": {
+    "seed": 42,
+    "device": "cuda",
+    "save_models": true,
+    "save_plots": true
+  },
+  "environment": {
+    "name": "CartPole-v1",
+    "max_episode_steps": 500
+  },
+  "model": {
+    "state_embedding_dim": 128,
+    "attention_heads": 4,
+    "demo_embedding_dim": 64,
+    "learning_rate": 0.001
+  },
+  "training": {
+    "num_episodes": 20,
+    "print_interval": 5
+  },
+  "demonstration": {
+    "batch_size": 1,
+    "num_demos": 10,
+    "demo_embedding_dim": 64
+  },
+  "experiment1_robustness": {
+    "noise_levels": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5],
+    "num_episodes": 20,
+    "eval_episodes": 10
+  },
+  "experiment2_ablation": {
+    "noise_level": 0.2,
+    "num_episodes": 20,
+    "eval_episodes": 10
+  },
+  "experiment3_interpretability": {
+    "noise_level": 0.2,
+    "num_episodes": 20,
+    "test_episodes": 20
+  },
+  "quick_test": {
+    "noise_levels": [0.0, 0.2],
+    "num_episodes": 2,
+    "eval_episodes": 2,
+    "test_episodes": 2
+  }
+}
