@@ -1,0 +1,41 @@
+# TwiST-Distill Configuration
+
+# Dataset parameters
+dataset:
+  name: "cifar10"  # Dataset to use (cifar10, cifar100, or custom)
+  batch_size: 64
+  num_workers: 4
+  data_dir: "./data"
+
+# Model parameters
+model:
+  in_channels: 3  # Input image channels
+  feature_dim: 64  # Feature dimension for shared networks
+  hidden_dim: 128  # Hidden dimension for network layers
+  use_batch_norm: true
+  architecture: "simple_cnn"  # Architecture type: simple_cnn or resnet
+
+# Training parameters
+training:
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  consistency_weight: 1.0  # Weight for consistency loss
+  noise_std: 0.1  # Standard deviation for noise in double-Tweedie consistency
+  optimizer: "adam"  # Optimizer: adam or sgd
+  scheduler: "cosine"  # Learning rate scheduler: cosine, step, or none
+  save_dir: "./models"
+  save_frequency: 10  # Save model every N epochs
+
+# Evaluation parameters
+evaluation:
+  metrics: ["psnr", "ssim", "fid"]  # Metrics to evaluate
+  noise_levels: [0.05, 0.1, 0.2]  # Different noise levels for robustness testing
+
+# Experiment parameters
+experiment:
+  seed: 42  # Random seed for reproducibility
+  gpu_id: 0  # GPU ID to use
+  gpu_memory_limit: 16  # GPU memory limit in GB (for Tesla T4)
+  test_run: true  # Set to true for quick test run
+  verbose: true  # Print detailed information during training
