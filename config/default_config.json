@@ -1,0 +1,35 @@
+{
+    "seed": 42,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 1e-3,
+    "max_batches": null,
+    "test_mode": false,
+    "eval_only": false,
+    "experiment": 0,
+    "log_dir": "logs",
+    "model_dir": "models",
+    "data_dir": "data",
+    "gpu": {
+        "device": "cuda",
+        "memory_limit": 16,
+        "model": "Tesla T4"
+    },
+    "experiments": {
+        "experiment1": {
+            "enabled": true,
+            "name": "Performance Comparison",
+            "description": "Comparison between Base and CGCD models on noisy data"
+        },
+        "experiment2": {
+            "enabled": true,
+            "name": "Ablation Study",
+            "description": "Study of the impact of adaptive components"
+        },
+        "experiment3": {
+            "enabled": true,
+            "name": "Continuous Features",
+            "description": "Experiments on continuous feature domains with external cues"
+        }
+    }
+}
