@@ -1,0 +1,15 @@
+{
+  "experiment": "ms_ano",
+  "stages": 3,
+  "integrate_prompt_every_stage": true,
+  "clustering_threshold": 0.5,
+  "attention_weight": 0.7,
+  "prompts": [
+    "a cat and a rabbit",
+    "a scenic mountain view",
+    "a futuristic city",
+    "a cozy living room"
+  ],
+  "n_runs": 3,
+  "test_mode": false
+}

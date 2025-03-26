@@ -1,1 +1,8 @@
-# Please list the required python packages.
+# Required python packages for MS-ANO experiments
+torch>=2.2.0
+transformers>=4.37.0
+diffusers>=0.25.1
+numpy>=1.24.4
+opencv-python>=4.9.0.80
+matplotlib>=3.7.1
+Pillow>=10.0.0
