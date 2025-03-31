@@ -1,0 +1,18 @@
+{
+  "experiment_name": "lre_cdt_research",
+  "dataset": {
+    "name": "VITONHD",
+    "root_dir": "./data/vitonhd/",
+    "image_size": 256
+  },
+  "training": {
+    "batch_size": 4,
+    "num_inference_steps": [50, 20, 10],
+    "save_dir": "./models/"
+  },
+  "evaluation": {
+    "metrics": ["lpips", "ssim", "fid"],
+    "visualize": true,
+    "save_dir": "./logs/"
+  }
+}
