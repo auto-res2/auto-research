@@ -72,15 +72,23 @@ class AttentionFusion(nn.Module):
         super(AttentionFusion, self).__init__()
         self.content_proj = nn.Conv2d(content_dim, fusion_dim, 1)
         self.brightness_proj = nn.Conv2d(brightness_dim, fusion_dim, 1)
+        self.fusion_dim = fusion_dim
         self.attention = nn.MultiheadAttention(embed_dim=fusion_dim, num_heads=4)
         
     def forward(self, content_latent: torch.Tensor, 
                brightness_latent: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         b, _, h, w = content_latent.size()
-        content_feat = self.content_proj(content_latent).view(b, -1, h * w).transpose(0, 1)
-        brightness_feat = self.brightness_proj(brightness_latent).view(b, -1, h * w).transpose(0, 1)
+        
+        content_proj = self.content_proj(content_latent)
+        brightness_proj = self.brightness_proj(brightness_latent)
+        
+        content_feat = content_proj.view(b, self.fusion_dim, h * w).transpose(0, 1)
+        brightness_feat = brightness_proj.view(b, self.fusion_dim, h * w).transpose(0, 1)
+        
         fused_feat, attn_weights = self.attention(brightness_feat, content_feat, content_feat)
-        fused_feat = fused_feat.transpose(0, 1).view(b, -1, h, w)
+        
+        fused_feat = fused_feat.transpose(0, 1).view(b, self.fusion_dim, h, w)
+        
         return fused_feat, attn_weights
 
 
