@@ -1,1 +1,24 @@
-# Please list the required python packages.
+# Required Python packages for PTDA experiments
+
+# Core dependencies
+torch>=2.0.1
+torchvision>=0.15.2
+numpy>=1.22.0
+matplotlib>=3.5.0
+tqdm>=4.64.0
+
+# Image and video processing
+opencv-python>=4.8.0.76
+scikit-image>=0.19.0
+scikit-learn>=1.0.0
+
+# Deep learning utilities
+einops>=0.6.1
+diffusers>=0.21.4
+transformers>=4.32.0
+xformers>=0.0.22
+accelerate>=0.22.0
+
+# Utilities
+pillow>=9.0.0
+pyyaml>=6.0
