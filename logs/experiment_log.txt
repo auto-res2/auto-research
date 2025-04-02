@@ -1,0 +1,103 @@
+Starting PriorBrush Experiment
+==============================
+Using GPU: Tesla T4
+Available GPU memory: 16.71 GB
+
+=== Running Quick Test ===
+
+*** Experiment 1: Inference Speed and Image Quality Comparison ***
+Running 1 trials for prompt: 'A test scene of a minimalist landscape.'
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[PriorBrush] Refined image with 2 diffusion steps for prompt: 'A test scene of a minimalist landscape.'
+Trial 1: SwiftBrush time = 0.2364s, PriorBrush time = 0.0060s, SSIM = 0.8599
+
+[Summary for Experiment 1]
+SwiftBrush Inference Time: Mean = 0.2364s, Std = 0.0000s
+PriorBrush Inference Time: Mean = 0.0060s, Std = 0.0000s
+Average SSIM between outputs: 0.8599
+
+*** Experiment 2: Ablation Study on the Refinement Stage ***
+Evaluating ablation with prompt: 'A test scene of a minimalist landscape.'
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[PriorBrush] Refined image with 2 diffusion steps for prompt: 'A test scene of a minimalist landscape.'
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+Computed SSIM between refined and non-refined images: 0.8599
+Ablation study plot saved as 'logs/ablation_study_small.pdf'
+
+*** Experiment 3: Sensitivity Analysis of Refinement Sampling Steps ***
+Evaluating sensitivity across refinement steps [2, 3] for prompt: 'A test scene of a minimalist landscape.'
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[PriorBrush] Refined image with 2 diffusion steps for prompt: 'A test scene of a minimalist landscape.'
+Refinement Steps: 2 --> Inference Time = 0.0006s, SSIM vs. SwiftBrush = 0.8599
+[SwiftBrush] Generated image for prompt: 'A test scene of a minimalist landscape.' using seed 100
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A test scene of a minimalist landscape.'
+Refinement Steps: 3 --> Inference Time = 0.0009s, SSIM vs. SwiftBrush = 0.8599
+Sensitivity analysis plot saved as 'logs/sensitivity_analysis_small.pdf'
+Quick test completed.
+
+
+==================================================
+Running Experiment 1: Inference and Quality Comparison
+
+*** Experiment 1: Inference Speed and Image Quality Comparison ***
+Running 5 trials for prompt: 'A futuristic cityscape at dusk with neon lights.'
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 42
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 42
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A futuristic cityscape at dusk with neon lights.'
+Trial 1: SwiftBrush time = 0.0005s, PriorBrush time = 0.0006s, SSIM = 0.8599
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 43
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 43
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A futuristic cityscape at dusk with neon lights.'
+Trial 2: SwiftBrush time = 0.0003s, PriorBrush time = 0.0006s, SSIM = 0.8599
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 44
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 44
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A futuristic cityscape at dusk with neon lights.'
+Trial 3: SwiftBrush time = 0.0003s, PriorBrush time = 0.0006s, SSIM = 0.8599
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 45
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 45
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A futuristic cityscape at dusk with neon lights.'
+Trial 4: SwiftBrush time = 0.0003s, PriorBrush time = 0.0005s, SSIM = 0.8599
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 46
+[SwiftBrush] Generated image for prompt: 'A futuristic cityscape at dusk with neon lights.' using seed 46
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A futuristic cityscape at dusk with neon lights.'
+Trial 5: SwiftBrush time = 0.0003s, PriorBrush time = 0.0006s, SSIM = 0.8599
+
+[Summary for Experiment 1]
+SwiftBrush Inference Time: Mean = 0.0003s, Std = 0.0001s
+PriorBrush Inference Time: Mean = 0.0006s, Std = 0.0000s
+Average SSIM between outputs: 0.8599
+
+==================================================
+Running Experiment 2: Ablation Study
+
+*** Experiment 2: Ablation Study on the Refinement Stage ***
+Evaluating ablation with prompt: 'A surreal landscape with floating islands and waterfalls.'
+[SwiftBrush] Generated image for prompt: 'A surreal landscape with floating islands and waterfalls.' using seed 42
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'A surreal landscape with floating islands and waterfalls.'
+[SwiftBrush] Generated image for prompt: 'A surreal landscape with floating islands and waterfalls.' using seed 42
+Computed SSIM between refined and non-refined images: 0.8599
+Ablation study plot saved as 'logs/ablation_study_small.pdf'
+
+==================================================
+Running Experiment 3: Sensitivity Analysis
+
+*** Experiment 3: Sensitivity Analysis of Refinement Sampling Steps ***
+Evaluating sensitivity across refinement steps [2, 3, 5] for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.'
+[SwiftBrush] Generated image for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.' using seed 42
+[SwiftBrush] Generated image for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.' using seed 42
+[PriorBrush] Refined image with 2 diffusion steps for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.'
+Refinement Steps: 2 --> Inference Time = 0.0006s, SSIM vs. SwiftBrush = 0.8599
+[SwiftBrush] Generated image for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.' using seed 42
+[PriorBrush] Refined image with 3 diffusion steps for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.'
+Refinement Steps: 3 --> Inference Time = 0.0006s, SSIM vs. SwiftBrush = 0.8599
+[SwiftBrush] Generated image for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.' using seed 42
+[PriorBrush] Refined image with 5 diffusion steps for prompt: 'An abstract painting with vibrant colors and dynamic brushstrokes.'
+Refinement Steps: 5 --> Inference Time = 0.0006s, SSIM vs. SwiftBrush = 0.8599
+Sensitivity analysis plot saved as 'logs/sensitivity_analysis_small.pdf'
+
+==================================================
+PriorBrush Experiment Completed
+All experiments have been successfully executed.
+Figures saved to logs directory
