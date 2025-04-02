@@ -50,16 +50,20 @@ class BrightnessBranch(nn.Module):
         super(BrightnessBranch, self).__init__()
         self.variant = variant
         self.weight = weight
+        
         self.fc = nn.Sequential(
-            nn.Linear(latent_dim, latent_dim),
+            nn.Linear(64*64, 64*64),  # Fixed dimensions based on error message
             nn.ReLU(),
-            nn.Linear(latent_dim, latent_dim)
+            nn.Linear(64*64, 64*64)
         )
         
     def forward(self, z_brightness: torch.Tensor) -> torch.Tensor:
         b, c, h, w = z_brightness.size()
+        
         z_flat = z_brightness.view(b, -1)
+        
         noise_pred = self.fc(z_flat)
+        
         return noise_pred.view(b, c, h, w)
 
 
