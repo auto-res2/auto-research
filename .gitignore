@@ -170,3 +170,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 !.gitkeep
+
+# MML-BO experiment generated files
+logs/*.pdf
+data/meta_learning/*.pt
+models/*.pt
+__pycache__/
