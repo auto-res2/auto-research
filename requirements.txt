@@ -1,1 +1,9 @@
-# Please list the required python packages.
+# Required python packages for GraphDiffLayout experiments
+torch>=1.9.0
+torchvision>=0.10.0
+numpy>=1.19.5
+matplotlib>=3.4.3
+networkx>=2.6.3
+opencv-python>=4.5.3
+scikit-image>=0.18.3
+Pillow>=8.3.2
