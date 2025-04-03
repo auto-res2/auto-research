@@ -30,7 +30,9 @@ class DiffusionModel(nn.Module):
         super(DiffusionModel, self).__init__()
         self.use_anatomy_prior = use_anatomy_prior
         
-        self.input_channels = channels[0] + (1 if use_anatomy_prior else 0)
+        self.orig_channels = channels
+        
+        self.input_channels = channels[0]
         
         self.network = nn.Sequential(
             nn.Conv2d(self.input_channels, channels[1], kernel_size=3, padding=1),
@@ -55,8 +57,11 @@ class DiffusionModel(nn.Module):
         Returns:
             Generated 7T-like image
         """
-        if self.use_anatomy_prior and (anatomy_prior is not None):
+        if self.use_anatomy_prior and anatomy_prior is not None:
+            orig_shape = x.shape
             x = torch.cat((x, anatomy_prior), dim=1)
+            print(f"Input shape before cat: {orig_shape}, after cat: {x.shape}")
+        
         return self.network(x)
 
 class IntensityModulationModule(nn.Module):
@@ -230,8 +235,13 @@ def train_ablation_model(config, train_loader, val_loader, use_anatomy_prior=Tru
     """
     device = torch.device(config.device if torch.cuda.is_available() else "cpu")
     
-    model = DiffusionModel(use_anatomy_prior=use_anatomy_prior, 
-                          channels=config.diffusion_channels).to(device)
+    print(f"Creating DiffusionModel with use_anatomy_prior={use_anatomy_prior}")
+    print(f"Channels configuration: {config.diffusion_channels}")
+    
+    model = DiffusionModel(
+        use_anatomy_prior=use_anatomy_prior, 
+        channels=config.diffusion_channels
+    ).to(device)
     
     extractor = None
     if use_anatomy_prior:
@@ -269,6 +279,7 @@ def train_ablation_model(config, train_loader, val_loader, use_anatomy_prior=Tru
             
             if extractor is not None:
                 prior = extractor(img_15T)
+                print(f"Prior shape: {prior.shape}, img_15T shape: {img_15T.shape}")
                 output = model(img_15T, anatomy_prior=prior)
             else:
                 output = model(img_15T, anatomy_prior=None)
@@ -454,6 +465,7 @@ def evaluate_model(model, extractor, val_loader, device):
             
             if extractor is not None:
                 prior = extractor(img_15T)
+                print(f"Prior shape: {prior.shape}, img_15T shape: {img_15T.shape}")
                 output = model(img_15T, anatomy_prior=prior)
             else:
                 output = model(img_15T, anatomy_prior=None)

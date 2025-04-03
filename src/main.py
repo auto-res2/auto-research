@@ -68,27 +68,41 @@ def experiment_ablation_study(device, quick_test=True):
     print("EXPERIMENT 1: Ablation Study - Effect of Anatomical Prior Extraction")
     print("="*80)
     
-    print("Loading and preprocessing data...")
+    print("\nStep 1: Loading and preprocessing data...")
     train_loader, val_loader = preprocess_data(config)
+    print(f"Generated synthetic dataset with {len(train_loader.dataset)} training and {len(val_loader.dataset)} validation samples")
+    print(f"Image size: {config.image_size}x{config.image_size}, Batch size: {config.batch_size}")
     
-    print("Creating models...")
+    print("\nStep 2: Creating models...")
+    print(f"Anatomy extractor channels: {config.anatomy_extractor_channels}")
     anatomy_extractor = AnatomyExtractor(
         in_channels=1,
         hidden_channels=config.anatomy_extractor_channels[1],
         out_channels=config.anatomy_extractor_channels[2]
     ).to(device)
+    print("Anatomy extractor created successfully")
     
+    print(f"\nCreating DiffusionModel with anatomical prior:")
+    print(f"Input channels: {config.diffusion_channels[0]}")
+    print(f"Hidden channels: {config.diffusion_channels[1:-1]}")
+    print(f"Output channels: {config.diffusion_channels[-1]}")
     model_with_prior = DiffusionModel(
         use_anatomy_prior=True,
         channels=config.diffusion_channels
     ).to(device)
+    print("Model with anatomical prior created successfully")
     
+    print(f"\nCreating DiffusionModel without anatomical prior:")
     model_without_prior = DiffusionModel(
         use_anatomy_prior=False,
         channels=config.diffusion_channels
     ).to(device)
+    print("Model without anatomical prior created successfully")
     
-    print("Training models...")
+    print("\nStep 3: Training models...")
+    print(f"Number of epochs: {1 if quick_test else config.num_epochs['ablation']}")
+    print(f"Learning rate: {config.diffusion_lr}")
+    print("\nTraining model with anatomical prior:")
     num_epochs = 1 if quick_test else config.num_epochs["ablation"]
     model_with_prior, extractor, metrics_with_prior = train_ablation_model(
         config,
@@ -338,9 +352,18 @@ def test_experiments():
     ablation_results = experiment_ablation_study(device, quick_test=True)
     
     print("\nRunning Experiment 2/3: Intensity Modulation")
+    print("\n" + "-"*40)
+    print("Step 1: Loading and preprocessing data...")
+    print("Step 2: Creating models with and without intensity modulation...")
+    print("Step 3: Training and evaluating models...")
     intensity_results = experiment_intensity_modulation(device, quick_test=True)
     
     print("\nRunning Experiment 3/3: Progressive Distillation")
+    print("\n" + "-"*40)
+    print("Step 1: Creating teacher and student models...")
+    print("Step 2: Training teacher model...")
+    print("Step 3: Distilling knowledge to student model...")
+    print("Step 4: Evaluating models and measuring inference time...")
     distillation_results = experiment_progressive_distillation(device, quick_test=True)
     
     end_time = time.time()
