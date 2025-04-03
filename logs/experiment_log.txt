@@ -1,0 +1,303 @@
+
+=== Running Test Function ===
+Running preprocessing test...
+Random seed set to 42
+Using dummy data for training
+Generating 20 batches of dummy data with batch size 2
+Generating 2 fingerprints with dimension 16
+Data preprocessing completed successfully
+Preprocessing OK.
+Initializing models...
+Model set to mode: C
+Models initialized OK.
+Testing forward pass...
+Forward pass OK. Output shape: torch.Size([2, 3, 32, 32])
+Testing fingerprint extraction...
+Extraction OK. Extracted shape: torch.Size([2, 16])
+Test function finished successfully.
+Random seed set to 42
+Using device: cuda
+Using GPU: Tesla T4
+GPU Memory: 16.71 GB
+
+Preprocessing data...
+Random seed set to 42
+Using dummy data for training
+Generating 20 batches of dummy data with batch size 16
+Generating 10 fingerprints with dimension 128
+Data preprocessing completed successfully
+
+Training models...
+Random seed set to 42
+Using device: cuda
+Model set to mode: C
+Starting training for 10 epochs
+Epoch 1/10, Batch 5/16, Loss: 0.7738, Extraction Acc: 0.5542
+Epoch 1/10, Batch 10/16, Loss: 0.7686, Extraction Acc: 0.6006
+Epoch 1/10, Batch 15/16, Loss: 0.7585, Extraction Acc: 0.6387
+Epoch 1/10 - Train Loss: 0.7687, Train Acc: 0.5801, Val Loss: 0.7715, Val Acc: 0.5848
+Epoch 2/10, Batch 5/16, Loss: 0.7477, Extraction Acc: 0.6587
+Epoch 2/10, Batch 10/16, Loss: 0.7348, Extraction Acc: 0.6582
+Epoch 2/10, Batch 15/16, Loss: 0.7318, Extraction Acc: 0.6523
+Epoch 2/10 - Train Loss: 0.7418, Train Acc: 0.6554, Val Loss: 0.7562, Val Acc: 0.6433
+Epoch 3/10, Batch 5/16, Loss: 0.7080, Extraction Acc: 0.6978
+Epoch 3/10, Batch 10/16, Loss: 0.6959, Extraction Acc: 0.6968
+Epoch 3/10, Batch 15/16, Loss: 0.6784, Extraction Acc: 0.7109
+Epoch 3/10 - Train Loss: 0.6999, Train Acc: 0.6951, Val Loss: 0.7281, Val Acc: 0.6805
+Epoch 4/10, Batch 5/16, Loss: 0.6571, Extraction Acc: 0.7197
+Epoch 4/10, Batch 10/16, Loss: 0.6496, Extraction Acc: 0.7231
+Epoch 4/10, Batch 15/16, Loss: 0.6343, Extraction Acc: 0.7344
+Epoch 4/10 - Train Loss: 0.6517, Train Acc: 0.7177, Val Loss: 0.6604, Val Acc: 0.7240
+Epoch 5/10, Batch 5/16, Loss: 0.6179, Extraction Acc: 0.7295
+Epoch 5/10, Batch 10/16, Loss: 0.5759, Extraction Acc: 0.7939
+Epoch 5/10, Batch 15/16, Loss: 0.5612, Extraction Acc: 0.8071
+Epoch 5/10 - Train Loss: 0.5979, Train Acc: 0.7661, Val Loss: 0.5817, Val Acc: 0.7919
+Epoch 6/10, Batch 5/16, Loss: 0.5575, Extraction Acc: 0.7974
+Epoch 6/10, Batch 10/16, Loss: 0.5404, Extraction Acc: 0.8105
+Epoch 6/10, Batch 15/16, Loss: 0.5307, Extraction Acc: 0.8232
+Epoch 6/10 - Train Loss: 0.5404, Train Acc: 0.8142, Val Loss: 0.4986, Val Acc: 0.8466
+Epoch 7/10, Batch 5/16, Loss: 0.5126, Extraction Acc: 0.8472
+Epoch 7/10, Batch 10/16, Loss: 0.4662, Extraction Acc: 0.8823
+Epoch 7/10, Batch 15/16, Loss: 0.4385, Extraction Acc: 0.9165
+Epoch 7/10 - Train Loss: 0.4856, Train Acc: 0.8618, Val Loss: 0.4345, Val Acc: 0.9055
+Epoch 8/10, Batch 5/16, Loss: 0.4520, Extraction Acc: 0.9077
+Epoch 8/10, Batch 10/16, Loss: 0.4199, Extraction Acc: 0.9146
+Epoch 8/10, Batch 15/16, Loss: 0.3918, Extraction Acc: 0.9531
+Epoch 8/10 - Train Loss: 0.4296, Train Acc: 0.9158, Val Loss: 0.4525, Val Acc: 0.8947
+Epoch 9/10, Batch 5/16, Loss: 0.3765, Extraction Acc: 0.9448
+Epoch 9/10, Batch 10/16, Loss: 0.3877, Extraction Acc: 0.9229
+Epoch 9/10, Batch 15/16, Loss: 0.3737, Extraction Acc: 0.9683
+Epoch 9/10 - Train Loss: 0.3883, Train Acc: 0.9352, Val Loss: 0.3996, Val Acc: 0.9299
+Epoch 10/10, Batch 5/16, Loss: 0.3378, Extraction Acc: 0.9785
+Epoch 10/10, Batch 10/16, Loss: 0.3272, Extraction Acc: 0.9751
+Epoch 10/10, Batch 15/16, Loss: 0.3095, Extraction Acc: 0.9858
+Epoch 10/10 - Train Loss: 0.3325, Train Acc: 0.9752, Val Loss: 0.2933, Val Acc: 0.9847
+Training curves saved to logs/training_curves.pdf
+Model training completed successfully
+
+Saving models...
+Models saved to models
+
+=== Running General Evaluation ===
+
+=== Running General Evaluation ===
+Model set to mode: C
+Adaptive balance parameter set to: 0.5
+Batch 1/4 - Clean Acc: 0.9819, Blur/JPEG Acc: 0.8594, Noise Acc: 0.7656, MSE: 0.0835, PSNR: 10.78 dB
+Batch 2/4 - Clean Acc: 0.9761, Blur/JPEG Acc: 0.4453, Noise Acc: 0.6406, MSE: 0.0834, PSNR: 10.79 dB
+Batch 3/4 - Clean Acc: 0.9961, Blur/JPEG Acc: 0.8594, Noise Acc: 0.7734, MSE: 0.0833, PSNR: 10.80 dB
+Batch 4/4 - Clean Acc: 0.9854, Blur/JPEG Acc: 0.7578, Noise Acc: 0.5625, MSE: 0.0833, PSNR: 10.79 dB
+
+Evaluation Summary:
+Clean Extraction Accuracy: 0.9849
+Attacked (Blur+JPEG) Accuracy: 0.7305
+Attacked (Noise) Accuracy: 0.6855
+MSE: 0.0834
+PSNR: 10.79 dB
+
+=== Running Experiment 1: Dual-Channel Fingerprint Robustness ===
+
+--- Starting Dual-Channel Fingerprint Robustness Experiment ---
+
+Processing Mode A
+Model set to mode: A
+Iteration 1: Clean Acc: 0.562, Blurred/JPEG Acc: 0.508, Noisy Acc: 0.547
+Iteration 2: Clean Acc: 0.586, Blurred/JPEG Acc: 0.508, Noisy Acc: 0.531
+Iteration 3: Clean Acc: 0.590, Blurred/JPEG Acc: 0.711, Noisy Acc: 0.531
+Iteration 4: Clean Acc: 0.645, Blurred/JPEG Acc: 0.539, Noisy Acc: 0.539
+
+Processing Mode B
+Model set to mode: B
+Iteration 1: Clean Acc: 0.590, Blurred/JPEG Acc: 0.852, Noisy Acc: 0.742
+Iteration 2: Clean Acc: 0.584, Blurred/JPEG Acc: 0.680, Noisy Acc: 0.734
+Iteration 3: Clean Acc: 0.605, Blurred/JPEG Acc: 0.680, Noisy Acc: 0.742
+Iteration 4: Clean Acc: 0.593, Blurred/JPEG Acc: 0.531, Noisy Acc: 0.594
+
+Processing Mode C
+Model set to mode: C
+Iteration 1: Clean Acc: 0.989, Blurred/JPEG Acc: 0.688, Noisy Acc: 0.750
+Iteration 2: Clean Acc: 0.984, Blurred/JPEG Acc: 0.688, Noisy Acc: 0.781
+Iteration 3: Clean Acc: 0.976, Blurred/JPEG Acc: 0.586, Noisy Acc: 0.562
+Iteration 4: Clean Acc: 0.991, Blurred/JPEG Acc: 0.688, Noisy Acc: 0.789
+
+Mode A averages: {'clean': np.float64(0.595703125), 'attacked_blur_jpeg': np.float64(0.56640625), 'attacked_noise': np.float64(0.537109375)}
+
+Mode B averages: {'clean': np.float64(0.5931396484375), 'attacked_blur_jpeg': np.float64(0.685546875), 'attacked_noise': np.float64(0.703125)}
+
+Mode C averages: {'clean': np.float64(0.985107421875), 'attacked_blur_jpeg': np.float64(0.662109375), 'attacked_noise': np.float64(0.720703125)}
+Dual-Channel Fingerprint Robustness plot saved as logs/fingerprint_robustness.pdf
+
+=== Running Experiment 2: Ablation Study on Adaptive Balancing ===
+
+--- Starting Ablation Study on Adaptive Balancing ---
+Model set to mode: C
+
+Evaluating for alpha = 0.0
+Adaptive balance parameter set to: 0.0
+Alpha=0.0: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.975
+
+Evaluating for alpha = 0.25
+Adaptive balance parameter set to: 0.25
+Alpha=0.25: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.977
+
+Evaluating for alpha = 0.5
+Adaptive balance parameter set to: 0.5
+Alpha=0.5: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.980
+
+Evaluating for alpha = 0.75
+Adaptive balance parameter set to: 0.75
+Alpha=0.75: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.976
+
+Evaluating for alpha = 1.0
+Adaptive balance parameter set to: 1.0
+Alpha=1.0: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.651
+Ablation Study image quality plot saved as logs/image_quality_adaptive_balance.pdf
+Ablation Study fingerprint accuracy plot saved as logs/fingerprint_accuracy_adaptive_balance.pdf
+
+=== Running Experiment 3: Latent Fingerprint Injection Analysis ===
+
+--- Starting Latent Fingerprint Injection Analysis ---
+Model set to mode: B
+Attention map shape: torch.Size([16, 1, 16, 16])
+Latent Fingerprint Injection heatmap saved as logs/attention_map_heatmap.pdf
+Total Variation of the attention map: 0.0005037224618718028
+Attention map total variation plot saved as logs/attention_tv.pdf
+
+All evaluations completed successfully
+
+=== Running Experiment 1: Dual-Channel Fingerprint Robustness ===
+
+--- Starting Dual-Channel Fingerprint Robustness Experiment ---
+
+Processing Mode A
+Model set to mode: A
+Iteration 1: Clean Acc: 0.558, Blurred/JPEG Acc: 0.711, Noisy Acc: 0.539
+Iteration 2: Clean Acc: 0.614, Blurred/JPEG Acc: 0.617, Noisy Acc: 0.547
+Iteration 3: Clean Acc: 0.580, Blurred/JPEG Acc: 0.672, Noisy Acc: 0.742
+Iteration 4: Clean Acc: 0.585, Blurred/JPEG Acc: 0.672, Noisy Acc: 0.703
+
+Processing Mode B
+Model set to mode: B
+Iteration 1: Clean Acc: 0.620, Blurred/JPEG Acc: 0.680, Noisy Acc: 0.719
+Iteration 2: Clean Acc: 0.633, Blurred/JPEG Acc: 0.531, Noisy Acc: 0.547
+Iteration 3: Clean Acc: 0.547, Blurred/JPEG Acc: 0.531, Noisy Acc: 0.547
+Iteration 4: Clean Acc: 0.584, Blurred/JPEG Acc: 0.516, Noisy Acc: 0.539
+
+Processing Mode C
+Model set to mode: C
+Iteration 1: Clean Acc: 0.595, Blurred/JPEG Acc: 0.547, Noisy Acc: 0.562
+Iteration 2: Clean Acc: 0.570, Blurred/JPEG Acc: 0.531, Noisy Acc: 0.539
+Iteration 3: Clean Acc: 0.512, Blurred/JPEG Acc: 0.547, Noisy Acc: 0.555
+Iteration 4: Clean Acc: 0.562, Blurred/JPEG Acc: 0.531, Noisy Acc: 0.570
+
+Mode A averages: {'clean': np.float64(0.584228515625), 'attacked_blur_jpeg': np.float64(0.66796875), 'attacked_noise': np.float64(0.6328125)}
+
+Mode B averages: {'clean': np.float64(0.595947265625), 'attacked_blur_jpeg': np.float64(0.564453125), 'attacked_noise': np.float64(0.587890625)}
+
+Mode C averages: {'clean': np.float64(0.559814453125), 'attacked_blur_jpeg': np.float64(0.5390625), 'attacked_noise': np.float64(0.556640625)}
+Dual-Channel Fingerprint Robustness plot saved as logs/fingerprint_robustness.pdf
+
+=== Running Experiment 2: Ablation Study on Adaptive Balancing ===
+
+--- Starting Ablation Study on Adaptive Balancing ---
+Model set to mode: C
+
+Evaluating for alpha = 0.0
+Adaptive balance parameter set to: 0.0
+Alpha=0.0: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.989
+
+Evaluating for alpha = 0.25
+Adaptive balance parameter set to: 0.25
+Alpha=0.25: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.990
+
+Evaluating for alpha = 0.5
+Adaptive balance parameter set to: 0.5
+Alpha=0.5: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.990
+
+Evaluating for alpha = 0.75
+Adaptive balance parameter set to: 0.75
+Alpha=0.75: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.989
+
+Evaluating for alpha = 1.0
+Adaptive balance parameter set to: 1.0
+Alpha=1.0: MSE=0.0835, PSNR=10.78 dB, Fingerprint Acc=0.556
+Ablation Study image quality plot saved as logs/image_quality_adaptive_balance.pdf
+Ablation Study fingerprint accuracy plot saved as logs/fingerprint_accuracy_adaptive_balance.pdf
+
+=== Running Experiment 3: Latent Fingerprint Injection Analysis ===
+
+--- Starting Latent Fingerprint Injection Analysis ---
+Model set to mode: B
+Attention map shape: torch.Size([16, 1, 16, 16])
+Latent Fingerprint Injection heatmap saved as logs/attention_map_heatmap.pdf
+Total Variation of the attention map: 0.0004566956777125597
+Attention map total variation plot saved as logs/attention_tv.pdf
+
+================================================================================
+LIFD EXPERIMENT SUMMARY
+================================================================================
+
+General Settings:
+- Random Seed: 42
+- Device: cuda
+- Image Size: 64
+- Fingerprint Dimension: 128
+- Number of Users: 10
+
+Model Settings:
+- Mode: C (Dual-Channel)
+- Adaptive Alpha: 0.5
+
+General Evaluation Results:
+- Clean Extraction Accuracy: 0.9849
+- Attacked (Blur+JPEG) Accuracy: 0.7305
+- Attacked (Noise) Accuracy: 0.6855
+- MSE: 0.0834
+- PSNR: 10.79 dB
+
+Experiment 1 Results (Dual-Channel Fingerprint Robustness):
+- Mode A (Parameter-Only):
+  - Clean Accuracy: 0.5842
+  - Blur+JPEG Accuracy: 0.6680
+  - Noise Accuracy: 0.6328
+- Mode B (Latent-Only):
+  - Clean Accuracy: 0.5959
+  - Blur+JPEG Accuracy: 0.5645
+  - Noise Accuracy: 0.5879
+- Mode C (Dual-Channel):
+  - Clean Accuracy: 0.5598
+  - Blur+JPEG Accuracy: 0.5391
+  - Noise Accuracy: 0.5566
+
+Experiment 2 Results (Ablation Study on Adaptive Balancing):
+- Alpha = 0.0:
+  - MSE: 0.0835
+  - PSNR: 10.78 dB
+  - Extraction Accuracy: 0.9888
+- Alpha = 0.25:
+  - MSE: 0.0835
+  - PSNR: 10.78 dB
+  - Extraction Accuracy: 0.9897
+- Alpha = 0.5:
+  - MSE: 0.0835
+  - PSNR: 10.78 dB
+  - Extraction Accuracy: 0.9902
+- Alpha = 0.75:
+  - MSE: 0.0835
+  - PSNR: 10.78 dB
+  - Extraction Accuracy: 0.9888
+- Alpha = 1.0:
+  - MSE: 0.0835
+  - PSNR: 10.78 dB
+  - Extraction Accuracy: 0.5562
+
+Experiment 3 Results (Latent Fingerprint Injection Analysis):
+- Total Variation: 0.000457
+
+All experiments completed successfully
+================================================================================
+Plots and logs saved to logs
+Models saved to models
+================================================================================
+
+Total execution time: 0h 0m 6.66s
