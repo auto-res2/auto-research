@@ -6,7 +6,7 @@ import torch
 import matplotlib.pyplot as plt
 import os
 import seaborn as sns
-from src.train import SurrogateModel, optimize_baseline, optimize_mml_bo
+from train import SurrogateModel, optimize_baseline, optimize_mml_bo
 
 plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['ps.fonttype'] = 42
@@ -179,7 +179,7 @@ def experiment3(data, target, config):
     Returns:
         dict: Results of the experiment
     """
-    from src.train import train_task_encoder
+    from train import train_task_encoder
     
     _, loss_unimodal = train_task_encoder(
         data, target, 
