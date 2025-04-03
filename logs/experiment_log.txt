@@ -1,0 +1,70 @@
+
+================================================================================
+Running test_experiments (short run)...
+================================================================================
+
+Experiment Configuration:
+Experiment name: spcdd_mri_superres
+Random seed: 42
+Image size: 64x64
+Batch size: 8
+Synthetic dataset size: 20
+Using anatomical prior: True
+Using intensity modulation: True
+Diffusion channels: [2, 64, 64, 1]
+Teacher channels: [2, 64, 64, 1]
+Student channels: [1, 32, 32, 1]
+Distillation alpha/beta: 0.5/0.5
+
+System Information:
+Using device: cuda
+GPU: Tesla T4
+Memory allocated: 0.00 GB
+Memory cached: 0.00 GB
+
+Experiment started at: 2025-04-03 07:32:13
+
+Running Experiment 1/3: Ablation Study
+
+================================================================================
+EXPERIMENT 1: Ablation Study - Effect of Anatomical Prior Extraction
+================================================================================
+
+Step 1: Loading and preprocessing data...
+Generated synthetic dataset with 20 training and 4 validation samples
+Image size: 64x64, Batch size: 8
+
+Step 2: Creating models...
+Anatomy extractor channels: [1, 16, 32]
+Anatomy extractor created successfully
+
+Creating DiffusionModel with anatomical prior:
+Input channels: 2
+Hidden channels: [64, 64]
+Output channels: 1
+Creating DiffusionModel with use_anatomy_prior=True
+Channels configuration: [2, 64, 64, 1]
+Model with anatomical prior created successfully
+
+Creating DiffusionModel without anatomical prior:
+Creating DiffusionModel with use_anatomy_prior=False
+Channels configuration: [2, 64, 64, 1]
+Model without anatomical prior created successfully
+
+Step 3: Training models...
+Number of epochs: 1
+Learning rate: 0.0001
+
+Training model with anatomical prior:
+Creating DiffusionModel with use_anatomy_prior=True
+Channels configuration: [2, 64, 64, 1]
+Creating DiffusionModel with use_anatomy_prior=True
+Channels configuration: [2, 64, 64, 1]
+Prior shape: torch.Size([8, 1, 64, 64]), img_15T shape: torch.Size([8, 1, 64, 64])
+Input shape before cat: torch.Size([8, 1, 64, 64]), after cat: torch.Size([8, 2, 64, 64])
+Prior shape: torch.Size([8, 1, 64, 64]), img_15T shape: torch.Size([8, 1, 64, 64])
+Input shape before cat: torch.Size([8, 1, 64, 64]), after cat: torch.Size([8, 2, 64, 64])
+Prior shape: torch.Size([4, 1, 64, 64]), img_15T shape: torch.Size([4, 1, 64, 64])
+Input shape before cat: torch.Size([4, 1, 64, 64]), after cat: torch.Size([4, 2, 64, 64])
+Prior shape: torch.Size([4, 1, 64, 64]), img_15T shape: torch.Size([4, 1, 64, 64])
+Input shape before cat: torch.Size([4, 1, 64, 64]), after cat: torch.Size([4, 2, 64, 64])
