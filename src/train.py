@@ -29,21 +29,20 @@ class DiffusionModel(nn.Module):
         """
         super(DiffusionModel, self).__init__()
         self.use_anatomy_prior = use_anatomy_prior
-        input_channels = channels[0] + (1 if use_anatomy_prior else 0)
         
-        layers = []
-        in_ch = input_channels
+        self.input_channels = channels[0] + (1 if use_anatomy_prior else 0)
         
-        layers.append(nn.Conv2d(in_ch, channels[1], kernel_size=3, padding=1))
-        layers.append(nn.ReLU())
-        
-        for i in range(2, len(channels)-1):
-            layers.append(nn.Conv2d(channels[i-1], channels[i], kernel_size=3, padding=1))
-            layers.append(nn.ReLU())
-        
-        layers.append(nn.Conv2d(channels[-2], channels[-1], kernel_size=3, padding=1))
-        
-        self.network = nn.Sequential(*layers)
+        self.network = nn.Sequential(
+            nn.Conv2d(self.input_channels, channels[1], kernel_size=3, padding=1),
+            nn.ReLU(),
+            
+            *[nn.Sequential(
+                nn.Conv2d(channels[i], channels[i+1], kernel_size=3, padding=1),
+                nn.ReLU()
+            ) for i in range(1, len(channels)-2)],
+            
+            nn.Conv2d(channels[-2], channels[-1], kernel_size=3, padding=1)
+        )
     
     def forward(self, x, anatomy_prior=None):
         """
