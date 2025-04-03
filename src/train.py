@@ -7,7 +7,10 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.distributions as dist
 import os
+import sys
 from tqdm import tqdm
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

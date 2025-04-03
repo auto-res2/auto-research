@@ -8,9 +8,10 @@ import time
 import sys
 from importlib import import_module
 
-from preprocess import create_synthetic_functions, create_meta_learning_data
-from train import optimize_baseline, optimize_mml_bo, train_task_encoder
-from evaluate import experiment1, experiment2, experiment3
+sys.path.insert(0, os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+from src.preprocess import create_synthetic_functions, create_meta_learning_data
+from src.train import optimize_baseline, optimize_mml_bo, train_task_encoder
+from src.evaluate import experiment1, experiment2, experiment3
 
 def print_gpu_info():
     """Print GPU information if available."""
@@ -101,12 +102,12 @@ def run_experiments(test_mode=False):
     exp1_results = experiment1(funcs, exp1_config)
     
     print("\n===== Experiment 1 Results =====")
-    print(f"Best value found (Quadratic) - Baseline: {min(exp1_results['quadratic']['baseline']):.4f}")
-    print(f"Best value found (Quadratic) - MML-BO: {min(exp1_results['quadratic']['mml_bo']):.4f}")
-    print(f"Improvement: {(min(exp1_results['quadratic']['baseline']) - min(exp1_results['quadratic']['mml_bo'])):.4f}")
-    print(f"Best value found (Sinusoidal) - Baseline: {min(exp1_results['sinusoidal']['baseline']):.4f}")
-    print(f"Best value found (Sinusoidal) - MML-BO: {min(exp1_results['sinusoidal']['mml_bo']):.4f}")
-    print(f"Improvement: {(min(exp1_results['sinusoidal']['baseline']) - min(exp1_results['sinusoidal']['mml_bo'])):.4f}")
+    print(f"Best value found (Quadratic) - Baseline: {float(min(exp1_results['quadratic']['baseline'])):.4f}")
+    print(f"Best value found (Quadratic) - MML-BO: {float(min(exp1_results['quadratic']['mml_bo'])):.4f}")
+    print(f"Improvement: {float(min(exp1_results['quadratic']['baseline']) - min(exp1_results['quadratic']['mml_bo'])):.4f}")
+    print(f"Best value found (Sinusoidal) - Baseline: {float(min(exp1_results['sinusoidal']['baseline'])):.4f}")
+    print(f"Best value found (Sinusoidal) - MML-BO: {float(min(exp1_results['sinusoidal']['mml_bo'])):.4f}")
+    print(f"Improvement: {float(min(exp1_results['sinusoidal']['baseline']) - min(exp1_results['sinusoidal']['mml_bo'])):.4f}")
     
     print("\n===== Running Experiment 2: Adaptive Exploration-Exploitation =====")
     print(f"Running with {exp2_config['iters']} iterations")
