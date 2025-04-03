@@ -15,8 +15,8 @@ def calculate_psnr(output, target):
 def calculate_ssim(output, target):
     """Calculate Structural Similarity Index between output and target."""
     if output.ndim == 4:  # Batch of images
-        return np.mean([compute_ssim(o, t) for o, t in zip(output, target)])
-    return compute_ssim(output, target)
+        return np.mean([compute_ssim(o, t, data_range=1.0) for o, t in zip(output, target)])
+    return compute_ssim(output, target, data_range=1.0)
 
 def plot_comparison(output, target, save_path, title="Output vs. Target"):
     """Plot comparison between output and target images and save as PDF."""
