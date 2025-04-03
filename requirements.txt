@@ -1,1 +1,11 @@
-# Please list the required python packages.
+# Required python packages for MML-BO experiments
+numpy>=1.20.0
+torch>=1.10.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+scipy>=1.7.0
+tqdm>=4.62.0
+# For GPU support
+torchvision>=0.11.0
+# For plotting high-quality PDFs
+pandas>=1.3.0
