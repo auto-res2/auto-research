@@ -32,7 +32,13 @@ class DiffusionModel(nn.Module):
         
         self.orig_channels = channels
         
-        self.input_channels = channels[0]
+        if use_anatomy_prior:
+            self.input_channels = 2  # Image + prior
+        else:
+            self.input_channels = 1  # Just the image
+        
+        print(f"Creating DiffusionModel with use_anatomy_prior={use_anatomy_prior}")
+        print(f"Channels configuration: {channels}")
         
         self.network = nn.Sequential(
             nn.Conv2d(self.input_channels, channels[1], kernel_size=3, padding=1),
