@@ -3,7 +3,7 @@
 import numpy as np
 import random
 import cv2
-from src.utils.graph_utils import create_layout_graph
+from utils.graph_utils import create_layout_graph
 
 def generate_random_layout(n_objects, image_size=(256, 256), seed=None):
     """

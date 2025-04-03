@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 from skimage.metrics import structural_similarity as ssim
-from src.utils.graph_utils import compute_box_iou
-from src.utils.visualization import save_figure
+from utils.graph_utils import compute_box_iou
+from utils.visualization import save_figure
 import os
 import time
 
@@ -141,7 +141,7 @@ def evaluate_scalability(layout_generator, object_counts, directory='logs'):
     Returns:
         tuple: (object_counts, runtime_nc, runtime_gdl)
     """
-    from src.train import dummy_generate_image_noise_collage, dummy_generate_image_graph_diff_layout
+    from train import dummy_generate_image_noise_collage, dummy_generate_image_graph_diff_layout
     
     runtime_nc = []
     runtime_gdl = []

@@ -2,7 +2,7 @@
 
 import numpy as np
 import cv2
-from src.utils.graph_utils import create_layout_graph
+from utils.graph_utils import create_layout_graph
 
 def dummy_generate_image_noise_collage(layout, image_size=(256, 256)):
     """
