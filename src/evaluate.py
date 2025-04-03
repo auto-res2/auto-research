@@ -88,7 +88,7 @@ def evaluate_ablation_study(config, models, extractors, val_loader, save_dir="re
                 
                 for j in range(output_np.shape[0]):
                     psnr = calculate_psnr(output_np[j, 0], target_np[j, 0])
-                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0])
+                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0], data_range=1.0)
                     metrics[name]['psnr'].append(psnr)
                     metrics[name]['ssim'].append(ssim)
             
@@ -209,7 +209,7 @@ def evaluate_intensity_modulation(config, models, val_loader, save_dir="results/
                 
                 for j in range(output_np.shape[0]):
                     psnr = calculate_psnr(output_np[j, 0], target_np[j, 0])
-                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0])
+                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0], data_range=1.0)
                     metrics[name]['psnr'].append(psnr)
                     metrics[name]['ssim'].append(ssim)
             
@@ -353,7 +353,7 @@ def evaluate_distillation(config, teacher, student, val_loader, save_dir="result
                 
                 for j in range(output_np.shape[0]):
                     psnr = calculate_psnr(output_np[j, 0], target_np[j, 0])
-                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0])
+                    ssim = calculate_ssim(output_np[j, 0], target_np[j, 0], data_range=1.0)
                     metrics[name]['psnr'].append(psnr)
                     metrics[name]['ssim'].append(ssim)
             

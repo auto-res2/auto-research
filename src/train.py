@@ -475,7 +475,7 @@ def evaluate_model(model, extractor, val_loader, device):
             
             for i in range(output_np.shape[0]):
                 psnr = calculate_psnr(output_np[i, 0], target_np[i, 0])
-                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0])
+                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0], data_range=1.0)
                 psnr_values.append(psnr)
                 ssim_values.append(ssim)
     
@@ -514,7 +514,7 @@ def evaluate_intensity_model(model, val_loader, device):
             
             for i in range(output_np.shape[0]):
                 psnr = calculate_psnr(output_np[i, 0], target_np[i, 0])
-                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0])
+                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0], data_range=1.0)
                 psnr_values.append(psnr)
                 ssim_values.append(ssim)
     
@@ -553,7 +553,7 @@ def evaluate_student_model(model, val_loader, device):
             
             for i in range(output_np.shape[0]):
                 psnr = calculate_psnr(output_np[i, 0], target_np[i, 0])
-                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0])
+                ssim = calculate_ssim(output_np[i, 0], target_np[i, 0], data_range=1.0)
                 psnr_values.append(psnr)
                 ssim_values.append(ssim)
     
