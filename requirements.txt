@@ -1,1 +1,6 @@
-# Please list the required python packages.
+# Required python packages for ASMO-Solver experiments
+torch>=1.10.0
+torchdiffeq>=0.2.2
+numpy>=1.21.0
+matplotlib>=3.5.0
+scikit-learn>=1.0.0
