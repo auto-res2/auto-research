@@ -34,12 +34,14 @@ class DiffusionModel(nn.Module):
         layers = []
         in_ch = input_channels
         
-        for i in range(1, len(channels)-1):
-            layers.append(nn.Conv2d(in_ch, channels[i], kernel_size=3, padding=1))
-            layers.append(nn.ReLU())
-            in_ch = channels[i]
+        layers.append(nn.Conv2d(in_ch, channels[1], kernel_size=3, padding=1))
+        layers.append(nn.ReLU())
         
-        layers.append(nn.Conv2d(in_ch, channels[-1], kernel_size=3, padding=1))
+        for i in range(2, len(channels)-1):
+            layers.append(nn.Conv2d(channels[i-1], channels[i], kernel_size=3, padding=1))
+            layers.append(nn.ReLU())
+        
+        layers.append(nn.Conv2d(channels[-2], channels[-1], kernel_size=3, padding=1))
         
         self.network = nn.Sequential(*layers)
     
