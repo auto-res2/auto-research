@@ -46,14 +46,20 @@ class SyntheticMRIDataset(Dataset):
         img_15T = torch.rand(self.image_size)
         
         noise = 0.1 * torch.rand(self.image_size)
-        structured_pattern = 0.2 * torch.sin(
-            torch.linspace(0, 3*np.pi, self.image_size[1]).unsqueeze(0).unsqueeze(0).repeat(
-                self.image_size[0], 1, self.image_size[2]
-            )
-        )
+        
+        h, w = self.image_size[1], self.image_size[2]
+        x = torch.linspace(0, 3*np.pi, w)
+        y = torch.linspace(0, 3*np.pi, h)
+        xx, yy = torch.meshgrid(x, y, indexing='ij')
+        pattern = torch.sin(xx) * torch.cos(yy)
+        structured_pattern = 0.2 * pattern.unsqueeze(0).expand(self.image_size)
+        
         target_7T = torch.clamp(img_15T + noise + structured_pattern, 0, 1)
         
-        meta = 0
+        meta = {
+            "idx": idx,
+            "shape": self.image_size
+        }
         
         return img_15T, target_7T, meta
 

@@ -315,13 +315,80 @@ def test_experiments():
     print("Running test_experiments (short run)...")
     print("="*80)
     
+    print("\nExperiment Configuration:")
+    print(f"Experiment name: {config.experiment_name}")
+    print(f"Random seed: {config.random_seed}")
+    print(f"Image size: {config.image_size}x{config.image_size}")
+    print(f"Batch size: {config.batch_size}")
+    print(f"Synthetic dataset size: {config.synthetic_dataset_size}")
+    print(f"Using anatomical prior: {config.use_anatomy_prior}")
+    print(f"Using intensity modulation: {config.use_intensity_modulation}")
+    print(f"Diffusion channels: {config.diffusion_channels}")
+    print(f"Teacher channels: {config.teacher_channels}")
+    print(f"Student channels: {config.student_channels}")
+    print(f"Distillation alpha/beta: {config.distillation_alpha}/{config.distillation_beta}")
+    
+    print("\nSystem Information:")
     device = setup_experiment()
     
-    experiment_ablation_study(device, quick_test=True)
-    experiment_intensity_modulation(device, quick_test=True)
-    experiment_progressive_distillation(device, quick_test=True)
+    start_time = time.time()
+    print(f"\nExperiment started at: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    print("\nRunning Experiment 1/3: Ablation Study")
+    ablation_results = experiment_ablation_study(device, quick_test=True)
+    
+    print("\nRunning Experiment 2/3: Intensity Modulation")
+    intensity_results = experiment_intensity_modulation(device, quick_test=True)
+    
+    print("\nRunning Experiment 3/3: Progressive Distillation")
+    distillation_results = experiment_progressive_distillation(device, quick_test=True)
+    
+    end_time = time.time()
+    duration = end_time - start_time
+    
+    print("\n" + "="*80)
+    print("EXPERIMENT SUMMARY")
+    print("="*80)
+    print(f"Total runtime: {duration:.2f} seconds ({duration/60:.2f} minutes)")
+    
+    print("\nAblation Study Results Summary:")
+    if ablation_results and 'with_prior' in ablation_results and 'without_prior' in ablation_results:
+        with_prior_psnr = ablation_results['with_prior']['psnr'][-1] if ablation_results['with_prior']['psnr'] else 'N/A'
+        with_prior_ssim = ablation_results['with_prior']['ssim'][-1] if ablation_results['with_prior']['ssim'] else 'N/A'
+        without_prior_psnr = ablation_results['without_prior']['psnr'][-1] if ablation_results['without_prior']['psnr'] else 'N/A'
+        without_prior_ssim = ablation_results['without_prior']['ssim'][-1] if ablation_results['without_prior']['ssim'] else 'N/A'
+        
+        print(f"  With anatomical prior    - PSNR: {with_prior_psnr}, SSIM: {with_prior_ssim}")
+        print(f"  Without anatomical prior - PSNR: {without_prior_psnr}, SSIM: {without_prior_ssim}")
+        if isinstance(with_prior_psnr, (int, float)) and isinstance(without_prior_psnr, (int, float)):
+            print(f"  Improvement: {with_prior_psnr - without_prior_psnr:.2f} dB PSNR")
+    
+    print("\nIntensity Modulation Results Summary:")
+    if intensity_results and 'with_intensity' in intensity_results and 'without_intensity' in intensity_results:
+        with_intensity_psnr = intensity_results['with_intensity']['psnr'][-1] if intensity_results['with_intensity']['psnr'] else 'N/A'
+        with_intensity_ssim = intensity_results['with_intensity']['ssim'][-1] if intensity_results['with_intensity']['ssim'] else 'N/A'
+        without_intensity_psnr = intensity_results['without_intensity']['psnr'][-1] if intensity_results['without_intensity']['psnr'] else 'N/A'
+        without_intensity_ssim = intensity_results['without_intensity']['ssim'][-1] if intensity_results['without_intensity']['ssim'] else 'N/A'
+        
+        print(f"  With intensity modulation    - PSNR: {with_intensity_psnr}, SSIM: {with_intensity_ssim}")
+        print(f"  Without intensity modulation - PSNR: {without_intensity_psnr}, SSIM: {without_intensity_ssim}")
+        if isinstance(with_intensity_psnr, (int, float)) and isinstance(without_intensity_psnr, (int, float)):
+            print(f"  Improvement: {with_intensity_psnr - without_intensity_psnr:.2f} dB PSNR")
+    
+    print("\nDistillation Results Summary:")
+    if distillation_results and 'teacher' in distillation_results and 'student' in distillation_results:
+        teacher_psnr = distillation_results['teacher']['psnr'][-1] if distillation_results['teacher']['psnr'] else 'N/A'
+        teacher_ssim = distillation_results['teacher']['ssim'][-1] if distillation_results['teacher']['ssim'] else 'N/A'
+        student_psnr = distillation_results['student']['psnr'][-1] if distillation_results['student']['psnr'] else 'N/A'
+        student_ssim = distillation_results['student']['ssim'][-1] if distillation_results['student']['ssim'] else 'N/A'
+        
+        print(f"  Teacher model - PSNR: {teacher_psnr}, SSIM: {teacher_ssim}")
+        print(f"  Student model - PSNR: {student_psnr}, SSIM: {student_ssim}")
+        if isinstance(teacher_psnr, (int, float)) and isinstance(student_psnr, (int, float)):
+            print(f"  Performance gap: {teacher_psnr - student_psnr:.2f} dB PSNR")
     
     print("\nAll tests finished successfully.")
+    print(f"Experiment completed at: {time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 def run_full_experiments():
     """Run full experiments with more epochs."""
@@ -329,13 +396,45 @@ def run_full_experiments():
     print("Running full experiments...")
     print("="*80)
     
+    print("\nExperiment Configuration:")
+    print(f"Experiment name: {config.experiment_name}")
+    print(f"Random seed: {config.random_seed}")
+    print(f"Image size: {config.image_size}x{config.image_size}")
+    print(f"Batch size: {config.batch_size}")
+    print(f"Synthetic dataset size: {config.synthetic_dataset_size}")
+    print(f"Using anatomical prior: {config.use_anatomy_prior}")
+    print(f"Using intensity modulation: {config.use_intensity_modulation}")
+    print(f"Diffusion channels: {config.diffusion_channels}")
+    print(f"Teacher channels: {config.teacher_channels}")
+    print(f"Student channels: {config.student_channels}")
+    print(f"Distillation alpha/beta: {config.distillation_alpha}/{config.distillation_beta}")
+    
+    print("\nSystem Information:")
     device = setup_experiment()
     
-    experiment_ablation_study(device, quick_test=False)
-    experiment_intensity_modulation(device, quick_test=False)
-    experiment_progressive_distillation(device, quick_test=False)
+    start_time = time.time()
+    print(f"\nExperiment started at: {time.strftime('%Y-%m-%d %H:%M:%S')}")
     
+    print("\nRunning Experiment 1/3: Ablation Study")
+    ablation_results = experiment_ablation_study(device, quick_test=False)
+    
+    print("\nRunning Experiment 2/3: Intensity Modulation")
+    intensity_results = experiment_intensity_modulation(device, quick_test=False)
+    
+    print("\nRunning Experiment 3/3: Progressive Distillation")
+    distillation_results = experiment_progressive_distillation(device, quick_test=False)
+    
+    end_time = time.time()
+    duration = end_time - start_time
+    
+    print("\n" + "="*80)
+    print("EXPERIMENT SUMMARY")
+    print("="*80)
+    print(f"Total runtime: {duration:.2f} seconds ({duration/60:.2f} minutes)")
+    
+    print("\nFull Experiment Results Summary:")
     print("\nAll experiments completed successfully.")
+    print(f"Experiment completed at: {time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 def parse_arguments():
     """Parse command line arguments."""
