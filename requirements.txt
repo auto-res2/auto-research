@@ -1,1 +1,8 @@
-# Please list the required python packages.
+# Required python packages for CAAD experiments
+torch>=1.9.0
+torchvision>=0.10.0
+numpy>=1.19.5
+matplotlib>=3.4.0
+opencv-python>=4.5.0
+scikit-image>=0.18.0
+tqdm>=4.60.0
