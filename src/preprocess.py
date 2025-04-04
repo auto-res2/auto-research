@@ -61,6 +61,8 @@ def add_structured_noise(image, alpha=0.8, beta=0.2, kernel_size=7, sigma=2.0):
     Returns:
         torch.Tensor: corrupted image
     """
+    device = image.device
+    
     noise = torch.randn_like(image)
     
     noise_np = noise.permute(1, 2, 0).cpu().numpy()
@@ -73,7 +75,7 @@ def add_structured_noise(image, alpha=0.8, beta=0.2, kernel_size=7, sigma=2.0):
             sigmaX=sigma
         )
     
-    noise_filtered = torch.from_numpy(noise_filtered).permute(2, 0, 1)
+    noise_filtered = torch.from_numpy(noise_filtered).permute(2, 0, 1).to(device)
     
     corrupted = alpha * image + beta * noise_filtered
     
