@@ -9,6 +9,7 @@ This script implements three experiments:
 All plots are saved as PDF files in the logs directory.
 """
 import os
+import sys
 import time
 import torch
 import torch.nn as nn
@@ -17,11 +18,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple, Optional
 
-from src.models import BaseModel, SACSeg
-from src.preprocess import RandomSegmentationDataset, get_data_loaders
-from src.train import train_one_epoch, evaluate, train_model
-from src.evaluate import segmentation_metrics, compute_dice_coefficient
-from src.utils.visualization import save_plot, plot_comparison
+print("\n" + "="*50)
+print("SAC-Seg Experiment Runner")
+print("="*50)
+print(f"Python version: {sys.version}")
+print(f"Current directory: {os.getcwd()}")
+print(f"PyTorch version: {torch.__version__}")
+print(f"CUDA available: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"CUDA device: {torch.cuda.get_device_name(0)}")
+print("="*50 + "\n")
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+from models import BaseModel, SACSeg
+from preprocess import RandomSegmentationDataset, get_data_loaders
+from train import train_one_epoch, evaluate, train_model
+from evaluate import segmentation_metrics, compute_dice_coefficient
+from utils.visualization import save_plot, plot_comparison
+
+print(f"Successfully imported all required modules")
+print(f"sys.path: {sys.path}")
+print("="*50 + "\n")
 
 os.makedirs('logs', exist_ok=True)
 
@@ -422,8 +442,10 @@ def run_test():
     }
     
     try:
+        print("\n" + "="*50)
+        print("DETAILED TEST EXECUTION LOG")
+        print("="*50)
         print("\nCreating test dataset...")
-        from src.preprocess import RandomSegmentationDataset
         import torchvision.transforms as transforms
         
         transform = transforms.Compose([
@@ -497,16 +519,40 @@ if __name__ == "__main__":
             "perturbation_scale": 0.01
         }
         
-        experiment1_efficiency(seed_config=default_seed_config, embedding_dim=64)
+        print("\nRunning Experiment 1 with adjusted parameters...")
+        experiment1_efficiency(
+            seed_config=default_seed_config, 
+            embedding_dim=16,  # Match with default num_classes=16
+            num_classes=16,
+            image_size=(128, 128),  # Smaller image size for faster execution
+            batch_size=2
+        )
         
-        experiment2_segmentation(seed_config=default_seed_config, embedding_dim=64)
+        print("\nRunning Experiment 2 with adjusted parameters...")
+        experiment2_segmentation(
+            seed_config=default_seed_config, 
+            embedding_dim=16,  # Match with default num_classes=16
+            num_classes=16,
+            image_size=(128, 128),  # Smaller image size for faster execution
+            batch_size=2,
+            num_epochs=2  # Reduce epochs for faster execution
+        )
         
         seed_configs = [
             {"num_seeds": 5, "seed_prob_threshold": 0.3, "perturbation_scale": 0.01},
             {"num_seeds": 10, "seed_prob_threshold": 0.5, "perturbation_scale": 0.01},
             {"num_seeds": 20, "seed_prob_threshold": 0.7, "perturbation_scale": 0.01}
         ]
-        experiment3_domain_adaptation(seed_configs=seed_configs, embedding_dim=64)
+        
+        print("\nRunning Experiment 3 with adjusted parameters...")
+        experiment3_domain_adaptation(
+            seed_configs=seed_configs, 
+            embedding_dim=2,  # Match with num_classes=2 for binary segmentation
+            num_classes=2,
+            image_size=(128, 128),  # Smaller image size for faster execution
+            batch_size=2,
+            num_epochs=2  # Reduce epochs for faster execution
+        )
         
         print("\nAll experiments completed successfully!")
     else:
