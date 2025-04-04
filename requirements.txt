@@ -1,1 +1,6 @@
-# Please list the required python packages.
+# Required python packages for APESGP experiments
+numpy
+matplotlib
+scikit-learn
+torch
+scipy
