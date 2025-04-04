@@ -1,0 +1,178 @@
+
+==================================================
+SAC-Seg Experiment Runner
+==================================================
+Python version: 3.10.16 (main, Dec 12 2024, 19:07:39) [GCC 11.4.0]
+Current directory: /home/runner/work/auto-research/auto-research
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+CUDA device: Tesla T4
+==================================================
+
+Successfully imported all required modules
+sys.path: ['/home/runner/work/auto-research/auto-research', '/home/runner/work/auto-research/auto-research/src', '/home/runner/work/_tool/Python/3.10.16/x64/lib/python310.zip', '/home/runner/work/_tool/Python/3.10.16/x64/lib/python3.10', '/home/runner/work/_tool/Python/3.10.16/x64/lib/python3.10/lib-dynload', '/home/runner/work/_tool/Python/3.10.16/x64/lib/python3.10/site-packages', '/tmp/tmpfnloqokr']
+==================================================
+
+
+=== GPU Compatibility Check ===
+CUDA is available with 1 device(s)
+Device 0: Tesla T4
+  Compute Capability: 7.5
+  Total Memory: 16.71 GB
+NVIDIA Tesla T4 detected - compatible with SAC-Seg implementation
+==============================
+
+
+[TEST] Running quick tests for each experiment...
+
+==================================================
+DETAILED TEST EXECUTION LOG
+==================================================
+
+Creating test dataset...
+Sample image shape: torch.Size([3, 64, 64])
+Sample mask shape: torch.Size([64, 64])
+
+Testing Experiment 1...
+
+[Experiment 1] Computational Efficiency and Memory Footprint Measurement
+Using device: cuda
+
+Measuring BaseModel efficiency...
+BaseModel: 0.58 sec/epoch, 191.90 MB peak memory, Loss: 1.3905
+
+Measuring SACSeg efficiency...
+SACSeg: 0.30 sec/epoch, 192.05 MB peak memory, Loss: 1.3910
+Saved plot to logs/comp_efficiency_epoch_time.pdf
+Saved plot to logs/comp_efficiency_peak_memory.pdf
+
+Experiment 1 completed. Results saved to logs directory.
+
+Testing Experiment 2...
+
+[Experiment 2] Segmentation Accuracy and Fine-Tuning Effectiveness
+Using device: cuda
+
+Training BaseModel...
+Epoch 1/1
+Train Loss: 1.3889, mean_iou: 0.1280, pixel_acc: 0.2458
+Epoch Time: 0.17s, Peak Memory: 191.90 MB
+------------------------------------------------------------
+
+Training SACSeg...
+Epoch 1/1
+Train Loss: 1.4012, mean_iou: 0.0945, pixel_acc: 0.2365
+Epoch Time: 0.24s, Peak Memory: 192.05 MB
+------------------------------------------------------------
+Saved plot to logs/seg_accuracy_train_loss.pdf
+Saved plot to logs/seg_accuracy_val_iou.pdf
+Saved plot to logs/seg_accuracy_val_pixelacc.pdf
+
+Experiment 2 completed. Results saved to logs directory.
+
+Testing Experiment 3...
+
+[Experiment 3] Domain Adaptation and Robustness Testing
+Using device: cuda
+
+Training BaseModel...
+Epoch 1/1
+Train Loss: 0.6982, mean_iou: 0.2674, pixel_acc: 0.5029, dice: 0.2796
+Epoch Time: 0.19s, Peak Memory: 189.19 MB
+------------------------------------------------------------
+
+Training SACSeg-5seeds...
+Epoch 1/1
+Train Loss: 0.6940, mean_iou: 0.2678, pixel_acc: 0.4987, dice: 0.6569
+Epoch Time: 0.20s, Peak Memory: 189.38 MB
+------------------------------------------------------------
+Saved plot to logs/domain_adaptation_train_loss.pdf
+Saved plot to logs/domain_adaptation_dice.pdf
+
+Experiment 3 completed. Results saved to logs directory.
+
+[TEST] All tests completed successfully!
+
+Running full experiments...
+
+Running Experiment 1 with adjusted parameters...
+
+[Experiment 1] Computational Efficiency and Memory Footprint Measurement
+Using device: cuda
+
+Measuring BaseModel efficiency...
+BaseModel: 9.75 sec/epoch, 2416.36 MB peak memory, Loss: 2.7763
+
+Measuring SACSeg efficiency...
+SACSeg: 9.87 sec/epoch, 2414.73 MB peak memory, Loss: 2.7749
+Saved plot to logs/comp_efficiency_epoch_time.pdf
+Saved plot to logs/comp_efficiency_peak_memory.pdf
+
+Experiment 1 completed. Results saved to logs directory.
+
+Running Experiment 2 with adjusted parameters...
+
+[Experiment 2] Segmentation Accuracy and Fine-Tuning Effectiveness
+Using device: cuda
+
+Training BaseModel...
+Epoch 1/2
+Train Loss: 2.7741, mean_iou: 0.0623, pixel_acc: 0.0623
+Epoch Time: 24.54s, Peak Memory: 2416.36 MB
+------------------------------------------------------------
+Epoch 2/2
+Train Loss: 2.7728, mean_iou: 0.0140, pixel_acc: 0.0623
+Epoch Time: 24.74s, Peak Memory: 2416.36 MB
+------------------------------------------------------------
+
+Training SACSeg...
+Epoch 1/2
+Train Loss: 2.7737, mean_iou: 0.0167, pixel_acc: 0.0619
+Epoch Time: 25.13s, Peak Memory: 2414.73 MB
+------------------------------------------------------------
+Epoch 2/2
+Train Loss: 2.7727, mean_iou: 0.0189, pixel_acc: 0.0619
+Epoch Time: 25.32s, Peak Memory: 2414.73 MB
+------------------------------------------------------------
+Saved plot to logs/seg_accuracy_train_loss.pdf
+Saved plot to logs/seg_accuracy_val_iou.pdf
+Saved plot to logs/seg_accuracy_val_pixelacc.pdf
+
+Experiment 2 completed. Results saved to logs directory.
+
+Running Experiment 3 with adjusted parameters...
+
+[Experiment 3] Domain Adaptation and Robustness Testing
+Using device: cuda
+
+Training BaseModel...
+Epoch 1/2
+Train Loss: 0.6961, mean_iou: 0.3107, pixel_acc: 0.5012, dice: 0.2510
+Epoch Time: 6.67s, Peak Memory: 703.44 MB
+------------------------------------------------------------
+Epoch 2/2
+Train Loss: 0.6938, mean_iou: 0.3301, pixel_acc: 0.5020, dice: 0.4188
+Epoch Time: 6.68s, Peak Memory: 703.44 MB
+------------------------------------------------------------
+
+Training SACSeg-5seeds...
+Epoch 1/2
+Train Loss: 0.6933, mean_iou: 0.2646, pixel_acc: 0.5010, dice: 0.0003
+Epoch Time: 6.80s, Peak Memory: 703.44 MB
+------------------------------------------------------------
+Epoch 2/2
+Train Loss: 0.6933, mean_iou: 0.2636, pixel_acc: 0.4990, dice: 0.0001
+Epoch Time: 6.81s, Peak Memory: 703.44 MB
+------------------------------------------------------------
+
+Training SACSeg-10seeds...
+Epoch 1/2
+Train Loss: 0.6936, mean_iou: 0.2606, pixel_acc: 0.5002, dice: 0.6668
+Epoch Time: 7.11s, Peak Memory: 703.71 MB
+------------------------------------------------------------
+Epoch 2/2
+Train Loss: 0.6933, mean_iou: 0.2588, pixel_acc: 0.5015, dice: 0.6675
+Epoch Time: 7.11s, Peak Memory: 703.71 MB
+------------------------------------------------------------
+
+Training SACSeg-20seeds...
