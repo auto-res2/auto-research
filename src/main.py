@@ -237,6 +237,25 @@ def test():
     
     print("\nQuick test completed successfully.")
 
+class SSPTConfig:
+    """
+    Configuration class for SSPT experiments.
+    """
+    def __init__(self):
+        self.RANDOM_SEED = 42
+        self.GPU_DEVICE = 0
+        self.NUM_POINTS = 1024
+        self.NUM_CLASSES = 40
+        self.BATCH_SIZE = 16
+        self.NUM_EPOCHS = 50
+        self.LEARNING_RATE = 0.001
+        self.USE_SPHERICAL_PROJECTION = True
+        self.USE_SHIFTED_ATTENTION = True
+        self.USE_DUAL_ATTENTION = True
+        self.USE_SPHERICAL_POS_ENC = True
+        self.RUN_ABLATION = True
+        self.RUN_ROBUSTNESS = True
+
 def main():
     """
     Main function to run the SSPT experiments.
@@ -249,45 +268,31 @@ def main():
     
     try:
         sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        from config.sspt_config import *
+        from config.sspt_config import (
+            RANDOM_SEED, GPU_DEVICE, NUM_POINTS, NUM_CLASSES, 
+            BATCH_SIZE, NUM_EPOCHS, LEARNING_RATE,
+            USE_SPHERICAL_PROJECTION, USE_SHIFTED_ATTENTION,
+            USE_DUAL_ATTENTION, USE_SPHERICAL_POS_ENC,
+            RUN_ABLATION, RUN_ROBUSTNESS
+        )
         
-        class Config:
-            def __init__(self):
-                self.RANDOM_SEED = RANDOM_SEED
-                self.GPU_DEVICE = GPU_DEVICE
-                self.NUM_POINTS = NUM_POINTS
-                self.NUM_CLASSES = NUM_CLASSES
-                self.BATCH_SIZE = BATCH_SIZE
-                self.NUM_EPOCHS = NUM_EPOCHS
-                self.LEARNING_RATE = LEARNING_RATE
-                self.USE_SPHERICAL_PROJECTION = USE_SPHERICAL_PROJECTION
-                self.USE_SHIFTED_ATTENTION = USE_SHIFTED_ATTENTION
-                self.USE_DUAL_ATTENTION = USE_DUAL_ATTENTION
-                self.USE_SPHERICAL_POS_ENC = USE_SPHERICAL_POS_ENC
-                self.RUN_ABLATION = RUN_ABLATION
-                self.RUN_ROBUSTNESS = RUN_ROBUSTNESS
-        
-        config = Config()
+        config = SSPTConfig()
+        config.RANDOM_SEED = RANDOM_SEED
+        config.GPU_DEVICE = GPU_DEVICE
+        config.NUM_POINTS = NUM_POINTS
+        config.NUM_CLASSES = NUM_CLASSES
+        config.BATCH_SIZE = BATCH_SIZE
+        config.NUM_EPOCHS = NUM_EPOCHS
+        config.LEARNING_RATE = LEARNING_RATE
+        config.USE_SPHERICAL_PROJECTION = USE_SPHERICAL_PROJECTION
+        config.USE_SHIFTED_ATTENTION = USE_SHIFTED_ATTENTION
+        config.USE_DUAL_ATTENTION = USE_DUAL_ATTENTION
+        config.USE_SPHERICAL_POS_ENC = USE_SPHERICAL_POS_ENC
+        config.RUN_ABLATION = RUN_ABLATION
+        config.RUN_ROBUSTNESS = RUN_ROBUSTNESS
     except ImportError:
         print("Configuration file not found. Using default configuration.")
-        
-        class Config:
-            def __init__(self):
-                self.RANDOM_SEED = 42
-                self.GPU_DEVICE = 0
-                self.NUM_POINTS = 1024
-                self.NUM_CLASSES = 40
-                self.BATCH_SIZE = 16
-                self.NUM_EPOCHS = 50
-                self.LEARNING_RATE = 0.001
-                self.USE_SPHERICAL_PROJECTION = True
-                self.USE_SHIFTED_ATTENTION = True
-                self.USE_DUAL_ATTENTION = True
-                self.USE_SPHERICAL_POS_ENC = True
-                self.RUN_ABLATION = True
-                self.RUN_ROBUSTNESS = True
-        
-        config = Config()
+        config = SSPTConfig()
     
     device = torch.device(f"cuda:{config.GPU_DEVICE}" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
