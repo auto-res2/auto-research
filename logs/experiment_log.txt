@@ -1,0 +1,704 @@
+Using device: cuda:0
+
+================================================================================
+Running Experiment 1: End-to-End Benchmark on Standard Datasets (Classification)
+================================================================================
+Loading ModelNet40 dataset...
+ModelNet40 dataset loaded with 100 training samples, 20 validation samples, and 20 test samples.
+
+Training SSPT Model...
+Training SSPT model...
+Epoch 1/50
+Train Loss: 3.8011 Acc: 0.0300 Time: 0.83s
+Val Loss: 3.9029 Acc: 0.0000
+Epoch 2/50
+Train Loss: 3.6540 Acc: 0.0400 Time: 0.64s
+Val Loss: 3.8951 Acc: 0.0000
+Epoch 3/50
+Train Loss: 3.6420 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.7722 Acc: 0.0000
+Epoch 4/50
+Train Loss: 3.5581 Acc: 0.0500 Time: 0.63s
+Val Loss: 3.8129 Acc: 0.0000
+Epoch 5/50
+Train Loss: 3.5654 Acc: 0.0300 Time: 0.64s
+Val Loss: 3.9434 Acc: 0.0000
+Epoch 6/50
+Train Loss: 3.5321 Acc: 0.0100 Time: 0.65s
+Val Loss: 3.8437 Acc: 0.0500
+Epoch 7/50
+Train Loss: 3.4995 Acc: 0.0800 Time: 0.64s
+Val Loss: 3.7380 Acc: 0.0500
+Epoch 8/50
+Train Loss: 3.4833 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.7538 Acc: 0.0500
+Epoch 9/50
+Train Loss: 3.4934 Acc: 0.0400 Time: 0.64s
+Val Loss: 3.8033 Acc: 0.0000
+Epoch 10/50
+Train Loss: 3.4698 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.8685 Acc: 0.0000
+Epoch 11/50
+Train Loss: 3.4387 Acc: 0.0300 Time: 0.65s
+Val Loss: 3.9034 Acc: 0.0000
+Epoch 12/50
+Train Loss: 3.4673 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.8300 Acc: 0.0500
+Epoch 13/50
+Train Loss: 3.4688 Acc: 0.0700 Time: 0.65s
+Val Loss: 3.8453 Acc: 0.0500
+Epoch 14/50
+Train Loss: 3.4497 Acc: 0.0500 Time: 0.66s
+Val Loss: 3.8962 Acc: 0.0000
+Epoch 15/50
+Train Loss: 3.4477 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.8821 Acc: 0.0000
+Epoch 16/50
+Train Loss: 3.4402 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.9156 Acc: 0.0500
+Epoch 17/50
+Train Loss: 3.4951 Acc: 0.0200 Time: 0.64s
+Val Loss: 3.8824 Acc: 0.0500
+Epoch 18/50
+Train Loss: 3.4913 Acc: 0.0300 Time: 0.64s
+Val Loss: 3.8925 Acc: 0.0000
+Epoch 19/50
+Train Loss: 3.4965 Acc: 0.0300 Time: 0.64s
+Val Loss: 3.9102 Acc: 0.0500
+Epoch 20/50
+Train Loss: 3.4977 Acc: 0.0200 Time: 0.65s
+Val Loss: 3.9012 Acc: 0.0000
+Epoch 21/50
+Train Loss: 3.5012 Acc: 0.0300 Time: 0.65s
+Val Loss: 3.8605 Acc: 0.0500
+Epoch 22/50
+Train Loss: 3.4832 Acc: 0.0900 Time: 0.64s
+Val Loss: 3.8237 Acc: 0.0500
+Epoch 23/50
+Train Loss: 3.4797 Acc: 0.0300 Time: 0.64s
+Val Loss: 3.8184 Acc: 0.0500
+Epoch 24/50
+Train Loss: 3.5012 Acc: 0.0400 Time: 0.64s
+Val Loss: 3.8375 Acc: 0.0000
+Epoch 25/50
+Train Loss: 3.4840 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.8335 Acc: 0.0000
+Epoch 26/50
+Train Loss: 3.4461 Acc: 0.0800 Time: 0.64s
+Val Loss: 3.8339 Acc: 0.0000
+Epoch 27/50
+Train Loss: 3.4440 Acc: 0.0500 Time: 0.64s
+Val Loss: 3.8530 Acc: 0.0000
+Epoch 28/50
+Train Loss: 3.4294 Acc: 0.0700 Time: 0.64s
+Val Loss: 3.9154 Acc: 0.0500
+Epoch 29/50
+Train Loss: 3.4560 Acc: 0.0900 Time: 0.65s
+Val Loss: 4.0197 Acc: 0.0000
+Epoch 30/50
+Train Loss: 3.4871 Acc: 0.0700 Time: 0.65s
+Val Loss: 3.9771 Acc: 0.0000
+Epoch 31/50
+Train Loss: 3.4961 Acc: 0.0600 Time: 0.65s
+Val Loss: 3.8914 Acc: 0.0000
+Epoch 32/50
+Train Loss: 3.4115 Acc: 0.0400 Time: 0.65s
+Val Loss: 3.9263 Acc: 0.0000
+Epoch 33/50
+Train Loss: 3.4754 Acc: 0.0700 Time: 0.64s
+Val Loss: 3.9324 Acc: 0.0000
+Epoch 34/50
+Train Loss: 3.4389 Acc: 0.0600 Time: 0.65s
+Val Loss: 3.9077 Acc: 0.0000
+Epoch 35/50
+Train Loss: 3.4681 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.9097 Acc: 0.0000
+Epoch 36/50
+Train Loss: 3.4895 Acc: 0.0500 Time: 0.65s
+Val Loss: 3.8988 Acc: 0.0000
+Epoch 37/50
+Train Loss: 3.4279 Acc: 0.0900 Time: 0.65s
+Val Loss: 3.9514 Acc: 0.0000
+Epoch 38/50
+Train Loss: 3.4441 Acc: 0.0500 Time: 0.65s
+Val Loss: 4.0034 Acc: 0.0000
+Epoch 39/50
+Train Loss: 3.4654 Acc: 0.0300 Time: 0.65s
+Val Loss: 3.9918 Acc: 0.0500
+Epoch 40/50
+Train Loss: 3.4185 Acc: 0.0400 Time: 0.64s
+Val Loss: 3.9711 Acc: 0.0500
+Epoch 41/50
+Train Loss: 3.4630 Acc: 0.0200 Time: 0.64s
+Val Loss: 3.9897 Acc: 0.0500
+Epoch 42/50
+Train Loss: 3.4088 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.9826 Acc: 0.0000
+Epoch 43/50
+Train Loss: 3.4658 Acc: 0.0300 Time: 0.65s
+Val Loss: 3.9550 Acc: 0.0000
+Epoch 44/50
+Train Loss: 3.4407 Acc: 0.0300 Time: 0.64s
+Val Loss: 3.8797 Acc: 0.0000
+Epoch 45/50
+Train Loss: 3.4544 Acc: 0.0400 Time: 0.65s
+Val Loss: 3.8811 Acc: 0.0000
+Epoch 46/50
+Train Loss: 3.4443 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.9055 Acc: 0.0000
+Epoch 47/50
+Train Loss: 3.4365 Acc: 0.0600 Time: 0.65s
+Val Loss: 3.9728 Acc: 0.0000
+Epoch 48/50
+Train Loss: 3.4622 Acc: 0.0400 Time: 0.64s
+Val Loss: 4.0280 Acc: 0.0500
+Epoch 49/50
+Train Loss: 3.4600 Acc: 0.0500 Time: 0.65s
+Val Loss: 4.0436 Acc: 0.0500
+Epoch 50/50
+Train Loss: 3.4606 Acc: 0.0600 Time: 0.64s
+Val Loss: 3.9738 Acc: 0.0000
+Saved training curves to logs/sspt_training_curves.pdf
+SSPT model training completed.
+
+Training PTv3 Baseline Model...
+Training baseline PTv3 model...
+Epoch 1/50
+Train Loss: 3.7489 Acc: 0.0100 Time: 0.50s
+Val Loss: 3.7616 Acc: 0.0000
+Epoch 2/50
+Train Loss: 3.6361 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.7392 Acc: 0.0500
+Epoch 3/50
+Train Loss: 3.5554 Acc: 0.0400 Time: 0.50s
+Val Loss: 3.8286 Acc: 0.0000
+Epoch 4/50
+Train Loss: 3.5119 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.8927 Acc: 0.0000
+Epoch 5/50
+Train Loss: 3.5744 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.8721 Acc: 0.0000
+Epoch 6/50
+Train Loss: 3.5223 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.7796 Acc: 0.0500
+Epoch 7/50
+Train Loss: 3.5298 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.7637 Acc: 0.0500
+Epoch 8/50
+Train Loss: 3.4745 Acc: 0.0400 Time: 0.50s
+Val Loss: 3.8131 Acc: 0.0500
+Epoch 9/50
+Train Loss: 3.5092 Acc: 0.0300 Time: 0.50s
+Val Loss: 3.8194 Acc: 0.0500
+Epoch 10/50
+Train Loss: 3.4759 Acc: 0.0800 Time: 0.50s
+Val Loss: 3.7889 Acc: 0.0500
+Epoch 11/50
+Train Loss: 3.4927 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.7489 Acc: 0.0000
+Epoch 12/50
+Train Loss: 3.4946 Acc: 0.0800 Time: 0.50s
+Val Loss: 3.7590 Acc: 0.0000
+Epoch 13/50
+Train Loss: 3.4577 Acc: 0.0400 Time: 0.50s
+Val Loss: 3.8189 Acc: 0.0000
+Epoch 14/50
+Train Loss: 3.5133 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.8270 Acc: 0.0000
+Epoch 15/50
+Train Loss: 3.4684 Acc: 0.0500 Time: 0.50s
+Val Loss: 3.8580 Acc: 0.0000
+Epoch 16/50
+Train Loss: 3.4702 Acc: 0.1000 Time: 0.51s
+Val Loss: 3.8641 Acc: 0.0000
+Epoch 17/50
+Train Loss: 3.4669 Acc: 0.0100 Time: 0.50s
+Val Loss: 3.9223 Acc: 0.0000
+Epoch 18/50
+Train Loss: 3.4689 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.9712 Acc: 0.0500
+Epoch 19/50
+Train Loss: 3.4590 Acc: 0.0500 Time: 0.50s
+Val Loss: 3.8781 Acc: 0.0000
+Epoch 20/50
+Train Loss: 3.4698 Acc: 0.0400 Time: 0.50s
+Val Loss: 3.8765 Acc: 0.0000
+Epoch 21/50
+Train Loss: 3.4888 Acc: 0.0500 Time: 0.50s
+Val Loss: 3.8933 Acc: 0.0500
+Epoch 22/50
+Train Loss: 3.4055 Acc: 0.0700 Time: 0.51s
+Val Loss: 3.9072 Acc: 0.0500
+Epoch 23/50
+Train Loss: 3.4673 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.9184 Acc: 0.0500
+Epoch 24/50
+Train Loss: 3.4464 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.8502 Acc: 0.0500
+Epoch 25/50
+Train Loss: 3.4617 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.8477 Acc: 0.0000
+Epoch 26/50
+Train Loss: 3.4431 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.8395 Acc: 0.0000
+Epoch 27/50
+Train Loss: 3.4659 Acc: 0.0700 Time: 0.50s
+Val Loss: 3.8720 Acc: 0.0000
+Epoch 28/50
+Train Loss: 3.4547 Acc: 0.0800 Time: 0.50s
+Val Loss: 3.9487 Acc: 0.0000
+Epoch 29/50
+Train Loss: 3.4644 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.8928 Acc: 0.0000
+Epoch 30/50
+Train Loss: 3.4486 Acc: 0.0300 Time: 0.50s
+Val Loss: 3.8705 Acc: 0.0000
+Epoch 31/50
+Train Loss: 3.4737 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.8599 Acc: 0.0000
+Epoch 32/50
+Train Loss: 3.4541 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.8982 Acc: 0.0500
+Epoch 33/50
+Train Loss: 3.4763 Acc: 0.0300 Time: 0.51s
+Val Loss: 3.8895 Acc: 0.0500
+Epoch 34/50
+Train Loss: 3.4392 Acc: 0.0400 Time: 0.50s
+Val Loss: 3.9175 Acc: 0.0000
+Epoch 35/50
+Train Loss: 3.4411 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.9566 Acc: 0.0000
+Epoch 36/50
+Train Loss: 3.4534 Acc: 0.0700 Time: 0.50s
+Val Loss: 3.9431 Acc: 0.0000
+Epoch 37/50
+Train Loss: 3.4567 Acc: 0.0700 Time: 0.50s
+Val Loss: 3.9503 Acc: 0.0000
+Epoch 38/50
+Train Loss: 3.4432 Acc: 0.0300 Time: 0.51s
+Val Loss: 3.9303 Acc: 0.0000
+Epoch 39/50
+Train Loss: 3.4278 Acc: 0.0800 Time: 0.50s
+Val Loss: 3.9161 Acc: 0.0000
+Epoch 40/50
+Train Loss: 3.4469 Acc: 0.1200 Time: 0.50s
+Val Loss: 3.9287 Acc: 0.0000
+Epoch 41/50
+Train Loss: 3.4616 Acc: 0.0900 Time: 0.50s
+Val Loss: 3.8907 Acc: 0.0500
+Epoch 42/50
+Train Loss: 3.4164 Acc: 0.0500 Time: 0.50s
+Val Loss: 3.8970 Acc: 0.0500
+Epoch 43/50
+Train Loss: 3.4434 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.9450 Acc: 0.0500
+Epoch 44/50
+Train Loss: 3.4680 Acc: 0.0600 Time: 0.51s
+Val Loss: 3.9587 Acc: 0.0500
+Epoch 45/50
+Train Loss: 3.4718 Acc: 0.0800 Time: 0.50s
+Val Loss: 3.8976 Acc: 0.0500
+Epoch 46/50
+Train Loss: 3.4611 Acc: 0.0600 Time: 0.50s
+Val Loss: 3.9084 Acc: 0.0500
+Epoch 47/50
+Train Loss: 3.4607 Acc: 0.0300 Time: 0.51s
+Val Loss: 3.9330 Acc: 0.0000
+Epoch 48/50
+Train Loss: 3.4561 Acc: 0.0500 Time: 0.50s
+Val Loss: 3.9730 Acc: 0.0000
+Epoch 49/50
+Train Loss: 3.4299 Acc: 0.0600 Time: 0.51s
+Val Loss: 4.0427 Acc: 0.0000
+Epoch 50/50
+Train Loss: 3.4922 Acc: 0.0200 Time: 0.50s
+Val Loss: 3.9806 Acc: 0.0000
+Saved training curves to logs/ptv3_training_curves.pdf
+Baseline PTv3 model training completed.
+
+Evaluating SSPT Model...
+Evaluating SSPT model...
+SSPT model accuracy: 0.00%
+
+Evaluating PTv3 Baseline Model...
+Evaluating baseline PTv3 model...
+Baseline PTv3 model accuracy: 0.00%
+
+Comparing SSPT and PTv3 Baseline Models...
+Comparing SSPT and baseline models...
+Saved comparison bar chart to logs/model_comparison.pdf
+SSPT model accuracy: 0.00%
+Baseline PTv3 model accuracy: 0.00%
+Improvement: 0.00%
+
+Experiment 1 completed. SSPT improvement over baseline: 0.00%
+
+================================================================================
+Running Experiment 2: Component Ablation Study
+================================================================================
+Loading ModelNet40 dataset...
+ModelNet40 dataset loaded with 80 training samples, 20 validation samples, and 20 test samples.
+
+Training SSPT variants for ablation study...
+Training SSPT variants for ablation study...
+Training Variant A (No Spherical Projection)...
+Epoch 1/25
+Train Loss: 3.7385 Acc: 0.0250 Time: 0.42s
+Val Loss: 3.8314 Acc: 0.0000
+Epoch 2/25
+Train Loss: 3.5461 Acc: 0.0875 Time: 0.42s
+Val Loss: 3.8553 Acc: 0.0500
+Epoch 3/25
+Train Loss: 3.5262 Acc: 0.1250 Time: 0.42s
+Val Loss: 3.9151 Acc: 0.0000
+Epoch 4/25
+Train Loss: 3.4973 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.0004 Acc: 0.0000
+Epoch 5/25
+Train Loss: 3.5018 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.0551 Acc: 0.0000
+Epoch 6/25
+Train Loss: 3.4800 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.0978 Acc: 0.0000
+Epoch 7/25
+Train Loss: 3.4641 Acc: 0.0125 Time: 0.43s
+Val Loss: 4.1204 Acc: 0.0000
+Epoch 8/25
+Train Loss: 3.4663 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.1253 Acc: 0.0000
+Epoch 9/25
+Train Loss: 3.4734 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.1725 Acc: 0.0000
+Epoch 10/25
+Train Loss: 3.4033 Acc: 0.0875 Time: 0.43s
+Val Loss: 4.1621 Acc: 0.0000
+Epoch 11/25
+Train Loss: 3.4111 Acc: 0.0250 Time: 0.42s
+Val Loss: 4.1514 Acc: 0.0000
+Epoch 12/25
+Train Loss: 3.4299 Acc: 0.0375 Time: 0.43s
+Val Loss: 4.1347 Acc: 0.0000
+Epoch 13/25
+Train Loss: 3.4410 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.1384 Acc: 0.0500
+Epoch 14/25
+Train Loss: 3.4554 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.1417 Acc: 0.0000
+Epoch 15/25
+Train Loss: 3.4090 Acc: 0.0250 Time: 0.42s
+Val Loss: 4.1483 Acc: 0.0000
+Epoch 16/25
+Train Loss: 3.4676 Acc: 0.0875 Time: 0.43s
+Val Loss: 4.1810 Acc: 0.0000
+Epoch 17/25
+Train Loss: 3.4041 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.2169 Acc: 0.0000
+Epoch 18/25
+Train Loss: 3.4351 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.2193 Acc: 0.0000
+Epoch 19/25
+Train Loss: 3.4192 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.2136 Acc: 0.0000
+Epoch 20/25
+Train Loss: 3.4390 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.2466 Acc: 0.0000
+Epoch 21/25
+Train Loss: 3.4554 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.2567 Acc: 0.0000
+Epoch 22/25
+Train Loss: 3.4302 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.2394 Acc: 0.0000
+Epoch 23/25
+Train Loss: 3.4141 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.2202 Acc: 0.0000
+Epoch 24/25
+Train Loss: 3.4166 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.2310 Acc: 0.0000
+Epoch 25/25
+Train Loss: 3.4023 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.2767 Acc: 0.0000
+Variant A (No Spherical Projection) training completed.
+Training Variant B (Fixed-window Attention)...
+Epoch 1/25
+Train Loss: 3.6685 Acc: 0.0500 Time: 0.43s
+Val Loss: 3.9930 Acc: 0.0000
+Epoch 2/25
+Train Loss: 3.5899 Acc: 0.0125 Time: 0.42s
+Val Loss: 4.0583 Acc: 0.0000
+Epoch 3/25
+Train Loss: 3.5407 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.0963 Acc: 0.0000
+Epoch 4/25
+Train Loss: 3.5439 Acc: 0.0375 Time: 0.42s
+Val Loss: 4.1012 Acc: 0.0500
+Epoch 5/25
+Train Loss: 3.4841 Acc: 0.0375 Time: 0.43s
+Val Loss: 4.1216 Acc: 0.0000
+Epoch 6/25
+Train Loss: 3.4318 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.1632 Acc: 0.0000
+Epoch 7/25
+Train Loss: 3.4121 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.2267 Acc: 0.0000
+Epoch 8/25
+Train Loss: 3.4471 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.2464 Acc: 0.0000
+Epoch 9/25
+Train Loss: 3.4200 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.2614 Acc: 0.0000
+Epoch 10/25
+Train Loss: 3.4710 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.2466 Acc: 0.0000
+Epoch 11/25
+Train Loss: 3.3886 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.2284 Acc: 0.0500
+Epoch 12/25
+Train Loss: 3.4239 Acc: 0.1000 Time: 0.42s
+Val Loss: 4.2518 Acc: 0.0000
+Epoch 13/25
+Train Loss: 3.4415 Acc: 0.1125 Time: 0.42s
+Val Loss: 4.2659 Acc: 0.0000
+Epoch 14/25
+Train Loss: 3.4483 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.3111 Acc: 0.0000
+Epoch 15/25
+Train Loss: 3.4242 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.3268 Acc: 0.0000
+Epoch 16/25
+Train Loss: 3.4534 Acc: 0.0250 Time: 0.42s
+Val Loss: 4.3405 Acc: 0.0000
+Epoch 17/25
+Train Loss: 3.4330 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.3110 Acc: 0.0000
+Epoch 18/25
+Train Loss: 3.4871 Acc: 0.0375 Time: 0.42s
+Val Loss: 4.3048 Acc: 0.0000
+Epoch 19/25
+Train Loss: 3.3832 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.2916 Acc: 0.0000
+Epoch 20/25
+Train Loss: 3.4016 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.2787 Acc: 0.0000
+Epoch 21/25
+Train Loss: 3.4435 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.2907 Acc: 0.0000
+Epoch 22/25
+Train Loss: 3.3990 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.3071 Acc: 0.0000
+Epoch 23/25
+Train Loss: 3.4429 Acc: 0.0250 Time: 0.43s
+Val Loss: 4.3136 Acc: 0.0000
+Epoch 24/25
+Train Loss: 3.4148 Acc: 0.0250 Time: 0.42s
+Val Loss: 4.3395 Acc: 0.0000
+Epoch 25/25
+Train Loss: 3.4759 Acc: 0.0375 Time: 0.42s
+Val Loss: 4.3583 Acc: 0.0000
+Variant B (Fixed-window Attention) training completed.
+Training Variant C (No Vector-based Correlation in Dual Attention)...
+Epoch 1/25
+Train Loss: 3.7695 Acc: 0.0125 Time: 0.41s
+Val Loss: 3.7547 Acc: 0.0000
+Epoch 2/25
+Train Loss: 3.6317 Acc: 0.0750 Time: 0.41s
+Val Loss: 3.7723 Acc: 0.0000
+Epoch 3/25
+Train Loss: 3.5596 Acc: 0.1000 Time: 0.41s
+Val Loss: 3.7872 Acc: 0.0500
+Epoch 4/25
+Train Loss: 3.4813 Acc: 0.0875 Time: 0.42s
+Val Loss: 3.8676 Acc: 0.0500
+Epoch 5/25
+Train Loss: 3.4736 Acc: 0.0875 Time: 0.41s
+Val Loss: 3.9315 Acc: 0.0500
+Epoch 6/25
+Train Loss: 3.4153 Acc: 0.0375 Time: 0.41s
+Val Loss: 4.0127 Acc: 0.0500
+Epoch 7/25
+Train Loss: 3.4279 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.0653 Acc: 0.0500
+Epoch 8/25
+Train Loss: 3.4333 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.0936 Acc: 0.0500
+Epoch 9/25
+Train Loss: 3.3963 Acc: 0.0625 Time: 0.41s
+Val Loss: 4.1290 Acc: 0.0000
+Epoch 10/25
+Train Loss: 3.4580 Acc: 0.0750 Time: 0.41s
+Val Loss: 4.1698 Acc: 0.0000
+Epoch 11/25
+Train Loss: 3.4197 Acc: 0.0375 Time: 0.41s
+Val Loss: 4.2193 Acc: 0.0000
+Epoch 12/25
+Train Loss: 3.4141 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.2616 Acc: 0.0000
+Epoch 13/25
+Train Loss: 3.4913 Acc: 0.1125 Time: 0.42s
+Val Loss: 4.1967 Acc: 0.0000
+Epoch 14/25
+Train Loss: 3.3992 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.1931 Acc: 0.0000
+Epoch 15/25
+Train Loss: 3.4294 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.2044 Acc: 0.0000
+Epoch 16/25
+Train Loss: 3.4360 Acc: 0.0375 Time: 0.42s
+Val Loss: 4.2176 Acc: 0.0000
+Epoch 17/25
+Train Loss: 3.3874 Acc: 0.0625 Time: 0.41s
+Val Loss: 4.2311 Acc: 0.0000
+Epoch 18/25
+Train Loss: 3.4653 Acc: 0.0625 Time: 0.41s
+Val Loss: 4.1817 Acc: 0.0000
+Epoch 19/25
+Train Loss: 3.4496 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.1721 Acc: 0.0000
+Epoch 20/25
+Train Loss: 3.4161 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.1357 Acc: 0.0000
+Epoch 21/25
+Train Loss: 3.4143 Acc: 0.1125 Time: 0.41s
+Val Loss: 4.1648 Acc: 0.0000
+Epoch 22/25
+Train Loss: 3.4489 Acc: 0.0125 Time: 0.41s
+Val Loss: 4.1960 Acc: 0.0000
+Epoch 23/25
+Train Loss: 3.3917 Acc: 0.1000 Time: 0.42s
+Val Loss: 4.2369 Acc: 0.0000
+Epoch 24/25
+Train Loss: 3.4174 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.2992 Acc: 0.0000
+Epoch 25/25
+Train Loss: 3.4452 Acc: 0.0750 Time: 0.41s
+Val Loss: 4.3135 Acc: 0.0000
+Variant C (No Vector-based Correlation in Dual Attention) training completed.
+Training Variant D (Relative Positional Encoding)...
+Epoch 1/25
+Train Loss: 3.6489 Acc: 0.0750 Time: 0.42s
+Val Loss: 3.7555 Acc: 0.0500
+Epoch 2/25
+Train Loss: 3.6168 Acc: 0.0250 Time: 0.43s
+Val Loss: 3.8818 Acc: 0.0000
+Epoch 3/25
+Train Loss: 3.4915 Acc: 0.0750 Time: 0.42s
+Val Loss: 3.9828 Acc: 0.0000
+Epoch 4/25
+Train Loss: 3.5095 Acc: 0.0875 Time: 0.43s
+Val Loss: 4.0062 Acc: 0.0000
+Epoch 5/25
+Train Loss: 3.5173 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.0446 Acc: 0.0000
+Epoch 6/25
+Train Loss: 3.4935 Acc: 0.0250 Time: 0.43s
+Val Loss: 4.0704 Acc: 0.0000
+Epoch 7/25
+Train Loss: 3.4546 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.0538 Acc: 0.0000
+Epoch 8/25
+Train Loss: 3.4485 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.1141 Acc: 0.0000
+Epoch 9/25
+Train Loss: 3.4574 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.1573 Acc: 0.0000
+Epoch 10/25
+Train Loss: 3.4242 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.1957 Acc: 0.0000
+Epoch 11/25
+Train Loss: 3.4193 Acc: 0.1000 Time: 0.42s
+Val Loss: 4.1809 Acc: 0.0500
+Epoch 12/25
+Train Loss: 3.4664 Acc: 0.0375 Time: 0.42s
+Val Loss: 4.2152 Acc: 0.0000
+Epoch 13/25
+Train Loss: 3.4956 Acc: 0.0375 Time: 0.43s
+Val Loss: 4.1385 Acc: 0.0000
+Epoch 14/25
+Train Loss: 3.4410 Acc: 0.0875 Time: 0.43s
+Val Loss: 4.1235 Acc: 0.0000
+Epoch 15/25
+Train Loss: 3.4597 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.0896 Acc: 0.0000
+Epoch 16/25
+Train Loss: 3.4625 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.1267 Acc: 0.0000
+Epoch 17/25
+Train Loss: 3.3883 Acc: 0.0875 Time: 0.42s
+Val Loss: 4.1942 Acc: 0.0000
+Epoch 18/25
+Train Loss: 3.4309 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.2522 Acc: 0.0000
+Epoch 19/25
+Train Loss: 3.5195 Acc: 0.0500 Time: 0.43s
+Val Loss: 4.2651 Acc: 0.0000
+Epoch 20/25
+Train Loss: 3.4416 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.2315 Acc: 0.0000
+Epoch 21/25
+Train Loss: 3.4235 Acc: 0.0625 Time: 0.43s
+Val Loss: 4.2135 Acc: 0.0000
+Epoch 22/25
+Train Loss: 3.4339 Acc: 0.0750 Time: 0.43s
+Val Loss: 4.2472 Acc: 0.0000
+Epoch 23/25
+Train Loss: 3.4630 Acc: 0.0625 Time: 0.42s
+Val Loss: 4.2687 Acc: 0.0000
+Epoch 24/25
+Train Loss: 3.4318 Acc: 0.0750 Time: 0.42s
+Val Loss: 4.2666 Acc: 0.0000
+Epoch 25/25
+Train Loss: 3.4174 Acc: 0.0500 Time: 0.42s
+Val Loss: 4.2534 Acc: 0.0000
+Variant D (Relative Positional Encoding) training completed.
+Ablation study completed.
+
+Evaluating SSPT variants...
+Evaluating SSPT variants for ablation study...
+Evaluating Variant A (No Spherical Projection)...
+Variant A (No Spherical Projection) accuracy: 0.00%
+Evaluating Variant B (Fixed-window Attention)...
+Variant B (Fixed-window Attention) accuracy: 0.00%
+Evaluating Variant C (No Vector-based Correlation in Dual Attention)...
+Variant C (No Vector-based Correlation in Dual Attention) accuracy: 0.00%
+Evaluating Variant D (Relative Positional Encoding)...
+Variant D (Relative Positional Encoding) accuracy: 0.00%
+Ablation study evaluation completed.
+
+Experiment 2 completed.
+
+================================================================================
+Running Experiment 3: Robustness Evaluation under Perturbations
+================================================================================
+Loading ModelNet40 dataset...
+ModelNet40 dataset loaded with 80 training samples, 20 validation samples, and 30 test samples.
+
+Loading pre-trained models...
+
+Evaluating SSPT model robustness...
+Evaluating model robustness...
+Evaluating robustness under rotation perturbation...
+Accuracy under rotation perturbation: 3.33%
+Evaluating robustness under scaling perturbation...
+Accuracy under scaling perturbation: 3.33%
+Evaluating robustness under noise perturbation...
+Accuracy under noise perturbation: 3.33%
+Evaluating robustness under all perturbation...
+Accuracy under all perturbation: 3.33%
+Robustness evaluation completed.
+
+Evaluating PTv3 baseline model robustness...
+Evaluating model robustness...
+Evaluating robustness under rotation perturbation...
+Accuracy under rotation perturbation: 0.00%
+Evaluating robustness under scaling perturbation...
+Accuracy under scaling perturbation: 0.00%
+Evaluating robustness under noise perturbation...
+Accuracy under noise perturbation: 0.00%
+Evaluating robustness under all perturbation...
+Accuracy under all perturbation: 3.33%
+Robustness evaluation completed.
+
+Comparing robustness results...
+
+Experiment 3 completed.
+
+All experiments completed successfully.
