@@ -241,8 +241,18 @@ def experiment_geometry_sampling(device, logger):
     region_loss_geo = compute_region_loss(pred_depth, gt_depth, samples_geo)
     region_loss_uniform = compute_region_loss(pred_depth, gt_depth, samples_uniform)
     
-    logger.info(f"Region-specific photometric loss with Geometry-Aware Sampling: {region_loss_geo:.4f}")
-    logger.info(f"Region-specific photometric loss with Uniform Sampling: {region_loss_uniform:.4f}")
+    if isinstance(region_loss_geo, torch.Tensor):
+        region_loss_geo_cpu = region_loss_geo.detach().cpu().item()
+    else:
+        region_loss_geo_cpu = float(region_loss_geo)
+        
+    if isinstance(region_loss_uniform, torch.Tensor):
+        region_loss_uniform_cpu = region_loss_uniform.detach().cpu().item()
+    else:
+        region_loss_uniform_cpu = float(region_loss_uniform)
+    
+    logger.info(f"Region-specific photometric loss with Geometry-Aware Sampling: {region_loss_geo_cpu:.4f}")
+    logger.info(f"Region-specific photometric loss with Uniform Sampling: {region_loss_uniform_cpu:.4f}")
     
     img_np = images[0].permute(1, 2, 0).cpu().numpy()
     img_np = (img_np - img_np.min()) / (img_np.max() - img_np.min())  # normalize to [0,1]
@@ -264,21 +274,21 @@ def experiment_geometry_sampling(device, logger):
     )
     
     save_bar_comparison(
-        [region_loss_geo, region_loss_uniform],
+        [region_loss_geo_cpu, region_loss_uniform_cpu],  # Use CPU values
         ["Geometry-Aware", "Uniform"],
         "Sampling Strategy Comparison",
         os.path.join(config.LOGS_DIR, "sampling_loss_comparison.pdf")
     )
     
-    if region_loss_uniform > region_loss_geo:
-        improvement = (region_loss_uniform - region_loss_geo) / region_loss_uniform * 100
+    if region_loss_uniform_cpu > region_loss_geo_cpu:
+        improvement = (region_loss_uniform_cpu - region_loss_geo_cpu) / region_loss_uniform_cpu * 100
         logger.info(f"Geometry-aware sampling improves loss by {improvement:.2f}% compared to uniform sampling")
     else:
-        difference = (region_loss_geo - region_loss_uniform) / region_loss_uniform * 100
+        difference = (region_loss_geo_cpu - region_loss_uniform_cpu) / region_loss_uniform_cpu * 100
         logger.info(f"Uniform sampling performs better by {difference:.2f}% in this test case")
     
     logger.info("Experiment 3 completed successfully")
-    return region_loss_geo, region_loss_uniform
+    return region_loss_geo_cpu, region_loss_uniform_cpu
 
 def main():
     """Main function to run all experiments."""
@@ -306,6 +316,69 @@ def main():
         loss_iterations, loss_simplified = experiment_ablation(device, logger)
         
         loss_geo, loss_uniform = experiment_geometry_sampling(device, logger)
+        
+        print("\n" + "="*80)
+        print("                     IDRR-GAR EXPERIMENT RESULTS SUMMARY")
+        print("="*80)
+        
+        print("\n[EXPERIMENT 1] Evaluation on Dynamic and Non-Rigid Scenes")
+        print("-"*70)
+        print(f"Base Model:")
+        print(f"  - Initial Loss: {loss_base[0]:.4f}")
+        print(f"  - Final Loss: {loss_base[-1]:.4f}")
+        print(f"  - Improvement: {((loss_base[0] - loss_base[-1]) / loss_base[0] * 100):.2f}%")
+        print(f"\nIDRR-GAR Model:")
+        print(f"  - Initial Loss: {loss_idrr[0]:.4f}")
+        print(f"  - Final Loss: {loss_idrr[-1]:.4f}")
+        print(f"  - Improvement: {((loss_idrr[0] - loss_idrr[-1]) / loss_idrr[0] * 100):.2f}%")
+        print(f"\nComparison:")
+        if loss_idrr[-1] < loss_base[-1]:
+            print(f"  - IDRR-GAR outperforms Base Model by {((loss_base[-1] - loss_idrr[-1]) / loss_base[-1] * 100):.2f}%")
+        else:
+            print(f"  - Base Model outperforms IDRR-GAR by {((loss_idrr[-1] - loss_base[-1]) / loss_idrr[-1] * 100):.2f}%")
+        
+        print("\n[EXPERIMENT 2] Ablation Study on Iterative Refinement")
+        print("-"*70)
+        print(f"Iterative Refinement Process:")
+        for i, loss in enumerate(loss_iterations):
+            print(f"  - Iteration {i+1}: Loss = {loss:.4f}")
+        
+        print(f"\nComparison:")
+        print(f"  - Single-Step Model Loss: {loss_simplified:.4f}")
+        print(f"  - {config.ITERATIONS}-Step Iterative Model Final Loss: {loss_iterations[-1]:.4f}")
+        if loss_iterations[-1] < loss_simplified:
+            print(f"  - Iterative refinement improves performance by {((loss_simplified - loss_iterations[-1]) / loss_simplified * 100):.2f}%")
+        else:
+            print(f"  - Single-step approach performs better by {((loss_iterations[-1] - loss_simplified) / loss_iterations[-1] * 100):.2f}%")
+            print(f"  - This suggests that for this specific test case, additional iterations may not be beneficial")
+        
+        print("\n[EXPERIMENT 3] Analysis of Geometry-Aware Sampling")
+        print("-"*70)
+        print(f"Sampling Strategy Comparison:")
+        print(f"  - Geometry-Aware Sampling Loss: {loss_geo:.4f}")
+        print(f"  - Uniform Sampling Loss: {loss_uniform:.4f}")
+        if loss_geo < loss_uniform:
+            print(f"  - Geometry-aware sampling improves performance by {((loss_uniform - loss_geo) / loss_uniform * 100):.2f}%")
+            print(f"  - This confirms our hypothesis that focusing on regions with high geometric complexity")
+            print(f"    leads to better depth estimation in dynamic scenes")
+        else:
+            print(f"  - Uniform sampling performs better by {((loss_geo - loss_uniform) / loss_geo * 100):.2f}%")
+            print(f"  - This suggests that for this specific test case, the geometry-aware sampling")
+            print(f"    may not provide significant benefits over uniform sampling")
+        
+        print("\n[VISUALIZATION OUTPUTS]")
+        print("-"*70)
+        print(f"The following visualization files have been generated in {config.LOGS_DIR}:")
+        print(f"  1. training_loss_idrr_vs_base.pdf - Loss comparison between Base and IDRR-GAR models")
+        print(f"  2. training_loss_iterative_refinement.pdf - Loss variation over refinement iterations")
+        print(f"  3. ablation_comparison.pdf - Comparison of single-step vs. iterative refinement")
+        print(f"  4. sampling_visualization_geometry.pdf - Visualization of geometry-aware sampling")
+        print(f"  5. sampling_visualization_uniform.pdf - Visualization of uniform sampling")
+        print(f"  6. sampling_loss_comparison.pdf - Loss comparison between sampling strategies")
+        
+        print("\n" + "="*80)
+        print("                          EXPERIMENT COMPLETED")
+        print("="*80)
         
         logger.info("\n=== Experiment Results Summary ===")
         logger.info("Experiment 1 - Dynamic and Non-Rigid Scenes:")

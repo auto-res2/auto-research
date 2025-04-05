@@ -129,20 +129,31 @@ def save_bar_comparison(values, labels, title, filename):
     Create and save bar chart comparison.
     
     Args:
-        values: List of values for bars
+        values: List of values for bars (can be tensors or floats)
         labels: List of labels for bars
         title: Plot title
         filename: Output filename
     """
+    processed_values = []
+    for val in values:
+        if isinstance(val, torch.Tensor):
+            processed_values.append(val.detach().cpu().item())
+        else:
+            processed_values.append(float(val))
+    
     plt.figure(figsize=(10, 6))
-    plt.bar(labels, values)
+    plt.bar(labels, processed_values)  # Use processed values here
     plt.ylabel("Loss Value")
     plt.title(title)
     plt.grid(True, alpha=0.3, axis='y')
     plt.savefig(filename, format='pdf', dpi=300, bbox_inches='tight')
     plt.close()
     
+    value_str = ", ".join([f"{v:.4f}" for v in processed_values])
     print(f"Bar chart saved as {filename}")
+    print(f"  - Values: {value_str}")
+    print(f"  - Labels: {', '.join(labels)}")
+    print(f"  - Title: {title}")
 
 
 def run_statistical_test(values1, values2, name1, name2):
