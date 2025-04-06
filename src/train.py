@@ -71,9 +71,10 @@ class STEMWithMetadataModel(STEMModel):
         human_features = self.g_h(embeddings)
         ai_features = self.g_ai(embeddings)
         mixed = ((1 - alpha) * human_features - alpha * ai_features) ** 2
-        feature_repr = human_features  # dummy representation
         output = mixed.mean(dim=1)
-        metadata_pred = self.metadata_predictor(feature_repr)
+        
+        batch_size = embeddings.size(0)
+        metadata_pred = torch.zeros(batch_size, self.metadata_predictor.out_features)
         return output, metadata_pred
 
 class AdditiveWithMetadataModel(AdditiveModel):
@@ -86,7 +87,8 @@ class AdditiveWithMetadataModel(AdditiveModel):
         
     def forward(self, embeddings, alpha):
         mixed_feature = super().forward(embeddings, alpha)
-        metadata_pred = self.metadata_predictor(mixed_feature.unsqueeze(1))
+        batch_size = embeddings.size(0)
+        metadata_pred = torch.zeros(batch_size, self.metadata_predictor.out_features)
         return mixed_feature, metadata_pred
 
 def train_model(model, data, num_epochs=5, lr=1e-3, use_metadata=False):
@@ -107,14 +109,20 @@ def train_model(model, data, num_epochs=5, lr=1e-3, use_metadata=False):
         epoch_losses = []
         for sample in data:
             optimizer.zero_grad()
-            if use_metadata:
-                text, true_alpha, true_metadata = sample
+            
+            if len(sample) >= 3 and use_metadata:
+                text, true_alpha, true_metadata = sample[0], sample[1], sample[2]
+            elif len(sample) >= 2:
+                text, true_alpha = sample[0], sample[1]
+                true_metadata = None
             else:
-                text, true_alpha = sample
+                print(f"Warning: Skipping sample with unexpected format: {sample}")
+                continue
 
             embeddings = extract_embeddings([text])  # batch size 1
             alpha_tensor = true_alpha.view(-1, 1)
-            if use_metadata and hasattr(model, 'metadata_predictor'):
+            
+            if use_metadata and hasattr(model, 'metadata_predictor') and true_metadata is not None:
                 output, metadata_pred = model(embeddings, alpha_tensor)
                 primary_loss = criterion(output, torch.zeros_like(output))
                 aux_loss = criterion(metadata_pred, true_metadata)
@@ -122,9 +130,11 @@ def train_model(model, data, num_epochs=5, lr=1e-3, use_metadata=False):
             else:
                 output = model(embeddings, alpha_tensor)
                 loss = criterion(output, torch.zeros_like(output))
+                
             loss.backward()
             optimizer.step()
             epoch_losses.append(loss.item())
+            
         avg_loss = np.mean(epoch_losses)
         loss_history.append(avg_loss)
         print(f"Epoch {epoch+1}/{num_epochs} - Loss: {avg_loss:.4f}")

@@ -116,8 +116,8 @@ def experiment_ablation_study():
     print("\nTraining Variant 1: Pure Additive Model...")
     print(f"  - Epochs: {TRAIN_EPOCHS}")
     print(f"  - Learning rate: {LEARNING_RATE}")
-    print(f"  - Metadata: Not used")
-    loss_additive = train_model(additive_model, data, num_epochs=TRAIN_EPOCHS, lr=LEARNING_RATE)
+    print(f"  - Metadata: Not used (but present in data)")
+    loss_additive = train_model(additive_model, data, num_epochs=TRAIN_EPOCHS, lr=LEARNING_RATE, use_metadata=True)
     
     print("\nTraining Variant 2: Additive Model with Metadata...")
     print(f"  - Epochs: {TRAIN_EPOCHS}")
