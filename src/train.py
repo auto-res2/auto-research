@@ -137,8 +137,11 @@ def train_models(config, data, device="cuda"):
         q_values = q_probe(candidates_tensor.reshape(-1, config.LATENT_DIM)).reshape(
             config.CANDIDATE_COUNT, -1, 1
         )
+        
         batch_size = q_values.size(1)
-        target_q_values_expanded = target_q_values.unsqueeze(1).expand(config.CANDIDATE_COUNT, batch_size, 1)
+        
+        target_q_values_expanded = target_q_values.view(config.CANDIDATE_COUNT, 1, 1).expand(-1, batch_size, -1)
+        
         loss = F.mse_loss(q_values, target_q_values_expanded)
         
         optimizer.zero_grad()
