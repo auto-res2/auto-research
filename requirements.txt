@@ -1,1 +1,7 @@
-# Please list the required python packages.
+# Required Python packages for STEM experiments
+torch
+transformers
+numpy
+matplotlib
+scikit-learn
+seaborn
