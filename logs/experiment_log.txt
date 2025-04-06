@@ -1,0 +1,18 @@
+
+====================================================================================================
+STEM EXPERIMENTS - STARTED AT 2025-04-06 05:55:58
+====================================================================================================
+Configuration:
+  - Hidden Dimension: 128
+  - Metadata Dimension: 1
+  - Training Epochs: 3
+  - Learning Rate: 0.001
+  - Batch Size: 4
+  - Synthetic Samples: 10
+  - Metadata Samples: 10
+  - Domain Samples: 20
+====================================================================================================
+
+Logs directory prepared successfully.
+Initializing transformer models for embedding extraction...
+Initializing tokenizer and transformer models...
