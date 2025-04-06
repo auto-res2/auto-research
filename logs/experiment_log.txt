@@ -1,0 +1,138 @@
+
+System Information:
+- PyTorch version: 2.6.0+cu124
+- CUDA available: True
+- CUDA device: Tesla T4
+- CUDA version: 12.4
+- GPU memory: 16.71 GB
+- Device being used: cuda
+
+
+==================================================
+QD²P: Q-Denoising Diffusion Probe Experiment
+==================================================
+
+Experiment Configuration:
+- Latent Dimension: 16
+- Batch Size: 32
+- Diffusion Steps: 10
+- Candidate Count: 5
+- Random Seed: 42
+- Device: cuda
+
+Starting data generation...
+Synthetic data created with shape: torch.Size([32, 16])
+
+========================
+===  Model Training  ===
+========================
+
+Training SimpleDiffusion model and QProbe...
+- Optimizer: Adam with learning rate 0.01
+- Loss function: MSE between Q-values and quality metrics
+- Training for 10 diffusion steps
+Training completed in 1.55 seconds
+
+=====================================================
+===  Experiment 1: Controlled Quality Evaluation  ===
+=====================================================
+
+Running controlled quality evaluation on synthetic tasks...
+- Comparing baseline diffusion vs. QD²P with 5 candidates
+- Measuring quality improvement over 10 denoising steps
+- Using cosine similarity as quality metric
+Experiment 1 Results:
+Baseline Quality Scores: [-0.06120230257511139, -0.05738872289657593, -0.006666048429906368, -0.02784591168165207, 0.02714875154197216, 0.0830594003200531, 0.06916013360023499, 0.0015294961631298065, -0.10152167081832886, -0.03565112501382828]
+QD²P Quality Scores: [-0.08630995452404022, -0.04035212844610214, 0.017857590690255165, -0.027536433190107346, 0.024290243163704872, 0.07558532059192657, 0.07184366136789322, -0.0012599080801010132, -0.10069799423217773, -0.03422578424215317]
+
+Experiment 1 Results:
+- Initial baseline quality: -0.0612
+- Final baseline quality: -0.0357
+- Initial QD²P quality: -0.0863
+- Final QD²P quality: -0.0342
+- Quality improvement: 0.0014
+- Figure saved to: logs/quality_metric_synthetic.pdf
+
+===============================================================
+===  Experiment 2: Ablation Study on Candidate Reweighting  ===
+===============================================================
+
+Running ablation study on candidate reweighting mechanism...
+- Testing 3 different candidate counts: [2, 5, 10]
+- Testing 3 different temperature values: [0.5, 1.0, 2.0]
+- Evaluating 9 total configurations
+Experiment 2 Results (Quality Metric per Configuration):
+  k=2_T=0.5: [-0.07621617615222931, -0.11515659093856812, 0.068050816655159, -0.04124131053686142, 0.009582923725247383, 0.06185685843229294, -0.04168466851115227, 0.030201150104403496, -0.030731257051229477, -0.02392379194498062]
+  k=2_T=1.0: [-0.029074421152472496, -0.07147807627916336, 0.0112045519053936, -0.0007719621062278748, 0.05557234585285187, 0.021243907511234283, -0.005639784038066864, 0.02583164907991886, -0.095853790640831, -0.05546446144580841]
+  k=2_T=2.0: [-0.02749866247177124, 0.0010265065357089043, -0.01007329672574997, -0.09452344477176666, 0.051887258887290955, 0.04106584191322327, -0.016919247806072235, -0.018448706716299057, -0.02950361929833889, 0.06914735585451126]
+  k=5_T=0.5: [-0.010603133589029312, -0.08950018882751465, 0.06197163835167885, -0.02372167631983757, -0.024924391880631447, 0.07102400064468384, 0.01004222221672535, 0.03290200233459473, -0.019451364874839783, 0.015017314814031124]
+  k=5_T=1.0: [-0.028052963316440582, -0.06307726353406906, 0.024948153644800186, -0.016355253756046295, 0.03979872167110443, 0.03191566839814186, 0.021097155287861824, 0.03176296129822731, -0.06864077597856522, 0.0028780149295926094]
+  k=5_T=2.0: [-0.053990788757801056, -0.058372482657432556, -0.005517570301890373, -0.044137969613075256, -0.0165758915245533, 0.02614065259695053, 0.023695722222328186, 0.004935026168823242, -0.053746871650218964, 0.025129273533821106]
+  k=10_T=0.5: [-0.03623402118682861, -0.07199186086654663, 0.023637376725673676, -0.04925376549363136, 0.004995770752429962, 0.05485934764146805, 0.0605277456343174, 0.013007726520299911, -0.07442155480384827, 0.021338585764169693]
+  k=10_T=1.0: [-0.05882226675748825, -0.05293327569961548, 0.004807446151971817, -0.04527188464999199, -0.020269129425287247, 0.04895075410604477, 0.062236394733190536, 0.028785280883312225, -0.06107566878199577, -0.011211996898055077]
+  k=10_T=2.0: [-0.05475359410047531, -0.06344838440418243, 0.0013384046033024788, -0.04972434043884277, 0.002585785463452339, 0.03407450392842293, 0.0548241026699543, 0.02170976810157299, -0.08484633266925812, -0.019152069464325905]
+
+Experiment 2 Results:
+- Best configuration: k=2_T=2.0 with final quality score: 0.0691
+- k=2_T=0.5: initial=-0.0762, final=-0.0239
+- k=2_T=1.0: initial=-0.0291, final=-0.0555
+- k=2_T=2.0: initial=-0.0275, final=0.0691
+- k=5_T=0.5: initial=-0.0106, final=0.0150
+- k=5_T=1.0: initial=-0.0281, final=0.0029
+- k=5_T=2.0: initial=-0.0540, final=0.0251
+- k=10_T=0.5: initial=-0.0362, final=0.0213
+- k=10_T=1.0: initial=-0.0588, final=-0.0112
+- k=10_T=2.0: initial=-0.0548, final=-0.0192
+- Figure saved to: logs/ablation_candidate_reweighting.pdf
+
+===================================================
+===  Experiment 3: Efficiency and Distillation  ===
+===================================================
+
+Running efficiency and distillation experiment...
+- Comparing full QD²P vs. distilled version
+- Measuring inference time and quality metrics
+- Using lightweight adapter for distillation
+Full QD²P Inference Time: 0.0085 s, Quality: -0.0174
+Distilled Inference Time: 0.0014 s, Quality: -0.0174
+Current GPU Memory Usage: 16.32 MB
+
+Experiment 3 Results:
+- Full QD²P Inference Time: 0.0085 seconds
+- Distilled Inference Time: 0.0014 seconds
+- Speedup from distillation: 6.30x
+- Full QD²P Quality: -0.0174
+- Distilled Quality: -0.0174
+- Quality difference: 0.0000
+- Latency figure saved to: logs/inference_latency_comparison.pdf
+- Quality figure saved to: logs/quality_comparison.pdf
+
+============================
+===  Summary of Results  ===
+============================
+
+QD²P Experiment Summary:
+
+Experiment 1 - Controlled Quality Evaluation:
+- Quality improvement: 0.0014
+- Baseline final quality: -0.0357
+- QD²P final quality: -0.0342
+
+Experiment 2 - Ablation Study:
+- Best configuration: k=2_T=2.0
+- Best configuration score: 0.0691
+- Total configurations tested: 9
+
+Experiment 3 - Efficiency and Distillation:
+- Speedup from distillation: 6.30x
+- Quality retention: 100.0%
+
+Generated Figures:
+- Experiment 1 (Quality Evaluation): logs/quality_metric_synthetic.pdf
+- Experiment 2 (Ablation Study): logs/ablation_candidate_reweighting.pdf
+- Experiment 3 (Latency Comparison): logs/inference_latency_comparison.pdf
+- Experiment 3 (Quality Comparison): logs/quality_comparison.pdf
+
+Total execution time: 2.69 seconds
+
+Experiment completed successfully!
