@@ -1,1 +1,10 @@
-# Please list the required python packages.
+# Python packages required for ClusterCloak experiments
+torch>=1.9.0
+torchvision>=0.10.0
+numpy>=1.20.0
+scikit-learn>=0.24.0
+matplotlib>=3.4.0
+albumentations>=1.0.0
+opencv-python>=4.5.0
+tqdm>=4.62.0
+pillow>=8.2.0
