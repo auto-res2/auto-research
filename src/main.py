@@ -83,6 +83,12 @@ def experiment_controlled_synthetic():
         print("  - Baseline model outperformed the STEM model")
     else:
         print("  - Both models performed equally")
+        
+    print("\nTraining Loss Values (Plain Text):")
+    print("| Epoch | STEM Model | Baseline Model |")
+    print("|-------|------------|----------------|")
+    for i, (stem_loss, baseline_loss) in enumerate(zip(stem_loss_history, baseline_loss_history)):
+        print(f"| {i+1:5d} | {stem_loss:.6f} | {baseline_loss:.6f} |")
 
 def experiment_ablation_study():
     """
@@ -167,6 +173,13 @@ def experiment_ablation_study():
     
     print(f"  - Best performing model: {best_model} with MSE: {best_mse:.6f}")
     print(f"  - Improvement over baseline: {((v1_mse - best_mse) / v1_mse * 100):.2f}%")
+    
+    print("\nTraining Loss Values (Plain Text):")
+    print("| Epoch | Variant 1 (Pure) | Variant 2 (Add+Meta) | Variant 3 (STEM+Meta) |")
+    print("|-------|-----------------|----------------------|------------------------|")
+    for i in range(len(loss_additive)):
+        if i < len(loss_additive) and i < len(loss_additive_meta) and i < len(loss_stem_meta):
+            print(f"| {i+1:5d} | {loss_additive[i]:.6f} | {loss_additive_meta[i]:.6f} | {loss_stem_meta[i]:.6f} |")
 
 def experiment_domain_shift():
     """
@@ -234,6 +247,18 @@ def experiment_domain_shift():
     print(f"  - Standard deviation: {torch.tensor(predictions).std().item():.6f}")
     print("  - Conclusion: The model's performance across domains demonstrates its")
     print("                robustness to domain shifts in text analysis tasks.")
+    
+    print("\nTraining Loss Values (Plain Text):")
+    print("| Epoch | Loss Value |")
+    print("|-------|------------|")
+    for i, loss in enumerate(loss_history):
+        print(f"| {i+1:5d} | {loss:.6f} |")
+        
+    print("\nDomain Shift Predictions (Plain Text):")
+    print("| Sample | True Value | Predicted Value |")
+    print("|--------|------------|-----------------|")
+    for i, (target, pred) in enumerate(zip(targets, predictions)):
+        print(f"| {i+1:6d} | {target:.6f} | {pred:.6f} |")
 
 def main():
     """Main function to run all experiments."""
