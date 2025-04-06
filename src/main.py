@@ -77,39 +77,105 @@ def run_full_experiments(device):
     """Run the full QD²P experiments."""
     logger.info("Starting full QD²P experiments")
     
+    print("\n" + "=" * 50)
+    print("QD²P: Q-Denoising Diffusion Probe Experiment")
+    print("=" * 50)
+    print(f"\nExperiment Configuration:")
+    print(f"- Latent Dimension: {config.LATENT_DIM}")
+    print(f"- Batch Size: {config.BATCH_SIZE}")
+    print(f"- Diffusion Steps: {config.DIFFUSION_STEPS}")
+    print(f"- Candidate Count: {config.CANDIDATE_COUNT}")
+    print(f"- Random Seed: {config.RANDOM_SEED}")
+    print(f"- Device: {device}")
+    print("\nStarting data generation...")
+    
     data = create_synthetic_data(config.LATENT_DIM, config.BATCH_SIZE, device=device)
+    print(f"Synthetic data created with shape: {data['latent'].shape}")
     
     print_experiment_header("Model Training")
+    print("Training SimpleDiffusion model and QProbe...")
+    print(f"- Optimizer: Adam with learning rate 0.01")
+    print(f"- Loss function: MSE between Q-values and quality metrics")
+    print(f"- Training for {config.DIFFUSION_STEPS} diffusion steps")
+    
     models = train_models(config, data, device=device)
     diffusion_model = models["diffusion_model"]
     q_probe = models["q_probe"]
+    print(f"Training completed in {models['train_time']:.2f} seconds")
     
     print_experiment_header("Experiment 1: Controlled Quality Evaluation")
+    print("Running controlled quality evaluation on synthetic tasks...")
+    print(f"- Comparing baseline diffusion vs. QD²P with {config.CANDIDATE_COUNT} candidates")
+    print(f"- Measuring quality improvement over {config.DIFFUSION_STEPS} denoising steps")
+    print(f"- Using cosine similarity as quality metric")
     exp1_results = controlled_quality_experiment(
         diffusion_model, q_probe, config, data, device=device
     )
+    print("\nExperiment 1 Results:")
+    print(f"- Initial baseline quality: {exp1_results['baseline_scores'][0]:.4f}")
+    print(f"- Final baseline quality: {exp1_results['baseline_scores'][-1]:.4f}")
+    print(f"- Initial QD²P quality: {exp1_results['qd2p_scores'][0]:.4f}")
+    print(f"- Final QD²P quality: {exp1_results['qd2p_scores'][-1]:.4f}")
+    print(f"- Quality improvement: {(exp1_results['qd2p_scores'][-1] - exp1_results['baseline_scores'][-1]):.4f}")
+    print(f"- Figure saved to: {exp1_results['figure_path']}")
     
     print_experiment_header("Experiment 2: Ablation Study on Candidate Reweighting")
+    print("Running ablation study on candidate reweighting mechanism...")
+    print(f"- Testing {len(config.CANDIDATE_COUNTS)} different candidate counts: {config.CANDIDATE_COUNTS}")
+    print(f"- Testing {len(config.TEMPERATURES)} different temperature values: {config.TEMPERATURES}")
+    print(f"- Evaluating {len(config.CANDIDATE_COUNTS) * len(config.TEMPERATURES)} total configurations")
     exp2_results = ablation_candidate_reweighting(
         diffusion_model, q_probe, config, data, device=device
     )
+    print("\nExperiment 2 Results:")
+    best_config = max(exp2_results['results'].items(), key=lambda x: x[1][-1])[0]
+    best_score = max(exp2_results['results'].items(), key=lambda x: x[1][-1])[1][-1]
+    print(f"- Best configuration: {best_config} with final quality score: {best_score:.4f}")
+    for config_name, scores in exp2_results['results'].items():
+        print(f"- {config_name}: initial={scores[0]:.4f}, final={scores[-1]:.4f}")
+    print(f"- Figure saved to: {exp2_results['figure_path']}")
     
     print_experiment_header("Experiment 3: Efficiency and Distillation")
+    print("Running efficiency and distillation experiment...")
+    print(f"- Comparing full QD²P vs. distilled version")
+    print(f"- Measuring inference time and quality metrics")
+    print(f"- Using lightweight adapter for distillation")
     exp3_results = efficiency_and_distillation(
         diffusion_model, q_probe, config, data, device=device
     )
+    print("\nExperiment 3 Results:")
+    print(f"- Full QD²P Inference Time: {exp3_results['full_qd2p_time']:.4f} seconds")
+    print(f"- Distilled Inference Time: {exp3_results['distilled_time']:.4f} seconds")
+    print(f"- Speedup from distillation: {exp3_results['full_qd2p_time'] / exp3_results['distilled_time']:.2f}x")
+    print(f"- Full QD²P Quality: {exp3_results['quality_full']:.4f}")
+    print(f"- Distilled Quality: {exp3_results['quality_distilled']:.4f}")
+    print(f"- Quality difference: {(exp3_results['quality_full'] - exp3_results['quality_distilled']):.4f}")
+    print(f"- Latency figure saved to: {exp3_results['latency_figure_path']}")
+    print(f"- Quality figure saved to: {exp3_results['quality_figure_path']}")
     
     print_experiment_header("Summary of Results")
-    print(f"Experiment 1 - Quality improvement: {(exp1_results['qd2p_scores'][-1] - exp1_results['baseline_scores'][-1]):.4f}")
-    print(f"Experiment 2 - Best configuration: {max(exp2_results['results'].items(), key=lambda x: x[1][-1])[0]}")
-    print(f"Experiment 3 - Speedup from distillation: {exp3_results['full_qd2p_time'] / exp3_results['distilled_time']:.2f}x")
-    print(f"Experiment 3 - Quality difference: {(exp3_results['quality_full'] - exp3_results['quality_distilled']):.4f}")
+    print("QD²P Experiment Summary:")
+    print("\nExperiment 1 - Controlled Quality Evaluation:")
+    print(f"- Quality improvement: {(exp1_results['qd2p_scores'][-1] - exp1_results['baseline_scores'][-1]):.4f}")
+    print(f"- Baseline final quality: {exp1_results['baseline_scores'][-1]:.4f}")
+    print(f"- QD²P final quality: {exp1_results['qd2p_scores'][-1]:.4f}")
+    
+    print("\nExperiment 2 - Ablation Study:")
+    best_config = max(exp2_results['results'].items(), key=lambda x: x[1][-1])[0]
+    best_score = max(exp2_results['results'].items(), key=lambda x: x[1][-1])[1][-1]
+    print(f"- Best configuration: {best_config}")
+    print(f"- Best configuration score: {best_score:.4f}")
+    print(f"- Total configurations tested: {len(exp2_results['results'])}")
+    
+    print("\nExperiment 3 - Efficiency and Distillation:")
+    print(f"- Speedup from distillation: {exp3_results['full_qd2p_time'] / exp3_results['distilled_time']:.2f}x")
+    print(f"- Quality retention: {(exp3_results['quality_distilled'] / exp3_results['quality_full'] * 100):.1f}%")
     
     print("\nGenerated Figures:")
-    print(f"- Experiment 1: {exp1_results['figure_path']}")
-    print(f"- Experiment 2: {exp2_results['figure_path']}")
-    print(f"- Experiment 3 (Latency): {exp3_results['latency_figure_path']}")
-    print(f"- Experiment 3 (Quality): {exp3_results['quality_figure_path']}")
+    print(f"- Experiment 1 (Quality Evaluation): {exp1_results['figure_path']}")
+    print(f"- Experiment 2 (Ablation Study): {exp2_results['figure_path']}")
+    print(f"- Experiment 3 (Latency Comparison): {exp3_results['latency_figure_path']}")
+    print(f"- Experiment 3 (Quality Comparison): {exp3_results['quality_figure_path']}")
     
     return {
         "exp1_results": exp1_results,
