@@ -44,7 +44,8 @@ def analyze_feature_clustering(model, dataloader, method="ClusterCloak", save_pl
     
     with torch.no_grad():
         for batch in dataloader:
-            batch = batch.float()
+            device = next(model.parameters()).device
+            batch = batch.float().to(device)
             
             if method == "ClusterCloak":
                 batch = apply_clustercloak(batch)
