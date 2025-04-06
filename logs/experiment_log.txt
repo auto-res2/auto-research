@@ -1,0 +1,210 @@
+
+Experiment Configuration:
+--------------------------------------------------
+Gene Input Dimension: 500
+Image Channels: 3
+Image Size: (224, 224)
+Hidden Dimension: 128
+Number of Prototypes: 3
+Batch Size: 8
+Learning Rate: 0.001
+Number of Epochs: 20
+Test Size: 0.2
+Random Seed: 42
+Quick Test Mode: False
+
+Using device: cuda
+GPU: Tesla T4
+Memory Allocated: 0.00 MB
+Memory Cached: 0.00 MB
+
+================================================================================
+Running ProtoSurvPath Experiments
+================================================================================
+
+Experiment 1: Performance Comparison with Baselines
+--------------------------------------------------
+
+Experiment 1a: ProtoSurvPath (Full Model)
+Generating dummy TCGA-like data...
+Training ProtoSurvPath for 20 epochs...
+[ProtoSurvPath] Epoch 1/20: Loss = -6.1676, c-index = 0.5000
+[ProtoSurvPath] Epoch 2/20: Loss = -9.5856, c-index = 0.5000
+[ProtoSurvPath] Epoch 3/20: Loss = -12.5841, c-index = 0.5000
+[ProtoSurvPath] Epoch 4/20: Loss = -16.0600, c-index = 0.5000
+[ProtoSurvPath] Epoch 5/20: Loss = -20.0574, c-index = 0.5000
+[ProtoSurvPath] Epoch 6/20: Loss = -24.5837, c-index = 0.5000
+[ProtoSurvPath] Epoch 7/20: Loss = -29.6260, c-index = 0.5000
+[ProtoSurvPath] Epoch 8/20: Loss = -35.1669, c-index = 0.5000
+[ProtoSurvPath] Epoch 9/20: Loss = -41.1936, c-index = 0.5000
+[ProtoSurvPath] Epoch 10/20: Loss = -47.6985, c-index = 0.5000
+[ProtoSurvPath] Epoch 11/20: Loss = -54.6767, c-index = 0.5000
+[ProtoSurvPath] Epoch 12/20: Loss = -62.1246, c-index = 0.5000
+[ProtoSurvPath] Epoch 13/20: Loss = -70.0394, c-index = 0.5000
+[ProtoSurvPath] Epoch 14/20: Loss = -78.4187, c-index = 0.5000
+[ProtoSurvPath] Epoch 15/20: Loss = -87.2606, c-index = 0.5000
+[ProtoSurvPath] Epoch 16/20: Loss = -96.5652, c-index = 0.5000
+[ProtoSurvPath] Epoch 17/20: Loss = -106.3329, c-index = 0.5000
+[ProtoSurvPath] Epoch 18/20: Loss = -116.5627, c-index = 0.5000
+[ProtoSurvPath] Epoch 19/20: Loss = -127.2562, c-index = 0.5000
+[ProtoSurvPath] Epoch 20/20: Loss = -138.4135, c-index = 0.5000
+Plot saved as logs/training_loss_protosurvpath.pdf
+Plot saved as logs/cindex_protosurvpath.pdf
+
+Experiment 1b: Base Method
+Generating dummy TCGA-like data...
+Training BaseMethod for 20 epochs...
+[BaseMethod] Epoch 1/20: Loss = -16.6221, c-index = 0.5000
+[BaseMethod] Epoch 2/20: Loss = -396.4404, c-index = 0.5000
+[BaseMethod] Epoch 3/20: Loss = -3329.1155, c-index = 0.5000
+[BaseMethod] Epoch 4/20: Loss = -16188.1440, c-index = 0.5000
+[BaseMethod] Epoch 5/20: Loss = -55959.7975, c-index = 0.5000
+[BaseMethod] Epoch 6/20: Loss = -153087.9109, c-index = 0.5000
+[BaseMethod] Epoch 7/20: Loss = -354500.0062, c-index = 0.5000
+[BaseMethod] Epoch 8/20: Loss = -723811.7781, c-index = 0.5000
+[BaseMethod] Epoch 9/20: Loss = -1344306.6062, c-index = 0.5000
+[BaseMethod] Epoch 10/20: Loss = -2317086.5500, c-index = 0.5000
+[BaseMethod] Epoch 11/20: Loss = -3765482.5375, c-index = 0.5000
+[BaseMethod] Epoch 12/20: Loss = -5822826.9000, c-index = 0.5000
+[BaseMethod] Epoch 13/20: Loss = -8652003.8500, c-index = 0.5000
+[BaseMethod] Epoch 14/20: Loss = -12421806.7000, c-index = 0.5000
+[BaseMethod] Epoch 15/20: Loss = -17315010.3000, c-index = 0.5000
+[BaseMethod] Epoch 16/20: Loss = -23546204.6000, c-index = 0.5000
+[BaseMethod] Epoch 17/20: Loss = -31313170.3000, c-index = 0.5000
+[BaseMethod] Epoch 18/20: Loss = -40863998.4000, c-index = 0.5000
+[BaseMethod] Epoch 19/20: Loss = -52426828.4000, c-index = 0.5000
+[BaseMethod] Epoch 20/20: Loss = -66269304.4000, c-index = 0.5000
+Plot saved as logs/training_loss_basemethod.pdf
+Plot saved as logs/cindex_basemethod.pdf
+
+Experiment 1c: PANTHER
+Generating dummy TCGA-like data...
+Training PANTHER for 20 epochs...
+[PANTHER] Epoch 1/20: Loss = -10.4665, c-index = 0.5000
+[PANTHER] Epoch 2/20: Loss = -568.0788, c-index = 0.5000
+[PANTHER] Epoch 3/20: Loss = -8756.3035, c-index = 0.5000
+[PANTHER] Epoch 4/20: Loss = -68144.2719, c-index = 0.5000
+[PANTHER] Epoch 5/20: Loss = -341316.7234, c-index = 0.5000
+[PANTHER] Epoch 6/20: Loss = -1271608.6406, c-index = 0.5000
+[PANTHER] Epoch 7/20: Loss = -3816637.4625, c-index = 0.5000
+[PANTHER] Epoch 8/20: Loss = -9759488.2250, c-index = 0.5000
+[PANTHER] Epoch 9/20: Loss = -22020926.6000, c-index = 0.5000
+[PANTHER] Epoch 10/20: Loss = -45068372.9000, c-index = 0.5000
+[PANTHER] Epoch 11/20: Loss = -85194604.2000, c-index = 0.5000
+[PANTHER] Epoch 12/20: Loss = -150990110.0000, c-index = 0.5000
+[PANTHER] Epoch 13/20: Loss = -253401658.4000, c-index = 0.5000
+[PANTHER] Epoch 14/20: Loss = -406365782.4000, c-index = 0.5000
+[PANTHER] Epoch 15/20: Loss = -626845036.8000, c-index = 0.5000
+[PANTHER] Epoch 16/20: Loss = -935171932.8000, c-index = 0.5000
+[PANTHER] Epoch 17/20: Loss = -1355166771.2000, c-index = 0.5000
+[PANTHER] Epoch 18/20: Loss = -1914550944.0000, c-index = 0.5000
+[PANTHER] Epoch 19/20: Loss = -2645695641.6000, c-index = 0.5000
+[PANTHER] Epoch 20/20: Loss = -3583703424.0000, c-index = 0.5000
+Plot saved as logs/training_loss_panther.pdf
+Plot saved as logs/cindex_panther.pdf
+
+Statistical Comparison:
+Paired t-test between ProtoSurvPath and BaseMethod: t-stat = nan, p-value = nan
+Paired t-test between ProtoSurvPath and PANTHER: t-stat = nan, p-value = nan
+
+Experiment 2: Ablation Study (Variant C: Simple Fusion)
+--------------------------------------------------
+Generating dummy TCGA-like data...
+Training ProtoSurvPathSimpleFusion for 20 epochs...
+[ProtoSurvPathSimpleFusion] Epoch 1/20: Loss = -34.6648, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 2/20: Loss = -853.4006, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 3/20: Loss = -7118.5636, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 4/20: Loss = -34409.3734, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 5/20: Loss = -118006.9328, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 6/20: Loss = -321923.0383, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 7/20: Loss = -741975.0984, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 8/20: Loss = -1512862.7125, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 9/20: Loss = -2806273.5375, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 10/20: Loss = -4828585.0625, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 11/20: Loss = -7828657.0500, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 12/20: Loss = -12086690.8000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 13/20: Loss = -17923279.5500, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 14/20: Loss = -25681065.9000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 15/20: Loss = -35745265.3000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 16/20: Loss = -48540676.4000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 17/20: Loss = -64477051.2000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 18/20: Loss = -84045716.8000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 19/20: Loss = -107713053.6000, c-index = 0.5000
+[ProtoSurvPathSimpleFusion] Epoch 20/20: Loss = -136042456.0000, c-index = 0.5000
+Plot saved as logs/training_loss_protosurvpathsimplefusion.pdf
+Plot saved as logs/cindex_protosurvpathsimplefusion.pdf
+
+Difference in c-index between full ProtoSurvPath and variant (SimpleFusion):
+  Epoch 1: 0.0000
+  Epoch 2: 0.0000
+  Epoch 3: 0.0000
+  Epoch 4: 0.0000
+  Epoch 5: 0.0000
+  Epoch 6: 0.0000
+  Epoch 7: 0.0000
+  Epoch 8: 0.0000
+  Epoch 9: 0.0000
+  Epoch 10: 0.0000
+  Epoch 11: 0.0000
+  Epoch 12: 0.0000
+  Epoch 13: 0.0000
+  Epoch 14: 0.0000
+  Epoch 15: 0.0000
+  Epoch 16: 0.0000
+  Epoch 17: 0.0000
+  Epoch 18: 0.0000
+  Epoch 19: 0.0000
+  Epoch 20: 0.0000
+  Mean difference: 0.0000
+
+Experiment 3: Interpretability and Clinical Insight Evaluation
+--------------------------------------------------
+
+Computing integrated gradients for ProtoSurvPath...
+Plot saved as logs/interpretability_protosurvpath.pdf
+Integrated gradients computed and plot saved (logs/interpretability_protosurvpath.pdf).
+
+Computing integrated gradients for BaseMethod...
+Plot saved as logs/interpretability_basemethod.pdf
+Integrated gradients computed and plot saved (logs/interpretability_basemethod.pdf).
+
+Extracting and visualizing prototypes...
+Plot saved as logs/prototype_gene.pdf
+GaussianMixture clustering completed. Prototypes shape: (3, 500)
+Prototype visualization saved (logs/prototype_gene.pdf).
+
+================================================================================
+All experiments completed successfully!
+================================================================================
+
+Summary of Results:
+--------------------------------------------------
+ProtoSurvPath final c-index: 0.5000
+BaseMethod final c-index: 0.5000
+PANTHER final c-index: 0.5000
+ProtoSurvPathSimpleFusion final c-index: 0.5000
+
+Saved Files:
+--------------------------------------------------
+Training loss plots:
+  - logs/training_loss_protosurvpath.pdf
+  - logs/training_loss_basemethod.pdf
+  - logs/training_loss_panther.pdf
+  - logs/training_loss_protosurvpathsimplefusion.pdf
+
+C-index plots:
+  - logs/cindex_protosurvpath.pdf
+  - logs/cindex_basemethod.pdf
+  - logs/cindex_panther.pdf
+  - logs/cindex_protosurvpathsimplefusion.pdf
+
+Interpretability plots:
+  - logs/interpretability_protosurvpath.pdf
+  - logs/interpretability_basemethod.pdf
+  - logs/prototype_gene.pdf
+
+Model checkpoints:
+  - models/ProtoSurvPath_epoch_*.pt
+  - models/BaseMethod_epoch_*.pt
+  - models/PANTHER_epoch_*.pt
+  - models/ProtoSurvPathSimpleFusion_epoch_*.pt
