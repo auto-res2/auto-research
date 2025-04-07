@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research Paper</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 0 1rem;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3em;
+      margin-top: 2em;
+    }
+    pre {
+      background: #f6f8fa;
+      padding: 1em;
+      overflow: auto;
+      border-radius: 5px;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, monospace;
+    }
+    ul {
+      padding-left: 1.5em;
+    }
+    figure {
+      text-align: center;
+      margin: 1.5em 0;
+    }
+    figcaption {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+<!-- Title -->
+<section>
+  <h2>Title</h2>
+  <p>PurifyCov++: Covariance-Optimized Diffusion Purification</p>
+</section>
+
+<!-- Abstract -->
+<section>
+  <h2>Abstract</h2>
+  <p>This paper introduces PurifyCov++, a novel diffusion purification algorithm designed to defend against adversarial attacks by incorporating adaptive, input-dependent covariance estimation. Leveraging advances from Purify++, our approach replaces fixed isotropic noise control with a learnable covariance prediction module that dynamically adjusts the randomness during the reverse diffusion process.</p>
+  <p>By aligning the purification trajectory with the true data distribution, PurifyCov++ effectively counters both Lp-bounded and structured adversarial perturbations. We evaluate our method on standard datasets, including CIFAR-10 and MNIST, under attacks such as FGSM, PGD, and spatially correlated noise. Through comprehensive experiments that comprise a detailed ablation study and an efficiency analysis, our results demonstrate that PurifyCov++ not only enhances robust classification accuracy but also reduces the number of required diffusion steps, thereby decreasing computational overhead.</p>
+  <p>Key visualizations, including boxplots of purification runtime and PSNR trajectories, confirm that the adaptive covariance module significantly outperforms fixed noise control methods. These promising findings open a new avenue in adversarial defense by integrating optimal posterior covariance estimation into diffusion purification frameworks.</p>
+</section>
+
+<!-- Introduction -->
+<section>
+  <h2>Introduction</h2>
+  <p>The rapid rise of adversarial attacks presents a significant challenge to the reliability of neural network classifiers, necessitating robust defense mechanisms. Among these, diffusion purification methods have emerged as an effective family of techniques that preprocess adversarial inputs to remove malicious perturbations.</p>
+  <p>Traditional implementations such as Purify++ rely on fixed noise injection schemes which may not fully account for the structured nature of adversarial perturbations. In contrast, PurifyCov++ integrates adaptive covariance estimation into the reverse diffusion process to address this limitation. The core idea is to leverage optimal posterior covariance estimation so that the randomness injected during purification is tailored to the local characteristics of the input noise.</p>
+  <p>Our contributions are fourfold:</p>
+  <ul>
+    <li><strong>Adaptive Covariance Estimation:</strong> We introduce a lightweight covariance prediction module that computes an input-dependent covariance, replacing the fixed isotropic schedule.</li>
+    <li><strong>Covariance-Driven Reverse Process:</strong> By modifying the reverse-time diffusion update such that the injected randomness is scaled by the predicted covariance, our method aligns the denoising trajectory more closely with the true data manifold.</li>
+    <li><strong>Enhanced Robustness:</strong> The adaptive strategy improves performance against both Lp-norm bounded attacks and more structured perturbations.</li>
+    <li><strong>Efficiency and Integration:</strong> Our approach can be seamlessly integrated with pre-trained diffusion models with minimal computational overhead.</li>
+  </ul>
+  <p>Extensive experiments comparing PurifyCov++ to the baseline Purify++ across various adversarial scenarios validate the superior performance in terms of robust classification accuracy, purification quality, and runtime efficiency. The adaptive approach presented herein represents a promising direction in designing more resilient and computationally efficient adversarial defense mechanisms.</p>
+</section>
+
+<!-- Related Work -->
+<section>
+  <h2>Related Work</h2>
+  <p>Recent advances in adversarial defense have predominantly focused on pre-processing techniques that aim to remove perturbations prior to classification. Adversarial purification using diffusion models, as seen in Purify++, has set a new benchmark by employing advanced numerical simulation methods and fixed optimal noise control strategies. However, the limitation of hand-crafted noise schedules restricts its ability to counter diverse and structured adversarial attacks.</p>
+  <p>Other works have applied diffusion processes to address inverse problems and denoising, yet few have attempted to integrate adaptive mechanisms that adjust to local noise characteristics. In this context, our work builds on these insights by incorporating learned covariance estimation into the purification process. Unlike prior methods, the adaptive covariance module in PurifyCov++ dynamically modulates injected randomness, resulting in significant improvements in robust accuracy and computational efficiency. Comparative evaluations in our experiments show that this adaptive strategy yields higher performance metrics in terms of both classification robustness and reconstruction quality, illustrating a clear advancement over fixed noise settings.</p>
+</section>
+
+<!-- Background -->
+<section>
+  <h2>Background</h2>
+  <p>Diffusion purification techniques are based on the idea of gradually removing noise from adversarially perturbed inputs via a reverse diffusion process. Typically, these methods simulate a stochastic differential equation that transforms a noisy image back to a cleaner version while preserving essential features for accurate classification.</p>
+  <p>For example, Purify++ improved upon earlier techniques by employing advanced diffusion models such as the EDM (a generalization of VE diffusion) and efficient numerical solvers like Heun’s method. However, the fixed noise injection strategy used in such methods may be insufficient to handle the complex, input-dependent nature of adversarial perturbations.</p>
+  <p>Our work draws inspiration from optimal posterior covariance estimation methods in inverse problems, where the goal is to estimate the uncertainty associated with noisy observations. By integrating covariance prediction into the diffusion process, we can adaptively control the injected randomness in a principled manner. This strategy not only offers a more precise targeting of adversarial noise but also contributes to a reduction in the total number of diffusion steps required for effective purification.</p>
+</section>
+
+<!-- Method -->
+<section>
+  <h2>Method</h2>
+  <p>PurifyCov++ enhances traditional diffusion purification by integrating an adaptive covariance estimation mechanism into the reverse diffusion process. The method consists of three main components.</p>
+  <p>First, an adaptive covariance prediction module is employed to estimate an input-dependent covariance matrix at each diffusion timestep. This module, which can be implemented as a lightweight neural network or through maximum likelihood techniques, is trained on a combination of clean and adversarial examples.</p>
+  <p>Second, the reverse diffusion process is modified so that the randomness injected at each timestep is scaled by the predicted covariance. The update rule at timestep <em>t</em> is formulated as follows:</p>
+  <pre><code>x(t-1) = D(x(t), t) + (Σ(t))^(1/2) · ε</code></pre>
+  <p>Here, Σ(t) is the covariance estimated by the module and D(x(t), t) represents the deterministic component derived from an advanced numerical solver, such as Heun’s method.</p>
+  <p>Finally, PurifyCov++ is designed for efficient integration with existing diffusion models, ensuring that the covariance prediction adds minimal computational overhead. This adaptive noise injection enables a more effective alignment of the purification process with the data distribution, thereby better canceling out adversarial perturbations and generalizing across both Lp-norm constrained and structured noise attacks.</p>
+</section>
+
+<!-- Experimental Setup -->
+<section>
+  <h2>Experimental Setup</h2>
+  <p>Our experimental evaluation comprises three principal experiments to rigorously assess the performance of PurifyCov++ relative to the baseline Purify++.</p>
+  <p>In Experiment 1, we compare the robust classification accuracy and purification quality on standard datasets (CIFAR-10 and MNIST) under various adversarial attack conditions, including gradient-based attacks such as FGSM and PGD as well as structured spatially correlated noise generated by convolving random noise with a Gaussian kernel. The reverse diffusion processes for both methods are implemented in PyTorch, with PurifyCov++ employing an adaptive covariance module for noise scaling and Purify++ utilizing a fixed isotropic noise schedule. Metrics such as robust classification accuracy and the number of diffusion steps required to reach a target reconstruction quality, as measured by the Peak Signal-to-Noise Ratio (PSNR), are recorded.</p>
+  <p>In Experiment 2, an ablation study is performed by comparing two variants: one with the full adaptive covariance module and another with a pseudo-covariance predictor that mimics a fixed noise injection strategy. PSNR values are tracked over diffusion steps to assess reconstruction quality.</p>
+  <p>In Experiment 3, we evaluate efficiency and convergence by varying the number of diffusion steps (e.g., 10, 20, 30 steps) and measuring runtime per batch, classification accuracy, and average PSNR. Detailed Python implementations using libraries such as torchvision, torchattacks, and skimage are provided to ensure reproducibility and facilitate further research. Key figures, including 'purification_runtime_comparison.pdf', 'psnr_trajectory_ablation.pdf', 'accuracy_diffusion_steps.pdf', and 'psnr_diffusion_steps.pdf', support our analysis.</p>
+</section>
+
+<!-- Results -->
+<section>
+  <h2>Results</h2>
+  <p>The experimental results consistently demonstrate the superiority of PurifyCov++ over the baseline Purify++ method.</p>
+  <p>In Experiment 1, robust classification accuracy under FGSM and PGD attacks on CIFAR-10 improved when using PurifyCov++, with the adaptive method requiring fewer diffusion steps to achieve a predefined PSNR threshold. Boxplots depicting purification runtime indicate that the adaptive approach achieves comparable or lower processing times per batch.</p>
+  <p>In Experiment 2, the ablation study reveals that the PSNR trajectory across diffusion steps is significantly enhanced when using adaptive covariance estimation. Average PSNR values recorded at timepoints 0, 5, 10, 15, and 20 confirm that PurifyCov++ converges more rapidly to high-quality reconstructions.</p>
+  <p>Experiment 3 further corroborates these findings, showing that with 10, 20, or 30 diffusion steps, the adaptive strategy maintains or improves classification accuracy and consistently achieves higher average PSNR.</p>
+  <figure>
+    <img src="images/purification_runtime_comparison.png" alt="Purification Runtime Comparison">
+    <figcaption>Purification runtime comparison.</figcaption>
+  </figure>
+  <figure>
+    <img src="images/psnr_trajectory_ablation.png" alt="PSNR Trajectory Ablation Study">
+    <figcaption>PSNR trajectory across diffusion steps in the ablation study.</figcaption>
+  </figure>
+  <figure>
+    <img src="images/accuracy_diffusion_steps.png" alt="Accuracy vs. Diffusion Steps">
+    <figcaption>Classification accuracy over varying diffusion steps.</figcaption>
+  </figure>
+  <figure>
+    <img src="images/psnr_diffusion_steps.png" alt="PSNR vs. Diffusion Steps">
+    <figcaption>Average PSNR over different numbers of diffusion steps.</figcaption>
+  </figure>
+  <p>These results validate that dynamic, input-dependent covariance estimation provides a significant performance boost relative to fixed noise schedules, both in terms of robustness to adversarial attacks and computational efficiency.</p>
+</section>
+
+<!-- Conclusions -->
+<section>
+  <h2>Conclusions</h2>
+  <p>In this paper, we presented PurifyCov++, a covariance-optimized diffusion purification method that enhances adversarial defenses by adaptively controlling the injected randomness during the reverse diffusion process.</p>
+  <p>By integrating a learned covariance estimation module, our approach dynamically adjusts noise injection to better counter adversarial perturbations. Comprehensive experimental evaluations on CIFAR-10 and MNIST under various adversarial attack scenarios demonstrate that PurifyCov++ consistently outperforms the baseline Purify++ in robust classification accuracy, reconstruction quality, and computational efficiency.</p>
+  <p>The adaptive strategy accelerates convergence, reducing the number of diffusion steps required to achieve high-quality purification, as reflected in improved PSNR measurements. These findings underscore the potential of incorporating optimal posterior covariance estimation within diffusion-based frameworks for robust adversarial defense. Future work will focus on further optimizing the covariance prediction mechanism, extending the method to more complex diffusion models, and exploring applications across additional data modalities and threat models.</p>
+</section>
+
+</body>
+</html>
