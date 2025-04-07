@@ -1,1 +1,9 @@
-# Please list the required python packages.
+# Required python packages for HBFN experiments
+torch>=2.0.0
+torchvision>=0.15.0
+matplotlib>=3.5.0
+numpy>=1.22.0
+networkx>=2.8.0
+scipy>=1.11.0
+scikit-learn>=1.0.0
+tqdm>=4.62.0
