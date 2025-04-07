@@ -11,7 +11,7 @@ import torch.optim as optim
 import time
 import numpy as np
 import torch.nn.functional as F
-from .preprocess import corrupt_images
+from preprocess import corrupt_images
 
 class PoincareBall:
     def __init__(self, c=1.0):

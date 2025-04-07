@@ -9,7 +9,7 @@ import torch
 import numpy as np
 from skimage.metrics import structural_similarity as ssim
 import lpips
-from .preprocess import corrupt_images
+from preprocess import corrupt_images
 
 def evaluate_model(model, data_loader, device, noise_type="gaussian"):
     """
