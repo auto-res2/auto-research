@@ -23,12 +23,8 @@ from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 import lpips
 
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from src.preprocess import get_cifar10_data, corrupt_images
-from src.train import (
+from preprocess import get_cifar10_data, corrupt_images
+from train import (
     BaseAutoencoder,
     GCADModel,
     GCADModelAblation,
@@ -37,7 +33,7 @@ from src.train import (
     extract_latents,
     compute_psnr
 )
-from src.evaluate import evaluate_model, evaluate_lpips
+from evaluate import evaluate_model, evaluate_lpips
 
 os.makedirs("logs", exist_ok=True)
 
