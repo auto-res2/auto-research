@@ -1,0 +1,13 @@
+Using device: cuda
+=== PurifyCov++: Covariance-Optimized Diffusion Purification ===
+This method enhances diffusion purification by adaptively controlling
+randomness with input-dependent, learned covariance estimation.
+
+Preprocessing data...
+Data preprocessing complete. Test set: 10000 samples
+Loading models...
+Training models...
+Model training complete.
+
+=== All experiments completed successfully ===
+Results and figures have been saved to the logs directory.
