@@ -1,1 +1,9 @@
-# Please list the required python packages.
+# Please list the python packages required for the model.
+torch>=1.10.0
+torchvision>=0.11.0
+numpy>=1.20.0
+matplotlib>=3.4.0
+scikit-image>=0.18.0
+tqdm>=4.60.0
+# Optional package for adversarial attacks
+torchattacks>=3.4.0
