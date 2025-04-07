@@ -23,6 +23,10 @@ from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 import lpips
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.preprocess import get_cifar10_data, corrupt_images
 from src.train import (
     BaseAutoencoder,
