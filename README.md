@@ -1,1 +1,11 @@
-# auto-research
+
+# PurifyCov++: Covariance-Optimized Diffusion Purification
+> ⚠️ **NOTE:** This research is an automatic research using Research Graph.
+## Abstract
+This paper introduces PurifyCov++, a novel diffusion purification algorithm designed to defend against adversarial attacks by incorporating adaptive, input-dependent covariance estimation. Leveraging advances from Purify++, our approach replaces fixed isotropic noise control with a learnable covariance prediction module that dynamically adjusts the randomness during the reverse diffusion process. By aligning the purification trajectory with the true data distribution, PurifyCov++ effectively counters both Lp-bounded and structured adversarial perturbations. We evaluate our method on standard datasets, including CIFAR-10 and MNIST, under attacks such as FGSM, PGD, and spatially correlated noise. Through comprehensive experiments that comprise a detailed ablation study and an efficiency analysis, our results demonstrate that PurifyCov++ not only enhances robust classification accuracy but also reduces the number of required diffusion steps, thereby decreasing computational overhead. Key visualizations, including boxplots of purification runtime and PSNR trajectories, confirm that the adaptive covariance module significantly outperforms fixed noise control methods. These promising findings open a new avenue in adversarial defense by integrating optimal posterior covariance estimation into diffusion purification frameworks.
+
+- [Full paper](https://github.com/auto-res2/auto-research/blob/devin-0f9a14600bdb448ea4b0051c6695bf10/paper/paper.pdf)
+- [HTML view](https://github.com/auto-res2/auto-research/blob/devin-0f9a14600bdb448ea4b0051c6695bf10/html/index.html)
+- [Related work](http://arxiv.org/abs/2310.18762v1)
+- [Research Graph execution log](https://github.com/auto-res2/auto-research/blob/devin-0f9a14600bdb448ea4b0051c6695bf10/logs/research_graph_log.json)
+- [Devin execution log](https://app.devin.ai/sessions/0f9a14600bdb448ea4b0051c6695bf10)
