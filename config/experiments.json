@@ -1,0 +1,31 @@
+{
+    "experiment1": {
+        "dataset": "Cora",
+        "hidden_channels": 64,
+        "out_channels": 32,
+        "learning_rate": 0.01,
+        "batch_size": 32,
+        "noise_level": 0.1,
+        "consistency_weight": 0.5,
+        "epochs": 1
+    },
+    "experiment2": {
+        "dataset": "Cora",
+        "hidden_channels": 64,
+        "out_channels": 32,
+        "learning_rate": 0.01,
+        "batch_size": 32,
+        "radial_noise_level": 0.1,
+        "angular_noise_level": 0.1,
+        "consistency_weight": 0.5,
+        "epochs": 1
+    },
+    "experiment3": {
+        "dataset": "Cora",
+        "hidden_channels": 64,
+        "out_channels": 32,
+        "init_noise_levels": [0.05, 0.1, 0.15],
+        "consistency_weights": [0.3, 0.5, 0.7],
+        "max_iterations": [5, 10]
+    }
+}
