@@ -1,1 +1,6 @@
 # Please list the required python packages.
+numpy
+torch
+matplotlib
+memory_profiler
+scikit-learn
