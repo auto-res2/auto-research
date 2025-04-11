@@ -1,0 +1,21 @@
+
+seed: 42
+output_dir: "logs/figures"
+
+data:
+  n_samples: 1000
+  test_samples: 500
+
+experiment1:
+  num_iters: 30
+  delta: 0.1
+  learning_rate: 0.1
+  init_theta: 0.0
+
+experiment2:
+  n_samples: 2000
+
+experiment3:
+  num_iters: 30
+  learning_rate: 0.1
+  init_theta: 0.0
