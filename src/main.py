@@ -1,10 +1,11 @@
 """
 Main script for running NSRPP experiments.
 
-This script implements three experiments:
+This script implements four experiments:
 1. Comparison of NSRPP vs baseline bandit approach
 2. Ablation study on surrogate model architectures
 3. Evaluation of uncertainty-aware acquisition strategies
+4. Comparison of NSRPP vs Nelder-Mead optimization
 """
 
 import os
@@ -18,8 +19,8 @@ np.random.seed(42)
 torch.manual_seed(42)
 
 from src.preprocess import load_config, prepare_experiment1_data, prepare_experiment2_data, prepare_experiment3_data
-from src.train import run_nsrpp, run_baseline_bandit, run_experiment3_variant
-from src.evaluate import evaluate_experiment1, evaluate_experiment2, evaluate_experiment3
+from src.train import run_nsrpp, run_baseline_bandit, run_experiment3_variant, run_nelder_mead
+from src.evaluate import evaluate_experiment1, evaluate_experiment2, evaluate_experiment3, evaluate_nelder_mead_comparison
 
 def setup_environment():
     """
@@ -134,11 +135,47 @@ def run_experiment3(config):
     print(f"Point Estimate Final Risk: {metrics['pe_final_risk']:.4f}")
     print(f"Risk Reduction with UCB: {metrics['risk_reduction_percent']:.2f}%")
     
+
+def run_nelder_mead_comparison(config):
+    """
+    Run Experiment 4: Compare NSRPP with Nelder-Mead optimization.
+    
+    Args:
+        config (dict): Configuration dictionary
+    
+    Returns:
+        dict: Evaluation metrics
+    """
+    print("\n[Experiment 4] Running NSRPP vs Nelder-Mead Comparison...")
+    
+    exp_params = prepare_experiment1_data(config)  # Reuse experiment1 parameters
+    
+    nsrpp_risk_history = run_nsrpp(
+        num_iters=exp_params["num_iters"],
+        delta=exp_params["delta"],
+        learning_rate=exp_params["learning_rate"],
+        init_theta=exp_params["init_theta"]
+    )
+    
+    nm_risk_history = run_nelder_mead(
+        num_iters=exp_params["num_iters"],
+        init_theta=exp_params["init_theta"]
+    )
+    
+    metrics = evaluate_nelder_mead_comparison(nsrpp_risk_history, nm_risk_history, config["output_dir"])
+    
+    print("\nExperiment 4 Results:")
+    print(f"NSRPP Final Risk: {metrics['nsrpp_final_risk']:.4f}")
+    print(f"Nelder-Mead Final Risk: {metrics['nm_final_risk']:.4f}")
+    print(f"Risk Reduction (NSRPP vs NM): {metrics['risk_reduction_percent']:.2f}%")
+    print(f"NSRPP Convergence Iteration: {metrics['nsrpp_convergence_iter']}")
+    print(f"Nelder-Mead Convergence Iteration: {metrics['nm_convergence_iter']}")
+    
     return metrics
 
 def test_experiments(config):
     """
-    Run minimal versions of the three experiments to check that everything executes.
+    Run minimal versions of all experiments to check that everything executes.
     This test is designed to finish quickly.
     
     Args:
@@ -159,6 +196,9 @@ def test_experiments(config):
     
     print("\n[TEST] Experiment 3 (Quick Run)")
     run_experiment3(test_config)
+    
+    print("\n[TEST] Experiment 4 (Quick Run)")
+    run_nelder_mead_comparison(test_config)
     
     print("\n=== Test Finished Successfully ===")
 

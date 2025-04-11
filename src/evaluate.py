@@ -6,7 +6,7 @@ import torch
 import numpy as np
 from sklearn.metrics import mean_squared_error
 from src.utils.models import OneLayerSurrogate, MultiLayerSurrogate, PretrainedSurrogate
-from src.utils.plotting import plot_risk_convergence, plot_surrogate_ablation, plot_ucb_comparison
+from src.utils.plotting import plot_risk_convergence, plot_surrogate_ablation, plot_ucb_comparison, plot_nelder_mead_comparison
 from src.train import train_surrogate_model
 
 def evaluate_experiment1(nsrpp_risk_history, bandit_risk_history, output_dir="logs/figures"):
@@ -94,4 +94,45 @@ def evaluate_experiment3(ucb_history, pe_history, output_dir="logs/figures"):
         "ucb_final_risk": ucb_final_risk,
         "pe_final_risk": pe_final_risk,
         "risk_reduction_percent": risk_difference
+    }
+def evaluate_nelder_mead_comparison(nsrpp_risk_history, nm_risk_history, output_dir="logs/figures"):
+    """
+    Evaluate results from Nelder-Mead comparison experiment and generate plots.
+    
+    Args:
+        nsrpp_risk_history (list): Risk history for NSRPP method
+        nm_risk_history (list): Risk history for Nelder-Mead method
+        output_dir (str): Directory to save the figure
+    
+    Returns:
+        dict: Dictionary containing evaluation metrics
+    """
+    plot_nelder_mead_comparison(nsrpp_risk_history, nm_risk_history, output_dir)
+    
+    nsrpp_final_risk = nsrpp_risk_history[-1]
+    nm_final_risk = nm_risk_history[-1]
+    risk_reduction = (nm_final_risk - nsrpp_final_risk) / nm_final_risk * 100
+    
+    nsrpp_target = nsrpp_final_risk * 1.1  # 10% above final risk
+    nm_target = nm_final_risk * 1.1
+    
+    nsrpp_convergence_iter = len(nsrpp_risk_history)
+    nm_convergence_iter = len(nm_risk_history)
+    
+    for i, risk in enumerate(nsrpp_risk_history):
+        if risk <= nsrpp_target:
+            nsrpp_convergence_iter = i
+            break
+            
+    for i, risk in enumerate(nm_risk_history):
+        if risk <= nm_target:
+            nm_convergence_iter = i
+            break
+    
+    return {
+        "nsrpp_final_risk": nsrpp_final_risk,
+        "nm_final_risk": nm_final_risk,
+        "risk_reduction_percent": risk_reduction,
+        "nsrpp_convergence_iter": nsrpp_convergence_iter,
+        "nm_convergence_iter": nm_convergence_iter
     }

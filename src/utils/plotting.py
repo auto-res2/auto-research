@@ -84,3 +84,22 @@ def plot_ucb_comparison(ucb_data, pe_data, output_dir="logs/figures"):
 
     plt.tight_layout()
     save_figure("ucb_vs_point_convergence_pair1", output_dir)
+
+def plot_nelder_mead_comparison(nsrpp_risk_history, nm_risk_history, output_dir="logs/figures"):
+    """
+    Plot risk convergence curves comparing NSRPP and Nelder-Mead methods.
+    
+    Args:
+        nsrpp_risk_history (list): Risk history for NSRPP method
+        nm_risk_history (list): Risk history for Nelder-Mead method
+        output_dir (str): Directory to save the figure
+    """
+    plt.figure(figsize=(8, 6))
+    iterations = range(len(nsrpp_risk_history))
+    plt.plot(iterations, nsrpp_risk_history, label="NSRPP", color="blue")
+    plt.plot(iterations, nm_risk_history, label="Nelder-Mead", color="red", linestyle="--")
+    plt.xlabel("Iteration")
+    plt.ylabel("True Risk")
+    plt.title("Risk Convergence: NSRPP vs. Nelder-Mead")
+    plt.legend()
+    save_figure("nsrpp_vs_nelder_mead_comparison", output_dir)

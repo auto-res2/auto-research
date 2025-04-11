@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
+from scipy.optimize import minimize
 from sklearn.metrics import mean_squared_error
 from src.utils.models import SurrogateNet, OneLayerSurrogate, MultiLayerSurrogate, PretrainedSurrogate
 from src.utils.data_generation import estimate_risk
@@ -179,3 +180,46 @@ def run_experiment3_variant(num_iters=30, learning_rate=0.1, init_theta=0.0, use
         theta = candidate_theta
 
     return history_theta, history_risk, history_uncertainty
+
+def run_nelder_mead(num_iters=30, init_theta=0.0):
+    """
+    Runs Nelder-Mead optimization algorithm for comparison with NSRPP.
+    
+    Args:
+        num_iters (int): Maximum number of iterations
+        init_theta (float): Initial theta value
+    
+    Returns:
+        list: Risk history for the Nelder-Mead method
+    """
+    print(f"Running Nelder-Mead optimization...")
+    
+    def objective(theta):
+        return estimate_risk(theta[0])
+    
+    nm_risk_history = []
+    nm_theta_history = []
+    
+    def callback(xk, *args):
+        risk = estimate_risk(xk[0])
+        nm_risk_history.append(risk)
+        nm_theta_history.append(xk[0])
+        print(f"Nelder-Mead Iter {len(nm_risk_history)}: theta = {xk[0]:.4f}, true risk = {risk:.4f}")
+        return False  # Continue optimization
+    
+    result = minimize(
+        objective, 
+        np.array([init_theta]), 
+        method='Nelder-Mead',
+        options={'maxiter': num_iters, 'disp': True},
+        callback=callback
+    )
+    
+    if len(nm_risk_history) < num_iters:
+        final_risk = nm_risk_history[-1]
+        final_theta = nm_theta_history[-1]
+        for _ in range(num_iters - len(nm_risk_history)):
+            nm_risk_history.append(final_risk)
+            nm_theta_history.append(final_theta)
+    
+    return nm_risk_history
