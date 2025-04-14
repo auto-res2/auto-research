@@ -1,1 +1,7 @@
-# Please list the required python packages.
+# Required python packages for Progressive Brightness Distillation Diffusion
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.22.0
+matplotlib>=3.5.0
+scipy>=1.8.0
+scikit-image>=0.19.0
