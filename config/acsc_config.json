@@ -1,0 +1,31 @@
+{
+  "experiment_name": "adaptive_cached_singularity_correction",
+  "description": "Experiments for the Adaptive Cached Singularity Correction (ACSC) method",
+  "resolutions": [128, 256, 512],
+  "runs_per_resolution": 5,
+  "random_seed": 42,
+  "gpu": {
+    "required": true,
+    "memory": "16GB",
+    "model": "NVIDIA Tesla T4"
+  },
+  "experiments": {
+    "image_quality": {
+      "enabled": true,
+      "image_size": 256
+    },
+    "inference_speed": {
+      "enabled": true,
+      "resolutions": [128, 256, 512],
+      "runs_per_resolution": 5
+    },
+    "ablation_study": {
+      "enabled": true,
+      "configurations": [
+        {"name": "Full ACSC", "use_caching": true, "adaptive_blending": true},
+        {"name": "No Adaptive Blending", "use_caching": true, "adaptive_blending": false},
+        {"name": "No Caching", "use_caching": false, "adaptive_blending": true}
+      ]
+    }
+  }
+}
